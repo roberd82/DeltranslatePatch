@@ -1,0 +1,21 @@
+{
+    "gml_Object_obj_intro_ch4_Step_0": [
+        "IMAGE_LOGO_CENTER_SHATTER_PIECES"
+    ],
+    "gml_Object_obj_dbulletcontroller_Step_0": [
+        "spr_ghost_house_chimney"
+    ],
+    "gml_Object_obj_dw_church_intro_guei_Create_0": [
+        "spr_bibliox_talk"
+    ],
+    "gml_Object_obj_room_dungeon_2f_Step_0": [
+        "spr_tenna_pose_podium",
+        "spr_tenna_tie_adjust_a",
+        "spr_tenna_pose_headlowered_nose"
+    ],
+    "gml_GlobalScript_scr_rhythmgame_draw": [
+        "spr_bnamekris",
+        "spr_bnamesusie",
+        "spr_bnameralsei"
+      ]
+}

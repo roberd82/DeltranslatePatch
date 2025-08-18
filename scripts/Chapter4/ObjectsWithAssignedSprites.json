@@ -1,0 +1,12 @@
+{
+  "obj_castle_tv": "spr_dw_castle_tv",
+  "obj_guei_balloon": "spr_battleblcon_guei_small",
+  "obj_flowerking": "bg_building_flowershop",
+  "obj_bibliox_enemy": "spr_bibliox_talk",
+  "obj_mike_door": "spr_dw_castle_tv_door_mike",
+  "obj_actor_tenna": "spr_tenna_point_up",
+  "obj_castle_shop": "spr_castle_shop_new",
+  "obj_recruitanim": "spr_battlemsg",
+  "obj_gameoverbg": "spr_gameoverbg_neo",
+  "obj_your_tutu": "spr_tutu"
+}

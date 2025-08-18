@@ -1,0 +1,174 @@
+{
+  "gml_GlobalScript_scr_enemyblcon": [
+    "spr_battleblcon_z"
+  ],
+  "gml_GlobalScript_scr_recruit_info": [
+    "spr_bibliox_spare"
+  ],
+  "gml_GlobalScript_scr_charbox_mike": [
+    "spr_hpname"
+  ],
+  "gml_Object_obj_volumebar_Draw_0": [
+    "spr_volume_logo"
+  ],
+  "gml_Object_obj_room_castle_tenna_Step_0": [
+    "spr_tenna_whisper"
+  ],
+  "gml_Object_obj_flowerking_Create_0": [
+    "spr_flowershop_sign"
+  ],
+  "gml_Object_obj_flowerking_Draw_0": [
+    "spr_flowershop_sign"
+  ],
+  "gml_Object_obj_dw_bluebook_Step_0": [
+    "spr_bibliox_intro"
+  ],
+  "gml_Object_obj_victory_rhythm_Step_0": [
+    "spr_tenna_attack",
+    "spr_tenna_laugh_pose"
+  ],
+  "gml_Object_obj_noellehouse_dess_closet_Draw_0": [
+    "bg_noellehouse_dess_closet_door_slide"
+  ],
+  "gml_Object_obj_guei_enemy_Step_0": [
+    "spr_recruited_by_oldman"
+  ],
+  "gml_Object_obj_room_town_mid_Create_0": [
+    "spr_conbini_sign_clopen",
+    "spr_conbini_sign_open",
+    "spr_conbini_sign_sans",
+    "spr_conbini_windows_open",
+    "spr_lw_conbini_closed_lights",
+    "bg_building_icee_construction"
+  ],
+  "gml_Object_obj_room_town_mid_Step_0": [
+    "spr_conbini_sign_sans_white"
+  ],
+  "gml_Object_obj_bibliox_enemy_Create_0": [
+    "spr_bibliox_base",
+    "spr_bibliox_hurt",
+    "spr_bibliox_spare"
+  ],
+  "gml_Object_obj_bibliox_enemy_Draw_0": [
+    "spr_bibliox_base",
+    "spr_bibliox_head",
+    "spr_bibliox_head_beard_stroke"
+  ],
+  "gml_Object_obj_room_castle_town_lancer_Create_0": [
+    "spr_blockler_b_parade"
+  ],
+  "gml_Object_obj_castle_music_Create_0": [
+    "bg_dw_castle_music_shop_closed"
+  ],
+  "gml_Object_obj_zapper_enemy_Draw_0": [
+    "spr_zapper_volume_text"
+  ],
+  "gml_Object_obj_castle_dojo_Create_0": [
+    "spr_castle_dojo_discoball"
+  ],
+  "gml_Object_obj_actor_tenna_Draw_0": [
+    "spr_tenna_blossom_animation",
+    "spr_tenna_frightened",
+    "spr_tenna_grasp_anim",
+    "spr_tenna_grasp_anim_b",
+    "spr_tenna_hooray",
+    "spr_tenna_hooray_armsup",
+    "spr_tenna_laugh_pose",
+    "spr_tenna_laugh_pose_alt",
+    "spr_tenna_laugh_pose_segmented_body",
+    "spr_tenna_point_at_screen",
+    "spr_tenna_point_top",
+    "spr_tenna_point_up",
+    "spr_tenna_pose",
+    "spr_tenna_pose_podium",
+    "spr_tenna_sad",
+    "spr_tenna_twirl"
+  ],
+  "gml_Object_obj_room_castle_queen_Create_0": [
+    "spr_dw_castle_queen_room_traffic_light"
+  ],
+  "gml_Object_obj_gameover_band_Step_0": [
+    "spr_tenna_grasp",
+    "spr_tenna_point_at_screen",
+    "spr_tenna_point_up",
+    "spr_tenna_pose_podium",
+    "spr_tenna_whisper"
+  ],
+  "gml_Object_obj_dw_bluebook_straight_Step_0": [
+    "spr_bibliox_intro"
+  ],
+  "gml_Object_obj_darkshape_tension_glow_Draw_0": [
+    "spr_tplogo"
+  ],
+  "gml_Object_obj_tensionbar_Draw_0": [
+    "spr_tplogo"
+  ],
+  "gml_Object_obj_castle_cafe_Draw_0": [
+    "spr_castle_cafe_base"
+  ],
+  "gml_Object_obj_castle_dojo_Draw_0": [
+    "spr_castle_dojo_base",
+    "spr_castle_dojo_discoball"
+  ],
+  "gml_Object_obj_castle_restaurant_Draw_0": [
+    "spr_castle_bakery_base"
+  ],
+  "gml_Object_obj_room_castle_tv_Create_0": [
+    "spr_dw_ranking_doors_narrow_mike_unlocked"
+  ],
+  "gml_Object_obj_attackpress_Draw_0": [
+    "spr_pressfront_b"
+  ],
+  "gml_Object_obj_pacifyspell_Step_0": [
+    "spr_spare_z"
+  ],
+  "gml_Object_obj_dummyenemy_Step_0": [
+    "spr_btact",
+    "spr_btdefend",
+    "spr_btfight",
+    "spr_btitem",
+    "spr_btspare",
+    "spr_bttech"
+  ],
+  "gml_Object_obj_room_castle_3f_Create_0": [
+    "spr_dw_door_tenna_closed"
+  ],
+  "gml_Object_obj_room_dungeon_2f_Step_0": [
+    "spr_tenna_fall_start",
+    "spr_tenna_pose_podium",
+    "spr_tenna_tie_adjust_a",
+    "spr_tenna_pose_headlowered_nose"
+  ],
+  "gml_Object_obj_room_castle_dojo_Create_0": [
+    "spr_castle_dojo_sign_love"
+  ],
+  "gml_Object_obj_room_castle_town_Create_0": [
+    "spr_dw_castle_tv_closed"
+  ],
+  "gml_Object_obj_room_town_south_Create_0": [
+    "spr_police_station_closed"
+  ],
+  "gml_Object_obj_visualEffect_pacify_Step_0": [
+    "spr_spare_z"
+  ],
+  "gml_Object_obj_ghosthouse_jackolantern_Create_0": [
+    "spr_ghost_house_chimney"
+  ],
+  "gml_Object_obj_ghosthouse_jackolantern_Step_0": [
+    "spr_ghost_house_chimney"
+  ],
+  "gml_Object_obj_dbulletcontroller_Step_0": [
+    "spr_tutu"
+  ],
+  "gml_Object_obj_dw_church_intro_guei_Create_0": [
+    "spr_bibliox_talk"
+  ],
+  "gml_Object_obj_mike_catbasket_Draw_0": [
+    "spr_plueypoints"
+  ],
+  "gml_GlobalScript_scr_rhythmgame_draw": [
+    "spr_bnamekris",
+    "spr_bnamesusie",
+    "spr_bnameralsei"
+  ]
+}

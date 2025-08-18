@@ -1,0 +1,1956 @@
+=== gml_Object_obj_shop1_Draw_0
+---
+"$" + string_hash_to_newline(string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_shop1_slash_Draw_0_gml_1_0")
+%%%
+
+---
+    for (i = 0; i < itemtotal; i += 1)
+    {
+        draw_text(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]));
+        draw_text(300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop1_slash_Draw_0_gml_143_0")));
+    }
+
++++
+for (i = 0; i < itemtotal; i += 1)
+{
+    var text_scale = min(1, 250 / string_width(string_hash_to_newline(shopitemname[i])))
+    draw_text_transformed(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]), text_scale, 1, 0);
+    draw_set_halign(fa_right)
+    draw_text(300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop1_slash_Draw_0_gml_143_0")));
+    draw_set_halign(fa_left)
+}
+%%%
+
+
+
+=== gml_Object_obj_shop2_Draw_0
+---
+"$" + string_hash_to_newline(string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_shop2_slash_Draw_0_gml_1_0")
+%%%
+
+
+
+=== gml_Object_obj_moneydisplay_Draw_0
+---
+"$" + string(global.gold)
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+
+=== gml_GlobalScript_scr_shop_space_display
+---
+"$" + string(global.gold)
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+=== gml_Object_obj_shop_music_Draw_0
+---
+"$" + string_hash_to_newline(string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+
+=== gml_Object_obj_gerson_fountain_Draw_0
+---
+"$" + string_hash_to_newline(string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+---
+string_hash_to_newline("$" + string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+
+
+=== gml_Object_obj_gerson_table_Draw_0
+---
+"$" + string_hash_to_newline(string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+---
+string_hash_to_newline("$" + string(global.gold))
++++
+stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
+%%%
+
+
+
+=== gml_Object_obj_climb_orb_Draw_0
+---
+"+" + string(other.value) + "$"
++++
+stringsetsubloc("+~1$", string(other.value), "obj_climb_orb_Draw_0_gml_1_0")
+%%%
+
+
+
+=== gml_Object_DEVICE_FAILURE_Step_0
+---
+NAMEX[0][0] = 80
++++
+scr_84_set_draw_font("main")
+NAMEX[0][0] = 80 - (string_width(NAME[0][0]) - string_width("CONTINUE"))
+%%%
+
+
+
+=== gml_Object_DEVICE_NAMER_Draw_0
+---
+FN_3 == "GASTER"
++++
+FN_3 == "GASTER" || FN_3 == stringsetloc("GASTER", "DEVICE_NAMER_slash_Draw_0_gml_00_0")
+%%%
+
+
+
+
+
+=== gml_Object_obj_dw_churchb_bookshelf_Step_0
+---
+    var texts = [];
+    array_push(texts, "where ");
+    array_push(texts, "the ");
+    array_push(texts, "tail. ");
+    array_push(texts, "pointed ");
+    array_push(texts, "the ");
+    array_push(texts, "children ");
+    array_push(texts, "would ");
+    array_push(texts, "grow,");
+    array_push(texts, "the ");
+    array_push(texts, "Lost ");
+    array_push(texts, "forest ");
+    array_push(texts, "followed ");
++++
+    var texts = [];
+    var i = 90;
+    while (i < 100 && !is_undefined(ds_map_find_value(global.lang_map, "obj_dw_churchb_bookshelf_slash_Step_0_gml_" + string(i) + "_0"))) {
+        array_push(texts, stringsetloc("", "obj_dw_churchb_bookshelf_slash_Step_0_gml_" + string(i) + "_0"));
+        i++;
+    }
+%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== gml_Object_obj_codeentry_Create_0
+---
+correctcode[i] = 0;
++++
+correctcode[i] = 0;
+correctcode2[i] = 0;
+%%%
+
+---
+result = -1;
++++
+result = -1;
+alternate_pass = 0;
+%%%
+
+
+=== gml_Object_obj_codeentry_Step_0
+---
+    var wrong = false;
+
+    for (var i = 0; i < numcount; i++)
+    {
+        if (correctcode[i] != num[i]) {
+            wrong = true;
+        }
+
+        entrystring += string(num[i]);
+    }
++++
+    var wrong = false;
+
+    for (var i = 0; i < numcount; i++)
+    {
+        if (correctcode[i] != num[i]) {
+            wrong = true;
+        }
+
+        entrystring += string(num[i]);
+    }
+
+    if (wrong && alternate_pass > 0) {
+        wrong = false;
+
+        for (var i = 0; i < numcount; i++)
+        {
+            if (correctcode2[i] != num[i]) {
+                wrong = true;
+            }
+        }
+    }
+%%%
+
+
+
+
+
+=== gml_Object_obj_room_castle_tv_Step_0
+---
+correctcode = [6, 4, 5, 3];
++++
+correctcode = [6, 4, 5, 3];
+if (!is_undefined(get_chapter_lang_setting("alternate_pass", undefined))) {
+    alternate_pass = 1;
+    correctcode2 = get_chapter_lang_setting("alternate_pass", undefined);
+}
+%%%
+
+
+
+=== gml_Object_obj_npc_dojo_Step_0
+---
+msgnextsubloc("* (You received ~1!)/%", dojoPrizeName, "obj_npc_dojo_slash_Step_0_gml_51_0")
++++
+msgnextsubloc("* (You received ~1!)/%", scr_item_localized_name_acc(dojoPrizeValue, dojoPrizeType, dojoPrizeName), "obj_npc_dojo_slash_Step_0_gml_51_0")
+%%%
+
+
+
+=== gml_Object_obj_overworldc_Step_0
+---
+stringsetsubloc("* You bid a quiet farewell to the ~1.", global.litemname[global.menucoord[1]], "obj_overworldc_slash_Step_0_gml_34_0_b")
++++
+stringsetsubloc("* You bid a quiet farewell to the ~1.", scr_item_localized_name_acc(global.litem[global.menucoord[1]], 4), "obj_overworldc_slash_Step_0_gml_34_0_b")
+%%%
+
+---
+stringsetsubloc("* You put the ~1 on the ground and gave it a little pat.", global.litemname[global.menucoord[1]], "obj_overworldc_slash_Step_0_gml_34_0")
++++
+stringsetsubloc("* You put the ~1 on the ground and gave it a little pat.", scr_item_localized_name_acc(global.litem[global.menucoord[1]], 4), "obj_overworldc_slash_Step_0_gml_34_0")
+%%%
+
+---
+stringsetsubloc("* You threw the ~1 on the ground like the piece of trash it is.", global.litemname[global.menucoord[1]], "obj_overworldc_slash_Step_0_gml_36_0")
++++
+stringsetsubloc("* You threw the ~1 on the ground like the piece of trash it is.", scr_item_localized_name_acc(global.litem[global.menucoord[1]], 4), "obj_overworldc_slash_Step_0_gml_36_0")
+%%%
+
+---
+stringsetsubloc("* You abandoned the ~1.", global.litemname[global.menucoord[1]], "obj_overworldc_slash_Step_0_gml_38_0_b")
++++
+stringsetsubloc("* You abandoned the ~1.", scr_item_localized_name_acc(global.litem[global.menucoord[1]], 4), "obj_overworldc_slash_Step_0_gml_38_0_b")
+%%%
+
+---
+stringsetsubloc("* The ~1 was thrown away.", global.litemname[global.menucoord[1]], "obj_overworldc_slash_Step_0_gml_38_0")
++++
+stringsetsubloc("* The ~1 was thrown away.", scr_item_localized_name_acc(global.litem[global.menucoord[1]], 4), "obj_overworldc_slash_Step_0_gml_38_0")
+%%%
+
+
+
+=== gml_Object_obj_rhythmgame_Other_12
+---
+draw_set_font(scr_84_get_font("main"))
++++
+draw_set_font(scr_84_get_font("main_mono"))
+%%%
+
+---
+string_length(current_lyric)
++++
+string_length(string_replace_all(current_lyric, "-", ""))
+%%%
+
+
+
+
+=== gml_GlobalScript_scr_rhythmgame_lyrics
+---
+            if (_letter == " " || _letter == "　")
+            {
+                _length--;
+                _writex -= arg3;
+                continue;
+            }
++++
+            if (_letter == " " || _letter == "　" || _letter == "_")
+            {
+                _length--;
+                _writex -= arg3;
+                continue;
+            }
+%%%
+
+---
+        else
+        {
+            if (_ja)
+            {
++++
+        else if (_letter == "_")
+        {
+            // continue;
+        }
+        else
+        {
+            if (_ja)
+            {
+%%%
+
+=== gml_GlobalScript_scr_rhythmgame_draw
+---
+        draw_set_font(fnt_mainbig);
+        draw_text_outline(arg0 + 2, bottomy - 100, "DEMO", 2, 2, 0);
++++
+        draw_set_font(scr_84_get_font("mainbig"));
+        draw_text_outline(arg0 + 2, bottomy - 100, stringsetloc("DEMO", "scr_rhythmgame_draw_slash_scr_rhythmgame_draw_gml_128_0_b"), 2, 2, 0);
+%%%
+
+---
+        draw_set_font(fnt_main);
+        var _combotext = (combo > 999) ? stringsetloc("BIG", "scr_rhythmgame_draw_slash_scr_rhythmgame_draw_gml_125_0_b") : combo;
+        draw_text_transformed_color(arg0 + 2, bottomy - 121, _combotext, (combo >= 100) ? 3.5 : 5, 5, 0, #666666, #666666, #BBBBBB, #BBBBBB, 0.25);
++++
+        draw_set_font(scr_84_get_font("main"));
+        var _combotext = (combo > 999) ? stringsetloc("BIG", "scr_rhythmgame_draw_slash_scr_rhythmgame_draw_gml_125_0_b") : combo;
+        var _combotext_check = (combo > 999) ? "BIG" : combo;
+        var xscale = min(3.5, 3.5 * string_width(_combotext_check) / string_width(_combotext))
+        draw_text_transformed_color(arg0 + 2, bottomy - 121, _combotext, (combo >= 100) ? xscale : 5, 5, 0, #666666, #666666, #BBBBBB, #BBBBBB, 0.25);
+%%%
+
+
+
+
+
+
+=== gml_GlobalScript_scr_rhythmgame_notechart
+---
+        scr_rhythmgame_addnote(16.17, 0, 16.35);
+        scr_rhythmgame_addnote(16.35, 1, 16.47);
+        scr_rhythmgame_addnote(16.61, 2, 16.89);
+        scr_rhythmgame_addnote(16.96, 1, 17.22);
+        scr_rhythmgame_addnote(17.22, 1, 17.48);
+        scr_rhythmgame_addnote(17.48, 0, 17.74);
+        scr_rhythmgame_addnote(17.74, 1, 18);
+        scr_rhythmgame_addnote(18, 0, 18.26);
+        scr_rhythmgame_addnote(18.26, 2, 18.39);
+        scr_rhythmgame_addnote(18.39, 1, 18.52);
+        scr_rhythmgame_addnote(18.72, 2, 19.04);
+        scr_rhythmgame_addnote(19.04, 1, 19.24);
+        scr_rhythmgame_addnote(19.3, 1, 19.57);
+        scr_rhythmgame_addnote(19.57, 0, 19.83);
+        scr_rhythmgame_addnote(19.74, 2, 20.61);
+        scr_rhythmgame_addnote(21.04, 1, 21.39);
+        scr_rhythmgame_addnote(21.39, 1, 21.57);
+        scr_rhythmgame_addnote(21.57, 0, 21.78);
+        scr_rhythmgame_addnote(21.83, 1, 22.09);
+        scr_rhythmgame_addnote(22.09, 0, 22.17);
+        scr_rhythmgame_addnote(22.17, 1, 22.24);
+        scr_rhythmgame_addnote(22.35, 2, 22.57);
+        scr_rhythmgame_addnote(22.7, 1, 22.96);
+        scr_rhythmgame_addnote(22.96, 0, 24.26);
+        scr_rhythmgame_addnote(24.52, 0, 24.72);
+        scr_rhythmgame_addnote(24.7, 1, 24.78);
+        scr_rhythmgame_addnote(24.91, 2, 25.3);
+        scr_rhythmgame_addnote(25.3, 2, 25.57);
+        scr_rhythmgame_addnote(25.57, 1, 25.83);
+        scr_rhythmgame_addnote(25.83, 0, 26.09);
+        scr_rhythmgame_addnote(26.09, 1, 26.35);
+        scr_rhythmgame_addnote(26.35, 0, 26.61);
+        scr_rhythmgame_addnote(26.61, 2, 26.8);
+        scr_rhythmgame_addnote(26.8, 1, 27.04);
+        scr_rhythmgame_addnote(27.04, 2, 27.39);
+        scr_rhythmgame_addnote(27.39, 2, 27.65);
+        scr_rhythmgame_addnote(27.65, 1, 27.83);
+        scr_rhythmgame_addnote(27.83, 0, 28.04);
+        scr_rhythmgame_addnote(28.09, 2, 29.15);
+        scr_rhythmgame_addnote(29.39, 2, 29.74);
+        scr_rhythmgame_addnote(29.74, 1, 29.91);
+        scr_rhythmgame_addnote(29.91, 0, 30.17);
+        scr_rhythmgame_addnote(30.17, 1, 30.52);
+        scr_rhythmgame_addnote(30.52, 0, 30.78);
+        scr_rhythmgame_addnote(30.78, 0, 30.98);
+        scr_rhythmgame_addnote(30.98, 1, 31.17);
+        scr_rhythmgame_addnote(31.22, 1, 33.07);
+        scr_rhythmgame_addnote(33.57, 2, 33.91);
+        scr_rhythmgame_addnote(33.91, 1, 34.09);
+        scr_rhythmgame_addnote(34.09, 0, 34.26);
+        scr_rhythmgame_addnote(34.26, 1, 34.57);
+        scr_rhythmgame_addnote(34.57, 0, 34.89);
+        scr_rhythmgame_addnote(34.96, 0, 35.09);
+        scr_rhythmgame_addnote(35.15, 1, 35.35);
+        scr_rhythmgame_addnote(35.35, 2, 37.13);
+        scr_rhythmgame_addnote(100.43, 0, 100.63);
+        scr_rhythmgame_addnote(100.7, 0, 100.89);
+        scr_rhythmgame_addnote(100.96, 1, 101.15);
+        scr_rhythmgame_addnote(101.22, 2, 101.41);
+        scr_rhythmgame_addnote(101.48, 2, 101.67);
+        scr_rhythmgame_addnote(101.74, 1, 101.93);
+        scr_rhythmgame_addnote(102, 0, 102.2);
+        scr_rhythmgame_addnote(102.26, 2, 102.72);
+        scr_rhythmgame_addnote(102.78, 0, 102.98);
+        scr_rhythmgame_addnote(103.04, 0, 103.24);
+        scr_rhythmgame_addnote(103.3, 1, 103.76);
+        scr_rhythmgame_addnote(103.83, 0, 104.02);
+        scr_rhythmgame_addnote(104.09, 1, 104.28);
+        scr_rhythmgame_addnote(104.35, 1, 104.8);
+        scr_rhythmgame_addnote(104.87, 2, 105.07);
+        scr_rhythmgame_addnote(105.13, 1, 105.33);
+        scr_rhythmgame_addnote(105.39, 0, 105.72);
+        scr_rhythmgame_addnote(105.78, 2, 106.11);
+        scr_rhythmgame_addnote(106.17, 0, 106.37);
+        scr_rhythmgame_addnote(106.43, 1, 108.46);
+        scr_rhythmgame_addnote(108.78, 0, 108.98);
+        scr_rhythmgame_addnote(109.04, 0, 109.24);
+        scr_rhythmgame_addnote(109.3, 1, 109.5);
+        scr_rhythmgame_addnote(109.57, 2, 109.76);
+        scr_rhythmgame_addnote(109.83, 2, 110.02);
+        scr_rhythmgame_addnote(110.09, 1, 110.28);
+        scr_rhythmgame_addnote(110.35, 0, 110.54);
+        scr_rhythmgame_addnote(110.61, 2, 111.07);
+        scr_rhythmgame_addnote(111.13, 0, 111.33);
+        scr_rhythmgame_addnote(111.39, 0, 111.59);
+        scr_rhythmgame_addnote(111.65, 1, 112.04);
+        scr_rhythmgame_addnote(112.17, 0, 112.43);
+        scr_rhythmgame_addnote(112.43, 1, 112.7);
+        scr_rhythmgame_addnote(112.7, 1, 113.09);
+        scr_rhythmgame_addnote(113.09, 2, 113.48);
+        scr_rhythmgame_addnote(113.48, 1, 113.67);
+        scr_rhythmgame_addnote(113.74, 0, 114);
+        scr_rhythmgame_addnote(114, 2, 114.46);
+        scr_rhythmgame_addnote(114.46, 1, 114.65);
+        scr_rhythmgame_addnote(114.72, 1, 115.7);
+        scr_rhythmgame_addnote(115.7, 2, 115.76);
+        scr_rhythmgame_addnote(115.76, 1, 115.83);
+        scr_rhythmgame_addnote(115.83, 0, 116.8);
+        scr_rhythmgame_addnote(117.13, 0, 117.39);
+        scr_rhythmgame_addnote(117.39, 0, 117.65);
+        scr_rhythmgame_addnote(117.65, 1, 117.91);
+        scr_rhythmgame_addnote(117.91, 2, 118.17);
+        scr_rhythmgame_addnote(118.17, 2, 118.43);
+        scr_rhythmgame_addnote(118.43, 1, 118.7);
+        scr_rhythmgame_addnote(118.7, 0, 118.96);
+        scr_rhythmgame_addnote(118.96, 2, 119.48);
+        scr_rhythmgame_addnote(119.48, 0, 119.74);
+        scr_rhythmgame_addnote(119.74, 0, 120);
+        scr_rhythmgame_addnote(120, 1, 120.52);
+        scr_rhythmgame_addnote(120.52, 0, 120.78);
+        scr_rhythmgame_addnote(120.78, 1, 121.04);
+        scr_rhythmgame_addnote(121.04, 1, 121.43);
+        scr_rhythmgame_addnote(121.43, 2, 121.7);
+        scr_rhythmgame_addnote(121.83, 1, 122.09);
+        scr_rhythmgame_addnote(122.09, 0, 122.35);
+        scr_rhythmgame_addnote(122.35, 2, 122.87);
+        scr_rhythmgame_addnote(122.87, 0, 123.13);
+        scr_rhythmgame_addnote(123.13, 1, 125.22);
+        scr_rhythmgame_addnote(125.48, 0, 125.74);
+        scr_rhythmgame_addnote(125.74, 0, 126);
+        scr_rhythmgame_addnote(126, 1, 126.26);
+        scr_rhythmgame_addnote(126.26, 2, 126.52);
+        scr_rhythmgame_addnote(126.52, 2, 126.78);
+        scr_rhythmgame_addnote(126.78, 1, 127.04);
+        scr_rhythmgame_addnote(127.04, 0, 127.3);
+        scr_rhythmgame_addnote(127.3, 2, 127.83);
+        scr_rhythmgame_addnote(127.83, 0, 128.09);
+        scr_rhythmgame_addnote(128.09, 0, 128.35);
+        scr_rhythmgame_addnote(128.35, 1, 128.74);
+        scr_rhythmgame_addnote(128.87, 0, 129.13);
+        scr_rhythmgame_addnote(129.13, 1, 129.39);
+        scr_rhythmgame_addnote(129.39, 1, 129.78);
+        scr_rhythmgame_addnote(129.78, 2, 130.11);
+        scr_rhythmgame_addnote(130.17, 1, 130.37);
+        scr_rhythmgame_addnote(130.43, 0, 130.83);
+        scr_rhythmgame_addnote(130.83, 2, 131.15);
+        scr_rhythmgame_addnote(131.22, 2, 131.41);
+        scr_rhythmgame_addnote(131.48, 1, 132.39);
+        scr_rhythmgame_addnote(132.39, 2, 132.46);
+        scr_rhythmgame_addnote(132.46, 1, 132.52);
+        scr_rhythmgame_addnote(132.52, 0, 133.57);
+        scr_rhythmgame_addnote(149.74, 0, 149.91);
+        scr_rhythmgame_addnote(149.91, 1, 150.09);
+        scr_rhythmgame_addnote(150.17, 2, 150.52);
+        scr_rhythmgame_addnote(150.52, 2, 150.72);
+        scr_rhythmgame_addnote(150.78, 1, 150.98);
+        scr_rhythmgame_addnote(151.04, 0, 151.3);
+        scr_rhythmgame_addnote(151.3, 1, 151.57);
+        scr_rhythmgame_addnote(151.57, 0, 151.63);
+        scr_rhythmgame_addnote(151.83, 2, 152);
+        scr_rhythmgame_addnote(152, 0, 152.09);
+        scr_rhythmgame_addnote(152.26, 1, 152.61);
+        scr_rhythmgame_addnote(152.61, 1, 152.74);
+        scr_rhythmgame_addnote(152.87, 1, 153.07);
+        scr_rhythmgame_addnote(153.13, 0, 153.26);
+        scr_rhythmgame_addnote(153.3, 2, 154.26);
+        scr_rhythmgame_addnote(154.61, 1, 154.87);
+        scr_rhythmgame_addnote(154.96, 1, 155.13);
+        scr_rhythmgame_addnote(155.13, 0, 155.22);
+        scr_rhythmgame_addnote(155.39, 1, 155.65);
+        scr_rhythmgame_addnote(155.65, 0, 155.74);
+        scr_rhythmgame_addnote(155.74, 1, 155.83);
+        scr_rhythmgame_addnote(155.91, 2, 156.26);
+        scr_rhythmgame_addnote(156.26, 1, 156.46);
+        scr_rhythmgame_addnote(156.52, 0, 157.83);
+        scr_rhythmgame_addnote(158.09, 0, 158.26);
+        scr_rhythmgame_addnote(158.26, 1, 158.35);
+        scr_rhythmgame_addnote(158.48, 2, 158.87);
+        scr_rhythmgame_addnote(158.87, 2, 159);
+        scr_rhythmgame_addnote(159.13, 1, 159.39);
+        scr_rhythmgame_addnote(159.39, 0, 159.65);
+        scr_rhythmgame_addnote(159.65, 1, 159.91);
+        scr_rhythmgame_addnote(159.91, 0, 160.04);
+        scr_rhythmgame_addnote(160.17, 2, 160.35);
+        scr_rhythmgame_addnote(160.35, 0, 160.43);
+        scr_rhythmgame_addnote(160.61, 1, 160.96);
+        scr_rhythmgame_addnote(160.96, 1, 161.09);
+        scr_rhythmgame_addnote(161.22, 1, 161.39);
+        scr_rhythmgame_addnote(161.39, 0, 161.54);
+        scr_rhythmgame_addnote(161.65, 1, 162.7);
+        scr_rhythmgame_addnote(162.96, 1, 163.24);
+        scr_rhythmgame_addnote(163.3, 1, 163.48);
+        scr_rhythmgame_addnote(163.48, 0, 163.74);
+        scr_rhythmgame_addnote(163.74, 1, 164.09);
+        scr_rhythmgame_addnote(164.09, 0, 164.35);
+        scr_rhythmgame_addnote(164.35, 0, 164.52);
+        scr_rhythmgame_addnote(164.52, 1, 164.74);
+        scr_rhythmgame_addnote(164.74, 1, 166.7);
+        scr_rhythmgame_addnote(167.13, 2, 167.48);
+        scr_rhythmgame_addnote(167.48, 2, 167.65);
+        scr_rhythmgame_addnote(167.65, 1, 167.83);
+        scr_rhythmgame_addnote(167.83, 2, 168.13);
+        scr_rhythmgame_addnote(168.13, 1, 168.52);
+        scr_rhythmgame_addnote(168.52, 0, 168.7);
+        scr_rhythmgame_addnote(168.7, 0, 168.91);
+        scr_rhythmgame_addnote(168.91, 1, 170.7);
++++
+        var notes = get_chapter_lang_setting("lyrics_chart_raise_up_your_bat", [
+            [16.17, 0, 16.35],
+            [16.35, 1, 16.47],
+            [16.61, 2, 16.89],
+            [16.96, 1, 17.22],
+            [17.22, 1, 17.48],
+            [17.48, 0, 17.74],
+            [17.74, 1, 18],
+            [18, 0, 18.26],
+            [18.26, 2, 18.39],
+            [18.39, 1, 18.52],
+            [18.72, 2, 19.04],
+            [19.04, 1, 19.24],
+            [19.3, 1, 19.57],
+            [19.57, 0, 19.83],
+            [19.74, 2, 20.61],
+            [21.04, 1, 21.39],
+            [21.39, 1, 21.57],
+            [21.57, 0, 21.78],
+            [21.83, 1, 22.09],
+            [22.09, 0, 22.17],
+            [22.17, 1, 22.24],
+            [22.35, 2, 22.57],
+            [22.7, 1, 22.96],
+            [22.96, 0, 24.26],
+            [24.52, 0, 24.72],
+            [24.7, 1, 24.78],
+            [24.91, 2, 25.3],
+            [25.3, 2, 25.57],
+            [25.57, 1, 25.83],
+            [25.83, 0, 26.09],
+            [26.09, 1, 26.35],
+            [26.35, 0, 26.61],
+            [26.61, 2, 26.8],
+            [26.8, 1, 27.04],
+            [27.04, 2, 27.39],
+            [27.39, 2, 27.65],
+            [27.65, 1, 27.83],
+            [27.83, 0, 28.04],
+            [28.09, 2, 29.15],
+            [29.39, 2, 29.74],
+            [29.74, 1, 29.91],
+            [29.91, 0, 30.17],
+            [30.17, 1, 30.52],
+            [30.52, 0, 30.78],
+            [30.78, 0, 30.98],
+            [30.98, 1, 31.17],
+            [31.22, 1, 33.07],
+            [33.57, 2, 33.91],
+            [33.91, 1, 34.09],
+            [34.09, 0, 34.26],
+            [34.26, 1, 34.57],
+            [34.57, 0, 34.89],
+            [34.96, 0, 35.09],
+            [35.15, 1, 35.35],
+            [35.35, 2, 37.13],
+            [100.43, 0, 100.63],
+            [100.7, 0, 100.89],
+            [100.96, 1, 101.15],
+            [101.22, 2, 101.41],
+            [101.48, 2, 101.67],
+            [101.74, 1, 101.93],
+            [102, 0, 102.2],
+            [102.26, 2, 102.72],
+            [102.78, 0, 102.98],
+            [103.04, 0, 103.24],
+            [103.3, 1, 103.76],
+            [103.83, 0, 104.02],
+            [104.09, 1, 104.28],
+            [104.35, 1, 104.8],
+            [104.87, 2, 105.07],
+            [105.13, 1, 105.33],
+            [105.39, 0, 105.72],
+            [105.78, 2, 106.11],
+            [106.17, 0, 106.37],
+            [106.43, 1, 108.46],
+            [108.78, 0, 108.98],
+            [109.04, 0, 109.24],
+            [109.3, 1, 109.5],
+            [109.57, 2, 109.76],
+            [109.83, 2, 110.02],
+            [110.09, 1, 110.28],
+            [110.35, 0, 110.54],
+            [110.61, 2, 111.07],
+            [111.13, 0, 111.33],
+            [111.39, 0, 111.59],
+            [111.65, 1, 112.04],
+            [112.17, 0, 112.43],
+            [112.43, 1, 112.7],
+            [112.7, 1, 113.09],
+            [113.09, 2, 113.48],
+            [113.48, 1, 113.67],
+            [113.74, 0, 114],
+            [114, 2, 114.46],
+            [114.46, 1, 114.65],
+            [114.72, 1, 115.7],
+            [115.7, 2, 115.76],
+            [115.76, 1, 115.83],
+            [115.83, 0, 116.8],
+            [117.13, 0, 117.39],
+            [117.39, 0, 117.65],
+            [117.65, 1, 117.91],
+            [117.91, 2, 118.17],
+            [118.17, 2, 118.43],
+            [118.43, 1, 118.7],
+            [118.7, 0, 118.96],
+            [118.96, 2, 119.48],
+            [119.48, 0, 119.74],
+            [119.74, 0, 120],
+            [120, 1, 120.52],
+            [120.52, 0, 120.78],
+            [120.78, 1, 121.04],
+            [121.04, 1, 121.43],
+            [121.43, 2, 121.7],
+            [121.83, 1, 122.09],
+            [122.09, 0, 122.35],
+            [122.35, 2, 122.87],
+            [122.87, 0, 123.13],
+            [123.13, 1, 125.22],
+            [125.48, 0, 125.74],
+            [125.74, 0, 126],
+            [126, 1, 126.26],
+            [126.26, 2, 126.52],
+            [126.52, 2, 126.78],
+            [126.78, 1, 127.04],
+            [127.04, 0, 127.3],
+            [127.3, 2, 127.83],
+            [127.83, 0, 128.09],
+            [128.09, 0, 128.35],
+            [128.35, 1, 128.74],
+            [128.87, 0, 129.13],
+            [129.13, 1, 129.39],
+            [129.39, 1, 129.78],
+            [129.78, 2, 130.11],
+            [130.17, 1, 130.37],
+            [130.43, 0, 130.83],
+            [130.83, 2, 131.15],
+            [131.22, 2, 131.41],
+            [131.48, 1, 132.39],
+            [132.39, 2, 132.46],
+            [132.46, 1, 132.52],
+            [132.52, 0, 133.57],
+            [149.74, 0, 149.91],
+            [149.91, 1, 150.09],
+            [150.17, 2, 150.52],
+            [150.52, 2, 150.72],
+            [150.78, 1, 150.98],
+            [151.04, 0, 151.3],
+            [151.3, 1, 151.57],
+            [151.57, 0, 151.63],
+            [151.83, 2, 152],
+            [152, 0, 152.09],
+            [152.26, 1, 152.61],
+            [152.61, 1, 152.74],
+            [152.87, 1, 153.07],
+            [153.13, 0, 153.26],
+            [153.3, 2, 154.26],
+            [154.61, 1, 154.87],
+            [154.96, 1, 155.13],
+            [155.13, 0, 155.22],
+            [155.39, 1, 155.65],
+            [155.65, 0, 155.74],
+            [155.74, 1, 155.83],
+            [155.91, 2, 156.26],
+            [156.26, 1, 156.46],
+            [156.52, 0, 157.83],
+            [158.09, 0, 158.26],
+            [158.26, 1, 158.35],
+            [158.48, 2, 158.87],
+            [158.87, 2, 159],
+            [159.13, 1, 159.39],
+            [159.39, 0, 159.65],
+            [159.65, 1, 159.91],
+            [159.91, 0, 160.04],
+            [160.17, 2, 160.35],
+            [160.35, 0, 160.43],
+            [160.61, 1, 160.96],
+            [160.96, 1, 161.09],
+            [161.22, 1, 161.39],
+            [161.39, 0, 161.54],
+            [161.65, 1, 162.7],
+            [162.96, 1, 163.24],
+            [163.3, 1, 163.48],
+            [163.48, 0, 163.74],
+            [163.74, 1, 164.09],
+            [164.09, 0, 164.35],
+            [164.35, 0, 164.52],
+            [164.52, 1, 164.74],
+            [164.74, 1, 166.7],
+            [167.13, 2, 167.48],
+            [167.48, 2, 167.65],
+            [167.65, 1, 167.83],
+            [167.83, 2, 168.13],
+            [168.13, 1, 168.52],
+            [168.52, 0, 168.7],
+            [168.7, 0, 168.91],
+            [168.91, 1, 170.7]
+        ])
+
+        for (var i = 0; i < array_length(notes); i++) {
+            scr_rhythmgame_addnote(notes[i][0], notes[i][1], notes[i][2])
+        }
+%%%
+
+
+=== gml_Object_obj_initializer2_Create_0
+---
+scr_84_init_localization()
++++
+
+%%%
+
+---
+loadtex = -4;
++++
+loadtex = -4; scr_windowcaption("");
+%%%
+
+
+
+=== gml_Object_obj_initializer2_Other_72
+---
+scr_84_init_localization()
++++
+scr_init_localization()
+%%%
+
+
+
+=== gml_Object_obj_intro_ch4_Step_0
+---
+sprite_index = IMAGE_LOGO_CENTER_SHATTER
++++
+sprite_index = scr_84_get_sprite("IMAGE_LOGO_CENTER_SHATTER")
+%%%
+
+---
+var _shattersprite = IMAGE_LOGO_CENTER_SHATTER_PIECES
++++
+var _shattersprite = scr_84_get_sprite("IMAGE_LOGO_CENTER_SHATTER_PIECES")
+%%%
+
+
+
+=== gml_Object_obj_intro_ch4_Draw_0
+---
+"CHAPTER 4"
++++
+stringsetloc("CHAPTER 4", "obj_intro_ch4_slash_Draw_0_gml_1_0")
+%%%
+
+
+
+=== gml_Object_obj_intro_ch4_Create_0
+---
+IMAGE_LOGO_CENTER_HEART_SEPARATED
++++
+scr_84_get_sprite("IMAGE_LOGO_CENTER_HEART_SEPARATED")
+%%%
+
+
+
+=== gml_GlobalScript_scr_armorinfo
+---#
+armorabilitytemp = stringset("Elegance")
++++
+armorabilitytemp = stringsetloc("Elegance", "scr_armorinfo_slash_scr_armorinfo_gml_782_0")
+%%%
+
+
+
+=== gml_GlobalScript_scr_weaponinfo
+---#
+weaponabilitytemp = "SlayDark"
++++
+weaponabilitytemp = stringsetloc("SlayDark", "scr_weaponinfo_slash_scr_weaponinfo_gml_624_0")
+%%%
+
+
+
+=== gml_Object_obj_tem_school_Step_0
+---
+var sound_file = asset_get_index(sound_file_name);
++++
+var sound_file = scr_84_get_sound(sound_file_name);
+%%%
+
+
+
+
+
+=== gml_Object_obj_room_castle_tv_zone_battle_Step_0
+---
+        c_msgnextloc("* Didn't you read that DOOR?!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_155_0");
++++
+        if (solo_mode) {
+            c_msgnextloc("* Didn't you read that DOOR?!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_155_1");
+        } else {
+            c_msgnextloc("* Didn't you read that DOOR?!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_155_0");
+        }
+%%%
+
+---
+        c_msgsetloc(0, "* AND YOU STILL WENT INSIDE!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_186_0");
++++
+        if (solo_mode) {
+            c_msgsetloc(0, "* AND YOU STILL WENT INSIDE!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_186_1");
+        } else {
+            c_msgsetloc(0, "* AND YOU STILL WENT INSIDE!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_186_0");
+        }
+%%%
+
+---
+        c_msgsetloc(0, "* IF YOU DIDN'T READ IT HOW DO YOU KNOW WHAT IT SAID!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_190_0");
++++
+        if (solo_mode) {
+            c_msgsetloc(0, "* IF YOU DIDN'T READ IT HOW DO YOU KNOW WHAT IT SAID!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_190_1");
+        } else {
+            c_msgsetloc(0, "* IF YOU DIDN'T READ IT HOW DO YOU KNOW WHAT IT SAID!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_190_0");
+        }
+%%%
+
+---
+    c_msgnextloc("* What!? What!? You think you're Mike or somethin'!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_204_0");
++++
+    if (solo_mode) {
+        c_msgnextloc("* What!? What!? You think you're Mike or somethin'!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_204_1");
+    } else {
+        c_msgnextloc("* What!? What!? You think you're Mike or somethin'!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_204_0");
+    }
+%%%
+
+---
+        c_msgsetloc(0, "* Wrong^1! WRONG!!^1! Are you GETTING this!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_229_0");
+        c_msgnextloc("* Ya hearing yourself YAPPING^1, ya room noise!? AIR CHECK!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_230_0");
++++
+        if (solo_mode) {
+            c_msgsetloc(0, "* Wrong^1! WRONG!!^1! Are you GETTING this!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_229_1");
+            c_msgnextloc("* Ya hearing yourself YAPPING^1, ya room noise!? AIR CHECK!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_230_1");
+        } else {
+            c_msgsetloc(0, "* Wrong^1! WRONG!!^1! Are you GETTING this!?/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_229_0");
+            c_msgnextloc("* Ya hearing yourself YAPPING^1, ya room noise!? AIR CHECK!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_230_0");
+        }
+%%%
+
+---
+        c_msgnextloc("* So ya figured it out^1, did ya?!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_242_0");
++++
+        if (solo_mode) {
+            c_msgnextloc("* So ya figured it out^1, did ya?!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_242_1");
+        } else {
+            c_msgnextloc("* So ya figured it out^1, did ya?!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_242_0");
+        }
+%%%
+
+---
+    c_msgsetloc(0, "* Sorry^1, sorry. I admit it. I admit it./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_510_0");
++++
+    if (solo_mode) {
+        c_msgsetloc(0, "* Sorry^1, sorry. I admit it. I admit it./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_510_1");
+    } else {
+        c_msgsetloc(0, "* Sorry^1, sorry. I admit it. I admit it./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_510_0");
+    }
+%%%
+
+---
+    c_msgsetloc(0, "* Are fakes!!^1! Beat them up!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_550_0");
+    c_msgnextloc("* Make them pay for being so stupid!!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_551_0");
++++
+    if (solo_mode) {
+        c_msgsetloc(0, "* Are fakes!!^1! Beat them up!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_550_1");
+        c_msgnextloc("* Make them pay for being so stupid!!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_551_1");
+    } else {
+        c_msgsetloc(0, "* Are fakes!!^1! Beat them up!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_550_0");
+        c_msgnextloc("* Make them pay for being so stupid!!!/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_551_0");
+    }
+%%%
+
+---
+    c_msgnextloc("* And you know what the weird thing is!? It actually worked!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_633_0");
++++
+    if (solo_mode) {
+        c_msgnextloc("* And you know what the weird thing is!? It actually worked!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_633_1");
+    } else {
+        c_msgnextloc("* And you know what the weird thing is!? It actually worked!!!/", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_633_0");
+    }
+%%%
+
+---
+    c_msgnextloc("* Obviously^1, we couldn't let you in here^1, or you'd snitch./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_635_0");
++++
+    if (solo_mode) {
+        c_msgnextloc("* Obviously^1, we couldn't let you in here^1, or you'd snitch./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_635_1");
+    } else {
+        c_msgnextloc("* Obviously^1, we couldn't let you in here^1, or you'd snitch./", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_635_0");
+    }
+%%%
+
+---
+    c_msgnextloc("* ..^1. Just^1, before you tell Tenna^1, lemme ask you one last thing./%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_637_0");
++++
+    if (solo_mode) {
+        c_msgnextloc("* ..^1. Just^1, before you tell Tenna^1, lemme ask you one last thing./%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_637_1");
+    } else {
+        c_msgnextloc("* ..^1. Just^1, before you tell Tenna^1, lemme ask you one last thing./%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_637_0");
+    }
+%%%
+
+---
+    c_msgnextloc("* Huh!? Are ya!? Are ya!?/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_714_0");
++++
+    if (solo_mode) {
+        c_msgnextloc("* Huh!? Are ya!? Are ya!?/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_714_1");
+    } else {
+        c_msgnextloc("* Huh!? Are ya!? Are ya!?/%", "obj_room_castle_tv_zone_battle_slash_Step_0_gml_714_0");
+    }
+%%%
+
+
+
+
+
+=== gml_Object_obj_mike_attack_controller_Create_0
+---
+global.batmusic[1] = mus_loop_ext(global.batmusic[0], 1, 1);
++++
+global.batmusic[1] = mus_loop_ext(global.batmusic[0], 1, 1);
+solo_mode = !scr_havechar(3) && !scr_havechar(2);
+%%%
+
+
+
+
+
+=== gml_Object_obj_mike_attack_controller_Step_0
+---
+            msgsetloc(msg_max++, "Nice of you to drop by...&NOT! NOT AT ALL,&NO no no!", "obj_mike_attack_controller_slash_Step_0_gml_240_0");
+            msgsetloc(msg_max++, "Look with your private&eyes! This is a private&room, a private room,&see!?", "obj_mike_attack_controller_slash_Step_0_gml_241_0");
+            msgsetloc(msg_max++, "We are live, we are on &air, we are recording,&YOU are background&noise! Get out!", "obj_mike_attack_controller_slash_Step_0_gml_242_0");
++++
+            if (solo_mode) {
+                msgsetloc(msg_max++, "Nice of you to drop by...&NOT! NOT AT ALL,&NO no no!", "obj_mike_attack_controller_slash_Step_0_gml_240_1");
+                msgsetloc(msg_max++, "Look with your private&eyes! This is a private&room, a private room,&see!?", "obj_mike_attack_controller_slash_Step_0_gml_241_1");
+                msgsetloc(msg_max++, "We are live, we are on &air, we are recording,&YOU are background&noise! Get out!", "obj_mike_attack_controller_slash_Step_0_gml_242_1");
+            } else {
+                msgsetloc(msg_max++, "Nice of you to drop by...&NOT! NOT AT ALL,&NO no no!", "obj_mike_attack_controller_slash_Step_0_gml_240_0");
+                msgsetloc(msg_max++, "Look with your private&eyes! This is a private&room, a private room,&see!?", "obj_mike_attack_controller_slash_Step_0_gml_241_0");
+                msgsetloc(msg_max++, "We are live, we are on &air, we are recording,&YOU are background&noise! Get out!", "obj_mike_attack_controller_slash_Step_0_gml_242_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "I'm sure you heard me.&You did, didncha!?", "obj_mike_attack_controller_slash_Step_0_gml_256_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "I'm sure you heard me.&You did, didncha!?", "obj_mike_attack_controller_slash_Step_0_gml_256_1");
+            } else {
+            msgsetloc(msg_max++, "I'm sure you heard me.&You did, didncha!?", "obj_mike_attack_controller_slash_Step_0_gml_256_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "I'm always on the air,&in the air, all around&you, even within you!", "obj_mike_attack_controller_slash_Step_0_gml_258_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "I'm always on the air,&in the air, all around&you, even within you!", "obj_mike_attack_controller_slash_Step_0_gml_258_1");
+            } else {
+            msgsetloc(msg_max++, "I'm always on the air,&in the air, all around&you, even within you!", "obj_mike_attack_controller_slash_Step_0_gml_258_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "NOW GET OUT!!!!", "obj_mike_attack_controller_slash_Step_0_gml_259_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "NOW GET OUT!!!!", "obj_mike_attack_controller_slash_Step_0_gml_259_1");
+            } else {
+            msgsetloc(msg_max++, "NOW GET OUT!!!!", "obj_mike_attack_controller_slash_Step_0_gml_259_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "Now GET OUT!!!", "obj_mike_attack_controller_slash_Step_0_gml_277_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "Now GET OUT!!!", "obj_mike_attack_controller_slash_Step_0_gml_277_1");
+            } else {
+            msgsetloc(msg_max++, "Now GET OUT!!!", "obj_mike_attack_controller_slash_Step_0_gml_277_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "I'm going to talk&right now! Listen!", "obj_mike_attack_controller_slash_Step_0_gml_313_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "I'm going to talk&right now! Listen!", "obj_mike_attack_controller_slash_Step_0_gml_313_1");
+            } else {
+            msgsetloc(msg_max++, "I'm going to talk&right now! Listen!", "obj_mike_attack_controller_slash_Step_0_gml_313_0");
+            }
+%%%
+
+---
+                    msgsetloc(msg_max++, "Did you hear?&That was great,&right!? Real&verbose!!", "obj_mike_attack_controller_slash_Step_0_gml_530_0");
++++
+                    if (solo_mode) {
+                            msgsetloc(msg_max++, "Did you hear?&That was great,&right!? Real&verbose!!", "obj_mike_attack_controller_slash_Step_0_gml_530_1");
+                    } else {
+                            msgsetloc(msg_max++, "Did you hear?&That was great,&right!? Real&verbose!!", "obj_mike_attack_controller_slash_Step_0_gml_530_0");
+                    }
+%%%
+
+---
+            msgsetloc(msg_max++, "Dis is a private room.&We got private…&uh, eyes. We been...&investigatin' you.", "obj_mike_attack_controller_slash_Step_0_gml_340_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "Dis is a private room.&We got private…&uh, eyes. We been...&investigatin' you.", "obj_mike_attack_controller_slash_Step_0_gml_340_1");
+            } else {
+            msgsetloc(msg_max++, "Dis is a private room.&We got private…&uh, eyes. We been...&investigatin' you.", "obj_mike_attack_controller_slash_Step_0_gml_340_0");
+            }
+%%%
+
+---
+            msgsetloc(msg_max++, "we, uh...&We like what we see.&Keep it up.", "obj_mike_attack_controller_slash_Step_0_gml_341_0");
++++
+            if (solo_mode) {
+            msgsetloc(msg_max++, "we, uh...&We like what we see.&Keep it up.", "obj_mike_attack_controller_slash_Step_0_gml_341_1");
+            } else {
+            msgsetloc(msg_max++, "we, uh...&We like what we see.&Keep it up.", "obj_mike_attack_controller_slash_Step_0_gml_341_0");
+            }
+%%%
+
+---
+                        msgsetloc(msg_max++, "And now that you know,&there's no way we can&let you out of here&alive!!!", "obj_mike_attack_controller_slash_Step_0_gml_1886_0");
++++
+                        if (solo_mode) {
+                                    msgsetloc(msg_max++, "And now that you know,&there's no way we can&let you out of here&alive!!!", "obj_mike_attack_controller_slash_Step_0_gml_1886_1");
+                        } else {
+                                    msgsetloc(msg_max++, "And now that you know,&there's no way we can&let you out of here&alive!!!", "obj_mike_attack_controller_slash_Step_0_gml_1886_0");
+                        }
+%%%
+
+
+
+
+
+=== gml_Object_obj_room_castle_tv_zone_minigame_Create_0
+---
+con = -1;
++++
+con = -1;
+solo_mode = !scr_havechar(3) && !scr_havechar(2);
+%%%
+
+
+
+
+
+=== gml_Object_obj_room_castle_tv_zone_minigame_Step_0
+---
+        global.msg[_i] = stringsetloc("* ... that's where YOU come in, see?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_154_0");
++++
+        if (solo_mode) {
+            global.msg[_i] = stringsetloc("* ... that's where YOU come in, see?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_154_1");
+        } else {
+            global.msg[_i] = stringsetloc("* ... that's where YOU come in, see?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_154_0");
+        }
+%%%
+
+---
+        global.msg[_i] = stringsetloc("* So each of us is ready to fight you again... MINI-GAME STYLE!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_156_0");
++++
+        if (solo_mode) {
+            global.msg[_i] = stringsetloc("* So each of us is ready to fight you again... MINI-GAME STYLE!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_156_1");
+        } else {
+            global.msg[_i] = stringsetloc("* So each of us is ready to fight you again... MINI-GAME STYLE!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_156_0");
+        }
+%%%
+
+---
+        global.msg[_i] = stringsetloc("* The one who you get the most points against, has got to be the REAL MIKE!/%", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_157_0");
++++
+        if (solo_mode) {
+            global.msg[_i] = stringsetloc("* The one who you get the most points against, has got to be the REAL MIKE!/%", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_157_1");
+        } else {
+            global.msg[_i] = stringsetloc("* The one who you get the most points against, has got to be the REAL MIKE!/%", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_157_0");
+        }
+%%%
+
+---
+            global.msg[_i] = stringsetloc("* Talk to the MAUS in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_176_0");
++++
+            if (solo_mode) {
+                global.msg[_i] = stringsetloc("* Talk to the MAUS in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_176_1");
+            } else {
+                global.msg[_i] = stringsetloc("* Talk to the MAUS in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_176_0");
+            }
+%%%
+
+---
+            global.msg[_i] = stringsetloc("* Pick us up with MAUS and put us in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_164_0");
++++
+            if (solo_mode) {
+                global.msg[_i] = stringsetloc("* Pick us up with MAUS and put us in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_164_1");
+            } else {
+                global.msg[_i] = stringsetloc("* Pick us up with MAUS and put us in the center to play! Here's the games.../", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_164_0");
+            }
+%%%
+
+---
+                    global.msg[_i] = stringsetloc("* What's wrong with you, making people think Mike is a cowboy!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_213_0");
+                    _i++;
+                    global.msg[_i] = stringsetloc("* I'll make you pay!! I've got connections!! I've got friends on the inside!!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_214_0");
++++
+                    if (solo_mode) {
+                        global.msg[_i] = stringsetloc("* What's wrong with you, making people think Mike is a cowboy!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_213_1");
+                        _i++;
+                        global.msg[_i] = stringsetloc("* I'll make you pay!! I've got connections!! I've got friends on the inside!!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_214_1");
+                    } else {
+                        global.msg[_i] = stringsetloc("* What's wrong with you, making people think Mike is a cowboy!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_213_0");
+                        _i++;
+                        global.msg[_i] = stringsetloc("* I'll make you pay!! I've got connections!! I've got friends on the inside!!/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_214_0");
+                    }
+%%%
+
+---
+                    global.msg[_i] = stringsetloc("* What's wrong with you, making people think MIKE is a CAT!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_220_0");
++++
+                    if (solo_mode) {
+                        global.msg[_i] = stringsetloc("* What's wrong with you, making people think MIKE is a CAT!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_220_1");
+                    } else {
+                        global.msg[_i] = stringsetloc("* What's wrong with you, making people think MIKE is a CAT!?/", "obj_room_castle_tv_zone_minigame_slash_Step_0_gml_220_0");
+                    }
+%%%
+
+
+
+
+
+
+
+
+
+=== gml_Object_obj_mike_minigame_controller_Draw_0
+---#
+ossafe_fill_rectangle(412, 28 + music_y, 464, 54 + music_y, 1);
++++
+ossafe_fill_rectangle(402, 28 + music_y, 474, 54 + music_y, 1);
+%%%
+
+
+---#
+ossafe_fill_rectangle(412, (28 - music_y) + __y, 464, 54 + music_y + __y, 1);
++++
+ossafe_fill_rectangle(402, (28 - music_y) + __y, 474, 54 + music_y + __y, 1);
+%%%
+
+---#
+draw_text(240, (24 - music_y) + __y, stringsetloc("INVERT VOL: ", "obj_mike_minigame_controller_slash_Draw_0_gml_109_0"));
++++
+draw_text(232, (24 - music_y) + __y, stringsetloc("INVERT VOL: ", "obj_mike_minigame_controller_slash_Draw_0_gml_109_0"));
+%%%
+
+---#
+ossafe_fill_rectangle(120, 28 + retry_y, 196, 54 + retry_y, 1);
++++
+ossafe_fill_rectangle(112, 28 + retry_y, 204, 54 + retry_y, 1);
+%%%
+
+---#
+ossafe_fill_rectangle(222, 28 + retry_y, 298, 54 + retry_y, 1);
+draw_text(260, 24 + retry_y, stringsetloc("QUIT", "obj_mike_minigame_controller_slash_Draw_0_gml_137_0"));
++++
+ossafe_fill_rectangle(216, 28 + retry_y, 304, 54 + retry_y, 1);
+draw_text(261, 24 + retry_y, stringsetloc("QUIT", "obj_mike_minigame_controller_slash_Draw_0_gml_137_0"));
+%%%
+
+---#
+draw_text(440, 24 + music_y, stringsetloc("OFF", "obj_mike_minigame_controller_slash_Draw_0_gml_87_0"))
++++
+draw_text(440, 24 + music_y, stringsetloc("OFF", "obj_mike_minigame_controller_slash_Draw_0_gml_87_0"));
+draw_set_halign(fa_left);
+%%%
+
+---#
+draw_text(232, (24 - music_y) + __y, stringsetloc("INVERT VOL: ", "obj_mike_minigame_controller_slash_Draw_0_gml_109_0"));
++++
+draw_set_halign(fa_center);
+draw_text(232, (24 - music_y) + __y, stringsetloc("INVERT VOL: ", "obj_mike_minigame_controller_slash_Draw_0_gml_109_0"));
+%%%
+
+
+=== gml_Object_obj_micmenu_Draw_0
+---#
+draw_set_font(fnt_ja_mainbig);
++++
+draw_set_font(scr_84_get_font("mainbig"));
+%%%
+
+---#
+draw_set_font(fnt_ja_main);
++++
+draw_set_font(scr_84_get_font("main"));
+%%%
+
+---#
+draw_set_font(fnt_mainbig_ja);
++++
+draw_set_font(scr_84_get_font("mainbig"));
+%%%
+
+---#
+draw_set_font(fnt_main_ja);
++++
+draw_set_font(scr_84_get_font("main"));
+%%%
+
+---
+draw_text((camerax() + mx + 48 + string_width(micstr)) - 16, (cameray() + mheight + my) - 48, string(_n));
++++
+draw_text((camerax() + mx + 48 + string_width(micstr)), (cameray() + mheight + my) - 48, string(_n));
+%%%
+
+---
+draw_text(camerax() + mx + 48, (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), string(_str) + get_right_click_mic_string());
++++
+draw_text(camerax() + mx + 48 + (_str != "" ? sprite_get_width(spr_sparestar) : 0), (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), get_right_click_mic_string());
+%%%
+
+---
+draw_text(camerax() + mx + 48, (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), string(_str) + get_x_click_mic_string(inputname));
++++
+draw_text(camerax() + mx + 48 + (_str != "" ? sprite_get_width(spr_sparestar) : 0), (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), get_x_click_mic_string(inputname));
+%%%
+
+---
+draw_text(camerax() + mx + 48, (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), string(_str) + string(_n));
++++
+draw_text(camerax() + mx + 48 + (_str != "" ? sprite_get_width(spr_sparestar) : 0), (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), string(_n));
+%%%
+
+---
+_n = string_copy(_n, 0, 17);
++++
+var pos = string_pos("[", _n);
+if (pos != 0)
+    _n = string_copy(_n, 0, pos - 1);
+%%%
+
+
+
+
+=== gml_Object_obj_dw_rhythm_scroller_Create_0
+---
+scrolling_text = "! " + _track_name + " ! " + "High Score (Normal) - " + _highscore + " ! " + "High Score (Hard) - " + _highscore_hard + " ! ";
++++
+scrolling_text = stringsetsubloc("! ~1 ! High Score (Normal) - ~2 ! High Score (Hard) - ~3 ! ", _track_name, _highscore, _highscore_hard, "obj_dw_rhythm_slash_scroller_Create_0_gml_1_0");
+%%%
+
+---
+text_x_pos[1] = 40 + (string_width(scrolling_text) * 2) + x_offset;
++++
+draw_set_font(scr_84_get_font("mainbig"));
+text_x_pos[1] = 40 + (string_width(scrolling_text) * 2) + x_offset;
+%%%
+
+
+
+=== gml_Object_PROCESS_DOG_Create_0
+---
+window_set_caption("DOGTARUNE")
++++
+window_set_caption(stringsetloc("DOGTARUNE", "PROCESS_DOG_slash_Create_0_gml_1_0"))
+%%%
+
+
+=== gml_Object_obj_dw_church_prophecy_Draw_0
+---
+    width = 150;
+    height = 90;
++++
+    var yy_off = 16;
+    width = 150;
+    height = 90;
+%%%
+
+---
+    draw_clear_alpha(c_aqua, 1);
+    draw_sprite_tiled_ext(tiletex, 0, ceil(siner / 2), ceil(siner / 2), 1, 1, c_white, 0.6);
++++
+    draw_clear_alpha(c_aqua, 1);
+    draw_sprite_tiled_ext(tiletex, 0, ceil(siner / 2), ceil(siner / 2) + yy_off, 1, 1, c_white, 0.6);
+%%%
+
+---
+    draw_sprite_ext(text_sprite, 1, 0 + xoff, -10 + yoff, 1, 1, 0, c_black, 1);
++++
+    draw_sprite_ext(text_sprite, 1, 0 + xoff, -10 + yoff + yy_off, 1, 1, 0, c_black, 1);
+%%%
+
+---
+    draw_surface_ext(surf0, (x - width) + xsin + textxoffset, (y - height) + ysin + textyoffset, 2, 2, angle, c_white, image_alpha);
+    draw_surface_ext(surf0, (x - width) + xsin + textxoffset, (y - height) + ysin + textyoffset, 2, 2, angle, c_white, image_alpha);
++++
+    draw_surface_ext(surf0, (x - width) + xsin + textxoffset, (y - height) + ysin + textyoffset - yy_off * 2, 2, 2, angle, c_white, image_alpha);
+    draw_surface_ext(surf0, (x - width) + xsin + textxoffset, (y - height) + ysin + textyoffset - yy_off * 2, 2, 2, angle, c_white, image_alpha);
+%%%
+
+
+
+
+
+=== gml_Object_obj_titan_enemy_Step_0
+---
+== "en"
++++
+!= "ja"
+%%%
+
+=== gml_Object_obj_screen_loading_Create_0
+---
+== "en"
++++
+!= "ja"
+%%%
+
+=== gml_Object_obj_dw_church_intro_guei_Draw_0
+---
+== "en"
++++
+!= "ja"
+%%%
+
+
+
+
+=== gml_Object_obj_dw_church_intro_guei_Draw_0
+---
+draw1 = true;
++++
+draw1 = false;
+%%%
+
+---
+draw2 = true;
++++
+draw2 = false;
+%%%
+
+
+=== gml_Object_obj_dw_church_moneyfountain_Draw_0
+---
+    mystring = stringsetloc("In Fountain", "obj_dw_church_moneyfountain_slash_Draw_0_gml_27_0");
+    moneystring1 = "D$" + string(global.flag[898] + obj_numberentry.num);
+    mystring2 = stringsetloc("Remaining On Hand", "obj_dw_church_moneyfountain_slash_Draw_0_gml_29_0");
+    moneystring2 = "D$" + string(global.gold - obj_numberentry.num);
++++
+    mystring = stringsetloc("In Fountain", "obj_dw_church_moneyfountain_slash_Draw_0_gml_27_0");
+    moneystring1 = stringsetsubloc("D$~1", string(global.flag[898] + obj_numberentry.num), "obj_dw_church_moneyfountain_slash_Draw_0_gml_28_0");
+    mystring2 = stringsetloc("Remaining On Hand", "obj_dw_church_moneyfountain_slash_Draw_0_gml_29_0");
+    moneystring2 = stringsetsubloc("D$~1", string(global.gold - obj_numberentry.num), "obj_dw_church_moneyfountain_slash_Draw_0_gml_28_0");
+%%%
+
+=== gml_Object_obj_numberentry_Draw_0
+---
+numstringadd + string(num)
++++
+stringsetsub(numstringadd, string(num))
+%%%
+
+---
+numstringadd = "$ ";
++++
+numstringadd = stringsetloc("$ ~1", "obj_numberentry_slash_Draw_0_gml_1_0");
+%%%
+
+
+
+
+
+=== gml_Object_obj_proofread_controller_new_Draw_0
+---#
+if (rand == 9) {
+    _textscale = 0.7;
+} else {
+    _textscale = 1;
+}
++++
+    _textscale = min(1, 126 / string_width(str1))
+%%%
+
+// Блядский Тоби Фокс
+---#
+if (rand == 9 && global.lang != "ja") {
+    _textscale = 0.7;
+} else {
+    _textscale = 1;
+}
++++
+    _textscale = min(1, 126 / string_width(str1))
+%%%
+
+
+
+
+
+=== gml_Object_obj_dbulletcontroller_Step_0
+---
+            sprite_index = spr_tutu;
++++
+            sprite_index = spr_tutu;
+
+            if (global.translated_songs) {
+                y += sprite_get_yoffset(sprite_index);
+            } else {
+
+            }
+%%%
+
+---
+    obj_growtangle.sprite_index = spr_ghost_house_chimney;
+    obj_growtangle.spr_custom_box = spr_ghost_house_chimney;
+    obj_growtangle.mask_index = -1;
++++
+    obj_growtangle.sprite_index = scr_84_get_sprite("spr_ghost_house_chimney");
+    obj_growtangle.spr_custom_box = spr_ghost_house_chimney;
+    obj_growtangle.mask_index = spr_ghost_house_chimney;
+%%%
+
+
+
+
+=== gml_Object_obj_ghosthouse_jackolantern_Step_0
+---
+instance_create(x - 145, y + 80, obj_yourlong);
++++
+instance_create(camerax() + 310, y + 80, obj_takingtoolong);
+%%%
+
+---
+with (instance_create(x - 145, y + 80, obj_yourlong)) {
+    alt = true;
+}
++++
+with (instance_create(camerax() + 310, y + 80, obj_takingtoolong))
+    alt = true;
+%%%
+
+---
+    with (instance_create(camerax() + 160, cameray() + 15, obj_takingtoolong_short)) {
+        tutu = 1;
+    }
++++
+    with (instance_create(camerax() + 320, cameray() + 15, obj_takingtoolong)) {
+        tutu = 1;
+        alt = true;
+    }
+%%%
+
+---
+snd_play_volume(16, 0.8);
++++
+snd_play_volume(snd_taking_too_long_fast, 0.8);
+%%%
+
+---
+mysnd = snd_play_volume(45, 0.8);
++++
+mysnd = snd_play_volume(snd_alt_takingtoolong, 0.8);
+%%%
+
+---
+snd_play_volume(3, 0.8);
++++
+snd_play_volume(snd_takingtoolongtoolong, 0.8);
+%%%
+
+---
+snd_play_volume(42, 0.8);
++++
+snd_play_volume(snd_taking_too_long_small, 0.8);
+%%%
+
+---
+sound_play(157);
++++
+sound_play(snd_your_tutu);
+%%%
+
+---
+camerax() + 160
++++
+camerax() + 320
+%%%
+
+
+
+---
+snd_play_volume(525, 0.8);
++++
+snd_play_volume(snd_taking_too_long, 0.8);
+%%%
+
+
+---
+snd_play_volume(547, 0.8);
++++
+snd_play_volume(snd_taking_tutu, 0.8);
+%%%
+
+---
+snd_play_volume(559, 0.8);
++++
+snd_play_volume(snd_tutu_fast, 0.8);
+%%%
+
+
+
+
+
+=== gml_Object_obj_takingtoolong_Create_0
+---
+text_speed = 1;
++++
+text_speed = 1;
+alt = false;
+%%%
+
+
+
+=== gml_Object_obj_ghosthouse_jackolantern_merciful_Step_0
+---
+obj_battlesolid.x - 120
++++
+camerax() + 320
+%%%
+
+
+
+
+
+=== gml_Object_obj_dw_church_jackenstein_pumpkinNPC_Step_0
+---
+    var snd = 525;
++++
+    var snd = snd_taking_too_long;
+%%%
+
+---
+var loc = [x - 266, y - 144];
++++
+var loc = [x, y - 144];
+%%%
+
+
+
+=== gml_Object_obj_dw_church_intro_guei_Create_0
+---
+    var spritesArray = layer_get_all_elements("debug_assets");
++++
+    var lay_id = layer_get_id("debug_assets");
+    var back_id = layer_sprite_get_id(lay_id, "graphic_555FA3F7");
+    layer_sprite_change(back_id, spr_bibliox_talk);
+    var spritesArray = layer_get_all_elements("debug_assets");
+%%%
+
+
+
+
+
+
+
+
+=== gml_Object_obj_volumebar_Draw_0
+---
+    if (temp < 100)
+    {
+        draw_text(x - 30, y + 70, string(temp));
+        draw_text(x - 25, y + 95, "%");
+    }
+    else
+    {
+        draw_set_color(c_yellow);
+        draw_text(x - 28, y + 70, "M");
+        draw_text(x - 24, y + 90, "A");
+        draw_text(x - 20, y + 110, "X");
+    }
++++
+    if (temp < 100)
+    {
+        draw_text(x - 30, y + 30 + sprite_get_height(spr_volume_logo), string(temp));
+        draw_text(x - 25, y + 30 + sprite_get_height(spr_volume_logo) + 25, stringsetloc("%", "obj_tensionbar_slash_Draw_0_gml_18_0"));
+    }
+    else
+    {
+        draw_set_color(c_yellow);
+        var mx_str = stringsetloc("MAX", "obj_tensionbar_slash_Draw_0_gml_1_0");
+        var xoff = 12 / string_length(mx_str);
+        
+        for (var i = 0; i < string_length(mx_str); i++)
+            draw_text(x - 16 - (xoff * (string_length(mx_str) - i)), y + 30 + sprite_get_height(spr_volume_logo) + (20 * i), string_char_at(mx_str, i + 1));
+    }
+%%%
+
+=== gml_Object_obj_tensionbar_Draw_0
+---
+    if (tamt < 100)
+    {
+        draw_text(x - 30, y + 70, string_hash_to_newline(string(floor((apparent / global.maxtension) * 100))));
+        draw_text(x - 25, y + 95, string_hash_to_newline(stringsetloc("%", "obj_tensionbar_slash_Draw_0_gml_18_0")));
+    }
+
+    if (tamt >= 100)
+    {
+        maxed = 1;
+        draw_set_color(c_yellow);
+        draw_text(x - 28, y + 70, string_hash_to_newline(stringsetloc("M", "obj_tensionbar_slash_Draw_0_gml_25_0")));
+        draw_text(x - 24, y + 90, string_hash_to_newline(stringsetloc("A", "obj_tensionbar_slash_Draw_0_gml_26_0")));
+        draw_text(x - 20, y + 110, string_hash_to_newline(stringsetloc("X", "obj_tensionbar_slash_Draw_0_gml_27_0")));
+    }
++++
+    if (tamt < 100)
+    {
+        draw_text(x - 30, y + 30 + sprite_get_height(spr_tplogo), string_hash_to_newline(string(floor((apparent / global.maxtension) * 100))));
+        draw_text(x - 25, y + 30 + sprite_get_height(spr_tplogo) + 25, string_hash_to_newline(stringsetloc("%", "obj_tensionbar_slash_Draw_0_gml_18_0")));
+    }
+
+    if (tamt >= 100)
+    {
+        draw_set_color(c_yellow);
+        var mx_str = stringsetloc("MAX", "obj_tensionbar_slash_Draw_0_gml_1_0");
+        var xoff = 12 / string_length(mx_str);
+        
+        for (var i = 0; i < string_length(mx_str); i++)
+            draw_text(x - 16 - (xoff * (string_length(mx_str) - i)), y + 30 + sprite_get_height(spr_tplogo) + (20 * i), string_char_at(mx_str, i + 1));
+    }
+%%%
+
+
+
+
+=== gml_Object_obj_holywatercooler_enemy_Step_0
+---
+            var random_vowel = choose("a", "e", "i", "o", "u", "u", "oo");
++++
+            var vowel_arr = []
+            var i = 0
+            while (!is_undefined(ds_map_find_value(global.lang_map, "obj_holywatercooler_enemy_slash_Step_0_gml_35_" + string(i)))) {
+                if (i == 2) {
+                    for (var j = 0; j < 2; j++) {
+                        vowel_arr[i] = stringsetloc("", "obj_holywatercooler_enemy_slash_Step_0_gml_35_" + string(i));
+                    }
+                }
+                vowel_arr[i] = stringsetloc("", "obj_holywatercooler_enemy_slash_Step_0_gml_35_" + string(i));
+                i++
+            }
+            if (array_length(vowel_arr) == 0) {
+                vowel_arr = ["a", "e", "i", "o", "u", "u", "oo"];
+            }
+%%%
+
+---
+            if (global.lang == "ja") {
+                random_vowel = choose("パ", "ピ", "プ", "ぺ");
+            }
++++
+            var vowel_arr2 = []
+            i = 0
+            while (!is_undefined(ds_map_find_value(global.lang_map, "obj_holywatercooler_enemy_slash_Step_0_gml_37_" + string(i)))) {
+                vowel_arr2[i] = stringsetloc("", "obj_holywatercooler_enemy_slash_Step_0_gml_37_" + string(i));
+                i++
+            }
+            if (array_length(vowel_arr2) == 0) {
+                vowel_arr2 = ["i", "l"];
+            }
+            var random_vowel = vowel_arr[irandom(array_length(vowel_arr) - 1)];
+            var random_vowel2 = vowel_arr2[irandom(array_length(vowel_arr2) - 1)];
+%%%
+
+---
+                msgsetsubloc(0, "B~1b~2e", random_vowel, choose("i", "l"), "obj_holywatercooler_enemy_slash_Step_0_gml_146_0");
++++
+                msgsetsubloc(0, "B~1b~2e", random_vowel, random_vowel2, "obj_holywatercooler_enemy_slash_Step_0_gml_146_0");
+%%%
+
+
+
+=== gml_Object_obj_room_castle_tv_rhythm_Create_0
+---
+    var _ranks = ["Z", "C", "B", "A", "S", "T"];
++++
+    var _ranks = [
+        stringsetloc("Z", "obj_round_evaluation_slash_Draw_0_gml_41_0"),
+        stringsetloc("C", "obj_round_evaluation_slash_Draw_0_gml_42_0"),
+        stringsetloc("B", "obj_round_evaluation_slash_Draw_0_gml_43_0"),
+        stringsetloc("A", "obj_round_evaluation_slash_Draw_0_gml_44_0"),
+        stringsetloc("S", "obj_round_evaluation_slash_Draw_0_gml_45_0"),
+        stringsetloc("T", "obj_round_evaluation_slash_Draw_0_gml_46_0")
+    ]
+%%%
+
+
+
+
+=== gml_Object_obj_mike_minigame_tv_Draw_0
+---
+    draw_text(330, 80, "HISCORE");
++++
+    var hiscore_label = stringsetloc("HISCORE", "obj_mike_controller_slash_Draw_0_gml_75_0_b");
+    hiscore_label = string_copy(hiscore_label, 1, string_length(hiscore_label) - 2);
+    draw_text(330, 80, hiscore_label);
+%%%
+
+---
+    draw_text(330, 110, "LAST SCORE");
++++
+    {
+        latestscore_label = stringsetloc("LAST SCORE", "obj_mike_controller_slash_Draw_0_gml_76_0_b")
+        var text_scale = min(1, 135 / string_width(latestscore_label))
+        draw_text_transformed(330, 110, latestscore_label, text_scale, 1, 0);
+    }
+%%%
+
+
+
+
+
+=== gml_Object_obj_mike_catbasket_Draw_0
+---
+    var xxx = (x - 64) + shift;
++++
+    var xxx = (x - 40) + shift;
+%%%
+
+---
+    draw_sprite_ext(spr_plueypoints, 0, xxx + 56, (y - digityoffset) + 50, 2, 2, 0, col, 1);
++++
+    draw_sprite_ext(spr_plueypoints, 0, xxx + 24, (y - digityoffset) + 68, 2, 2, 0, col, 1);
+%%%
+
+
+
+
+
+
+
+
+=== gml_Object_obj_elnina_rematch_enemy_Step_0
+---
+            global.actsimul[myself][2] = 1;
++++
+
+%%%
+
+---
+            msgsetloc(0, "* Took a warm hat to block snow!", "obj_elnina_rematch_enemy_slash_Step_0_gml_97_0");
+            scr_simultext("kris");
+
+            if (simulorderkri == 0) {
+                actcon = 20;
+            } else {
+                actcon = -1;
+            }
++++
+            var _textwrmht = stringsetloc("* Took a warm hat to block snow!", "obj_elnina_rematch_enemy_slash_Step_0_gml_97_0");
+            msgset(0, _textwrmht + "/%");
+            scr_battletext_default();
+            actcon = 1;
+%%%
+
+
+
+=== gml_Object_obj_lanino_rematch_enemy_Step_0
+---
+            global.actsimul[myself][2] = 1;
++++
+
+%%%
+
+---
+            msgsetloc(0, "* Took sunglasses to block suns!", "obj_lanino_rematch_enemy_slash_Step_0_gml_93_0");
+            scr_simultext("kris");
+
+            if (simulorderkri == 0) {
+                actcon = 20;
+            } else {
+                actcon = -1;
+            }
++++
+            var _textsnglss = stringsetloc("* Took sunglasses to block suns!", "obj_lanino_rematch_enemy_slash_Step_0_gml_93_0");
+            msgset(0, _textsnglss + "/%");
+            scr_battletext_default();
+            actcon = 1;
+%%%
+
+
+
+
+
+
+
+=== gml_Object_obj_dw_church_darkmaze_Step_2
+---#
+        var str1 = "* (Thar she blows...)/%";
+        var str2 = "* (It's going off to live a better life now...)/%";
+
+        if (global.lang == "ja")
+        {
+            str1 = "＊ (いた…！)/%";
+            str2 = "＊ (さようなら…　どうか達者で…)/%";
+        }
++++
+        var str1 = stringsetloc("* (Thar she blows...)/%", "obj_readable_room1_slash_Other_10_gml_796_0");
+        var str2 = stringsetloc("* (It's going off to live a better life now...)/%", "obj_readable_room1_slash_Other_10_gml_799_0");
+%%%
+
+
+
+
+
+=== gml_Object_obj_mike_controller_Draw_0
+---
+                    draw_text(140, 430, stringsetloc("I was born.", "obj_mike_controller_slash_Draw_0_gml_84_0"));
++++
+                    draw_text(166, 430, stringsetloc("I was born.", "obj_mike_controller_slash_Draw_0_gml_84_0"));
+%%%
+
+
+
+
+
+
+=== gml_Object_obj_fusionmenu_Step_0
+---
+menuX[0] = xx + 80
++++
+menuX[0] = xx + 80 - 32
+%%%
+
+---
+menuSpacingY[0] = 113
++++
+menuSpacingY[0] = 113;
+ menuTextXScale[0] = 216
+%%%
+
+---
+menuHeaderX[0][0] = ((xx + 120) - 20) + 14
++++
+menuHeaderX[0][0] = ((xx + 120) - 20) + 14 - 32
+%%%
+
+---
+menuHeaderX[0][1] = (xx + 320 + 20) - 10
++++
+menuHeaderX[0][1] = (xx + 320 + 20) - 10 - 16
+%%%
+
+---
+optionCommentAWidth[0][j] = 250
++++
+optionCommentAWidth[0][j] = 216
+%%%
+
+---
+optionCommentAXOffset[0][j] = 220
++++
+optionCommentAXOffset[0][j] = 236
+%%%
+
+---
+optionCommentBWidth[0][j] = 250
++++
+optionCommentBWidth[0][j] = 216
+%%%
+
+---
+optionCommentBXOffset[0][j] = 220
++++
+optionCommentBXOffset[0][j] = 236
+%%%
+
+---
+obj_npc_hammerguy.fusionResultName = fusionResultName[menuCoord[0]];
++++
+obj_npc_hammerguy.fusionResult = fusionResult[menuCoord[0]];
+obj_npc_hammerguy.fusionResultName = fusionResultName[menuCoord[0]];
+%%%
+
+
+
+
+=== gml_Object_obj_npc_hammerguy_Step_0
+---
+msgsetsubloc(0, "* (You got ~1!)/%", fusionResultName, "obj_npc_hammerguy_slash_Step_0_gml_251_0");
++++
+msgsetsubloc(0, "* (You got ~1!)/%", scr_item_localized_name_acc(fusionResult, fusionResultType, fusionResultName), "obj_npc_hammerguy_slash_Step_0_gml_251_0");
+%%%
+
+
+
+=== gml_Object_obj_choicer_neo_Step_0
+---
+var msg3width = string_width(string_hash_to_newline(global.choicemsg[3])) + (16 * dar);
++++
+var msg3width = 0;
+%%%
+
+---
+heartposx[3] = heartposx[2];
++++
+heartposx[3] = heartposx[2] + (string_width(string_hash_to_newline(global.choicemsg[2])) - string_width(string_hash_to_newline(global.choicemsg[3]))) / 2
+%%%
+
+
+
+

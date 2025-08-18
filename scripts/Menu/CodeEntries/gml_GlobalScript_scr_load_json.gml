@@ -1,0 +1,20 @@
+function scr_load_json(argument0)
+{
+    var filename = argument0
+    if file_exists(filename)
+    {
+        var file_buffer = buffer_load(filename)
+        if (buffer_get_size(file_buffer) == 0) {
+            show_message(string("'{0}' is empty.\nIt may happen due to bad file loading.\nPlease, reinstall mod via installer.", filename))
+            show_error(string("'{0}' is empty.\nIt may happen due to bad file loading.\nPlease, reinstall mod via installer.", filename))
+        }
+        var json = buffer_read(file_buffer, buffer_string)
+        buffer_delete(file_buffer)
+        return json_decode(json);
+    }
+    else
+    {
+        show_debug_message((("file: " + filename) + "does not exist"))
+        return json_decode("{}");
+    }
+}

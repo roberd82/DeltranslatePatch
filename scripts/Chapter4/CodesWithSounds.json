@@ -1,0 +1,41 @@
+{
+  "gml_GlobalScript_scr_spearshot": [
+    "snd_statue_left",
+    "snd_statue_right",
+    "snd_statue_up",
+    "snd_statue_down"
+  ],
+  "gml_Object_obj_ghosthouse_jackolantern_merciful_Step_0": [
+    "snd_jackolantern_laugh",
+    "snd_pumpkin_scream_mama",
+    "snd_your_too_bright"
+  ],
+  "gml_Object_obj_dw_church_jackenstein_pumpkinNPC_Step_0": [
+    "snd_jackolantern_laugh",
+    "snd_taking_too_long"
+  ],
+  "gml_Object_obj_ghosthouse_jackolantern_merciful_old_Step_0": [
+    "snd_your_too_bright"
+  ],
+  "gml_Object_obj_pumpkin_yell_proof_Step_0": [
+    "snd_pumpkin_scream_mama"
+  ],
+  "gml_Object_obj_pumpkin_yell_proof_CleanUp_0": [
+    "snd_pumpkin_scream_mama"
+  ],
+  "gml_Object_obj_ghosthouse_jackolantern_Step_0": [
+    "snd_jackolantern_laugh",
+    "snd_jackolantern_laugh_small",
+    "snd_long_only",
+    "snd_taking_too_long_small_fast",
+    "snd_your_long",
+    "snd_taking_too_long",
+    "snd_tutu_fast",
+    "snd_taking_tutu",
+    "snd_taking_too_long_small",
+    "snd_takingtoolongtoolong",
+    "snd_alt_takingtoolong",
+    "snd_taking_too_long_fast",
+    "snd_your_tutu"
+  ]
+}

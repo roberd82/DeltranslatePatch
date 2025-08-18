@@ -1,0 +1,62 @@
+{
+    "fnt_8bit": [
+        "gml_GlobalScript_scr_shop_space_display",
+        "gml_Object_obj_minigame_evaluation_Draw_0",
+        "gml_Object_obj_lw_town_sideb_choicer_Draw_0",
+        "gml_Object_obj_choicer_neo_Draw_0"
+    ],
+    "fnt_mainbig": [
+        "gml_Object_obj_intro_ch4_Draw_0",
+        "gml_GlobalScript_scr_shop_space_display",
+        "gml_Object_obj_title_placeholder_Draw_0",
+        "gml_Object_obj_proofread_controller_new_Draw_0",
+        "gml_Object_obj_mike_minigame_controller_Draw_0",
+        "gml_Object_obj_mike_minigame_tv_Draw_0",
+        "gml_Object_obj_bell_enemy_tuning_box_Draw_0",
+        "gml_Object_obj_ribbick_enemy_Draw_0",
+        "gml_Object_obj_yourlong_Draw_0",
+        "gml_Object_obj_takingtoolong_short_Draw_0",
+        "gml_Object_obj_dw_church_legender_Draw_0",
+        "gml_Object_obj_mike_controller_Draw_0",
+        "gml_Object_obj_gravity_text_Draw_0",
+        "gml_Object_obj_takingtoolong_Draw_0",
+        "gml_Object_obj_minigame_score_Draw_0",
+        "gml_Object_obj_elnina_bouncingbullet_Draw_0",
+        "gml_Object_obj_spritecomparer_Draw_0",
+        "gml_Object_obj_soundtester_Draw_0",
+        "gml_Object_obj_gif_analyzer_Draw_0"
+    ],
+    "fnt_main": [
+        "gml_GlobalScript_scr_rhythmgame_draw",
+        "gml_GlobalScript_scr_shop_space_display",
+        "gml_Object_obj_time_Draw_64",
+        "gml_Object_obj_title_placeholder_Draw_0",
+        "gml_Object_obj_heightfloor_depthmaster_Draw_0",
+        "gml_Object_obj_dw_rhythm_symbol_Draw_0",
+        "gml_Object_obj_mike_minigame_controller_Draw_0",
+        "gml_Object_obj_ribbick_enemy_Draw_0",
+        "gml_Object_obj_dw_countdown_Draw_0",
+        "gml_Object_obj_mike_attack_controller_Draw_0",
+        "gml_Object_obj_dw_churchb_man_Draw_0",
+        "gml_Object_obj_snd_maker_Draw_0",
+        "gml_Object_obj_gravity_text_Draw_0",
+        "gml_Object_obj_takingtoolong_Draw_0",
+        "gml_Object_obj_elnina_lanino_rematch_controller_Draw_0"
+    ],
+    "fnt_dotumche": [
+        "gml_Object_obj_halo_enemy_Draw_0"
+    ],
+    "fnt_small": [
+        "gml_Object_obj_mainchara_Draw_0",
+        "gml_Object_obj_overworldc_Draw_0",
+        "gml_Object_obj_title_placeholder_Draw_0",
+        "gml_Object_obj_bullettester_enemy_new_Draw_0",
+        "gml_Object_obj_bullettester_enemy_Draw_0",
+        "gml_Object_obj_church_statue_shatter_Draw_0"
+    ],
+    "fnt_comicsans": [
+        
+    ]
+}
+
+
