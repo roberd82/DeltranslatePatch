@@ -10,8 +10,8 @@ draw_text_transformed(xx_options + string_width(lang_choice_text) * scale, yy_op
 
 draw_text_transformed(xx_options, yy_options + yyoff_options / 3 * 2, 
     string(scr_get_lang_string("Current version - {0}; Latest available - {1}", "obj_lang_settings_10_0"), 
-        obj_gamecontroller.version_to_string(ds_map_find_value(obj_gamecontroller.last_translation_versions, global.lang)),
         obj_gamecontroller.version_to_string(ds_map_find_value(obj_gamecontroller.cur_translation_versions, global.lang)),
+        obj_gamecontroller.version_to_string(ds_map_find_value(obj_gamecontroller.last_translation_versions, global.lang)),
     )
 , scale * 0.5, scale * 0.5, 0)
 
