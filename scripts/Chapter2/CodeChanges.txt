@@ -201,6 +201,25 @@ optionCommentBXOffset[0][j] = 220
 optionCommentBXOffset[0][j] = 236
 %%%
 
+---
+            obj_npc_hammerguy.fusionResultName = fusionResultName[menuCoord[0]];
++++
+            obj_npc_hammerguy.fusionResult = fusionResult[menuCoord[0]];
+            obj_npc_hammerguy.fusionResultName = fusionResultName[menuCoord[0]];
+%%%
+
+
+
+
+
+=== gml_Object_obj_npc_hammerguy_Step_0
+---
+msgsetsubloc(0, "* (You got ~1!)/%", fusionResultName, "obj_npc_hammerguy_slash_Step_0_gml_251_0");
++++
+msgsetsubloc(0, "* (You got ~1!)/%", scr_item_localized_name_acc(fusionResult, fusionResultType, fusionResultName), "obj_npc_hammerguy_slash_Step_0_gml_251_0");
+%%%
+
+
 
 
 === gml_Object_DEVICE_FAILURE_Step_0

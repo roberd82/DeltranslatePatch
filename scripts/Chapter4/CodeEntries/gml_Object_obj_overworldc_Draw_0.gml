@@ -128,7 +128,7 @@ if (global.interact == 5)
         var armor_w = string_width(armorname)
         var without_weapon_w = string_width(weapon_str_without)
         var without_armor_w = string_width(armor_str_without)
-        var weapon_scale = min(1, (150 + 36 - without_weapon_w) / weapon_w)
+        var weapon_scale = min(1, (146 + 36 - without_weapon_w) / weapon_w)
         var armor_scale = min(1, (150 + 36 - without_armor_w) / armor_w)
         
         draw_text(108 + xx, 156 + yy, weapon_str_without);

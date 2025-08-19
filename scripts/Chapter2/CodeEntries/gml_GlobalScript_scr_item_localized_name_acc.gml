@@ -76,7 +76,7 @@ function scr_item_localized_name_acc(argument0, argument1, argument2) //gml_Scri
     }
 
     // Броня
-    if (argument1 == 1)
+    if (argument1 == 1 || argument1 == "armor")
     switch item {
         case 0:
             return stringsetloc(stringsetloc(" ", "scr_armorinfo_slash_scr_armorinfo_gml_7_0"), "scr_armorinfo_slash_scr_armorinfo_gml_7_1")
@@ -127,7 +127,7 @@ function scr_item_localized_name_acc(argument0, argument1, argument2) //gml_Scri
     }
 
     // Оружие
-    if (argument1 == 2)
+    if (argument1 == 2 || argument1 == "weapon")
     switch item {
         case 0:
             return stringsetloc(stringsetloc(" ", "scr_weaponinfo_slash_scr_weaponinfo_gml_11_0"), "scr_weaponinfo_slash_scr_weaponinfo_gml_11_1")
@@ -178,7 +178,7 @@ function scr_item_localized_name_acc(argument0, argument1, argument2) //gml_Scri
     }
 
     // Ключевые предметы
-    if (argument1 == 3)
+    if (argument1 == 3 || argument1 == "key")
     switch item {
         case 0:
             return stringsetloc(stringsetloc(" ", "scr_keyiteminfo_slash_scr_keyiteminfo_gml_10_0"), "scr_keyiteminfo_slash_scr_keyiteminfo_gml_10_1")

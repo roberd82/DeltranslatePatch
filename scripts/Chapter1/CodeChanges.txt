@@ -1,12 +1,3 @@
-=== gml_Object_obj_overworldc_Draw_0
----
-draw_set_font(fnt_small)
-+++
-scr_84_set_draw_font("small")
-%%%
-
-
-
 === gml_Object_obj_shop1_Draw_0
 ---
 "$" + string_hash_to_newline(string(global.gold))

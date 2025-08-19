@@ -1,4 +1,8 @@
 {
+    "2.0.1": {
+        "description": "- Fixed light world stat menu.",
+        "description_ru": "- Поправил меню статистик\nв главном меню."
+    },
     "2.0.0": {
         "description": "- Finally, release.",
         "description_ru": "- Наконец, релиз."
