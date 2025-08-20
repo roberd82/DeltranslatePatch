@@ -82,23 +82,37 @@ for (var ind = 0; ind < array_length(langs_loading); ind++) {
 }
 
 var filenames = ds_map_keys_to_array(files_in_upload);
-for (var ind = 0; ind < array_length(filenames); ind++) {
+for (var ind = 0; ind < array_length(filenames); ind++)
+{
     if (ds_map_find_value(async_load, "id") == ds_map_find_value(files_in_upload, filenames[ind]))
     {
-        if (ds_map_find_value(async_load, "status") == 0) {
-            if (loading_error == "") {
-                array_push(loaded_files, filenames[ind])
-                if (array_length(loaded_files) == array_length(filenames)) {
-                    copy_files_from_tmp()
-                }
-            } else {
-                clear_tmp()
+        if (ds_map_find_value(async_load, "status") == 0)
+        {
+            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + filenames[ind]);
+            
+            if (buffer_get_size(file_buffer) == 0)
+            {
+                loading_error = "408";
+                loading_new_translation_files = false;
             }
-        } else if (ds_map_find_value(async_load, "status") < 0) {
+            
+            if (loading_error == "")
+            {
+                array_push(loaded_files, filenames[ind]);
+                
+                if (array_length(loaded_files) == array_length(filenames))
+                    copy_files_from_tmp();
+            }
+            else
+            {
+                clear_tmp();
+            }
+        }
+        else if (ds_map_find_value(async_load, "status") < 0)
+        {
             loading_error = string(ds_map_find_value(async_load, "http_status"));
             loading_new_translation_files = false;
-            
-            clear_tmp()
+            clear_tmp();
         }
     }
 }

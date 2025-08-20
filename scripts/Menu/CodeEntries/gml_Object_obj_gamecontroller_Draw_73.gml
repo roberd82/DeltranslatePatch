@@ -5,7 +5,7 @@ var update_string = ""
 
 var can_tr_be_loaded = false
 
-if (array_length(loaded_files) > 0 && !loading_new_translation_files) {
+if ((array_length(loaded_files) > 0 && !loading_new_translation_files) || loading_error != "") {
     if (loading_error == "") {
         update_string = string(
             scr_get_lang_string("Succesfully updated to version {0}.\nHave a nice play.", "obj_gamecontroller_Draw_73_4_0"), 
@@ -20,10 +20,9 @@ if (array_length(loaded_files) > 0 && !loading_new_translation_files) {
     if (!panel_visible) {
         update_string = ""
     }
-
 }
 
-if (is_version_greater(ds_map_find_value(last_translation_versions, global.lang), ds_map_find_value(cur_translation_versions, global.lang)))
+if (loading_error == "" && is_version_greater(ds_map_find_value(last_translation_versions, global.lang), ds_map_find_value(cur_translation_versions, global.lang)))
 {
     can_tr_be_loaded = true;
 
