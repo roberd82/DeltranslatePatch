@@ -1439,6 +1439,17 @@ if (rand == 9 && global.lang != "ja") {
     _textscale = min(1, 126 / string_width(str1))
 %%%
 
+---#
+draw_text_ext_transformed(_x, _y - 80 - 16, str1, 9999, 9999, 1, 1, 0);
+draw_text_ext_transformed(_x, _y - 16, str2, 9999, 9999, 1, 1, 0);
+draw_text_ext_transformed(_x, (_y + 80) - 16, str3, 9999, 9999, 1, 1, 0);
++++
+var _textscale = min(1, 126 / string_width(str1));
+draw_text_ext_transformed(_x, _y - 80 - 16, str1, 9999, 9999, _textscale, 1, 0);
+draw_text_ext_transformed(_x, _y - 16, str2, 9999, 9999, _textscale, 1, 0);
+draw_text_ext_transformed(_x, (_y + 80) - 16, str3, 9999, 9999, _textscale, 1, 0);
+%%%
+
 
 
 
