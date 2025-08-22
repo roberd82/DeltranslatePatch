@@ -21,7 +21,9 @@ jobs:
 
       - name: Create "lang.zip" ("fast" compression)
         run: |
-          zip lang.zip ./lang/en
+          cd lang
+          zip lang.zip ./en -r
+          cd ..
           
       - name: Move "latest" tag to current commit
         run: |
@@ -90,7 +92,7 @@ jobs:
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./lang.zip
+          asset_path: ./lang/lang.zip
           asset_name: lang.zip
 
       - name: Upload translation_changes.json
