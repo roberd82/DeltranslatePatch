@@ -3,7 +3,7 @@
         {
             "name": "English (default)",
             "code": "en",
-            "info_url": "https://raw.githubusercontent.com/Lazy-Desman/DeltranslatePatch/refs/heads/main/lang_info.json"
+            "info_url": "https://raw.githubusercontent.com/Lazy-Desman/EngDeltranslatePack/refs/heads/main/lang_info.json"
         },
         {
             "name": "Русский",
