@@ -296,7 +296,8 @@ If you wish your language to be included as a part of Deltranslate Project, you 
 {
     "name": "Your language name",
     "description": "Your language description",
-    "download_url": "https://path_to_lang.zip/file/lang.zip"
+    "download_url": "https://path_to_lang.zip/file/lang.zip",
+	"link": "https://link_to_your_social_media.com"
 }
 ```
 
