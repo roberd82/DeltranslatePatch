@@ -40,7 +40,7 @@ Link to your social media (if needed).
 Set true if you want dialogues looks like in original with monospaced symbols. Highly unrecommended for languages with w i d e characters.
 It also change limitations from 33 and 26 (for faces) symbols per line to 33\*8 = 264 and 26\*8 = 208 pixels per line, so more symbols should fit in one line.
 
-https://imgur.com/m7Pwi2c
+![Monospace and non-monospace image](https://imgur.com/m7Pwi2c.png)
 
 `special_mode`
 If true, adds button "Special: " in language config menu that allows players to switch between usual strings and special string (string, that starts from "sp_")
