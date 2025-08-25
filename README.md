@@ -1,4 +1,4 @@
-<img width="1165" height="127" alt="image" src="https://github.com/user-attachments/assets/0f40c61f-3fd6-4815-b2a7-de875ac0f443" /># Deltranslate Mod v2.0 by Neprim
+# Deltranslate Mod v2.0 by Neprim
 ```
 Contacts: 
 Discord: @neprim
