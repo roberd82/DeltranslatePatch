@@ -1,4 +1,4 @@
-# Deltranslate Mod v2.0 by Neprim
+<img width="1165" height="127" alt="image" src="https://github.com/user-attachments/assets/0f40c61f-3fd6-4815-b2a7-de875ac0f443" /># Deltranslate Mod v2.0 by Neprim
 ```
 Contacts: 
 Discord: @neprim
@@ -40,7 +40,7 @@ Link to your social media (if needed).
 Set true if you want dialogues looks like in original with monospaced symbols. Highly unrecommended for languages with w i d e characters.
 It also change limitations from 33 and 26 (for faces) symbols per line to 33\*8 = 264 and 26\*8 = 208 pixels per line, so more symbols should fit in one line.
 
- ![Monospace and non-monospace image](https://imgur.com/m7Pwi2c)
+https://imgur.com/m7Pwi2c
 
 `special_mode`
 If true, adds button "Special: " in language config menu that allows players to switch between usual strings and special string (string, that starts from "sp_")
