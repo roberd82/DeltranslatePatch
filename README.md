@@ -109,6 +109,8 @@ Link to root for your language files pack, including pack folder. For example, i
 `line_height_factor`
 Multiplies line height in dialogues by this value. Can be used for adding forth line in dialogues if you need so.
 
+![line](https://imgur.com/aPO3Mel.png)
+
 ## chapter_settings.json
 (all settings here are optional and listed in `en` folder only as example)
 
