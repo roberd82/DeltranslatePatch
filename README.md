@@ -43,16 +43,27 @@ It also change limitations from 33 and 26 (for faces) symbols per line to 33\*8 
 ![Monospace and non-monospace image](https://imgur.com/m7Pwi2c.png)
 
 `special_mode`
-If true, adds button "Special: " in language config menu that allows players to switch between usual strings and special string (string, that starts from "sp_")
+If true, adds button "Special Mode: " in language config menu that allows players to switch between usual strings and special string (string, that starts from "sp_")
+
+ ![Special mode image](https://imgur.com/To8KhR5.png)
+
 For example:
-"scr_something": "Usual Deltarune"
+```json
+"scr_something": "Usual Deltarune",
 "sp_scr_something": "Very Special Deltarune"
+```
+ ![Special mode image](https://imgur.com/KmGuRot.png)
+
 Sprites and sounds are also affected by this setting if you copy them with "sp_" prefix.
 
- ![Special mode image](https://deltarune.com/assets/images/dog-sleep.gif)
+ ![Special mode image](https://imgur.com/EC7ZnKd.png)
 
 `enable_translated_voices_switch`
-If true, adds button "Translated Voices: " in language config menu that allows players to switch between translated songs (if you have ones) and original ones. This setting includes following files (they all lie in en folder):
+If true, adds button "Translated Voices: " in language config menu that allows players to switch between translated songs (if you have ones) and original ones.
+
+![](https://imgur.com/UIZGKpK.png)
+
+This setting includes following files (they all lie in en folder):
 
 Chapter 1:
 `AUDIO_INTRONOISE.ogg`, `dontforget.ogg`, `snd_joker_anything.ogg`, `snd_joker_chaos.ogg`, `snd_joker_metamorphosis.ogg`, `snd_joker_neochaos.ogg`, `snd_joker_laugh0.ogg`, `snd_joker_laugh1.ogg`, `snd_joker_ha0.ogg`, `snd_joker_ha1.ogg`, `snd_joker_oh.ogg`, `snd_joker_byebye.ogg`
@@ -74,7 +85,7 @@ Chapter 4:
 
 If some strings or sprites depends on voices switch, you can add `spm_` prefixed ones that would be used instead of base ones if translated voices are disabled. For example, it can be used for using different strings in Jackenstein battle if you adapt tutu jokes for your language but they wouldn't make sense without translated voices.
 
- ![spm_ usage image](https://deltarune.com/assets/images/dog-sleep.gif)
+ ![spm_ usage image](https://imgur.com/Km06Xbf.png)
  
 `translate_mode`
 If true, allows you to switch to translate mode (U) that allows you: 
@@ -141,22 +152,57 @@ Chapter 1:
 `boob`
 Defines what sprites would be used in the end of the first Chapter ("spr_blockler_" + corresponding letter). *Yeah, I really added that option.*
 
+![boob](https://imgur.com/Q64mAr1.png)
 
 Chapter 2:
 
 `welcome_sign_x1"/"welcome_sign_x2`:
 Xs for "Welcome to the City" sign's lights. First X for letter's start x, second for end x.
 
+![Welcome to the City](https://imgur.com/WSmanFu.png)
 
 `button_sounds_symbols`
 Sounds for buttons with letter. Just list all the letters you use in puzzles and don't forget to add appropriate sound files in sounds/button_sounds. All sounds MUST be in .ogg format (strangely, but the game just can't read another formats). If you don't change puzzle or use only english sounds, just keep english "button_sounds_symbols" - will be used original sounds.
 
+![buttons](https://imgur.com/XdMaKx2.png)
 
 `only_one_tutoriel`
 If you need only one pixel Toriel in Kris's room in the mansion for a good pun adaptation, set this parameter to 1
 
+![One Toriel](https://imgur.com/NBGqOhO.png)
 
 Chapter 3:
+
+`logo_pieces_pos`
+Positions for appearing pieces of logo for chapter 3 intro.
+
+For example, let's take the English logo to show how it works:
+```json
+    "logo_pieces_pos": [
+        [48, 21, 83, 33],
+        [252, 19, 93, 23],
+        [76, 19, 93, 23],
+        [226, 19, 93, 23],
+        [102, 7, 83, 33],
+        [200, 19, 93, 23],
+        [116, 19, 83, 33],
+        [174, 19, 93, 23],
+        [142, 25, 93, 23]
+    ],
+```
+Let's take the first element as an example, which corresponds to the letter "d":
+`[48, 21, 83, 33]`
+- 48 — Distance from the left side
+- 21 — Width
+- 83 — Distance from the top
+- 33 — Height
+
+![Intro](https://imgur.com/H6oyM8u.png)
+
+In the picture, you can see my calculations. You might wonder why I subtract 1 from the width and height. Honestly, I don't know the exact reason, but that's how Gamemaker works: if you calculate a width of 22, you need to subtract 1 to make it look correct. This rule applies only to width and height, not to the coordinates.
+
+Important: all calculations must be done using an image with a resolution of 320x240.
+Since the game usually runs at 1280x960, you need to take a screenshot and scale it down exactly 3 times to make the coordinate and size calculations accurate.
 
 ```json
 "additional_funny_words": [
@@ -169,17 +215,19 @@ Chapter 3:
 ```
 ↑ You can add additional funny words and sounds for Tenna's strings if you need so. Just add them in arrays if needed and add `{I:spr_funnytext_something}` for images or `{S:snd_something}` for sounds.
 
+For example:
+
+```json
+    "obj_ch3_GSA04_slash_Step_0_gml_230_0": "* Kris^1, your mother used to {I:spr_funnytext_something}{S:snd_something} cooking shows^1, didn't she?/%",
+```
+
 `video_caption_times`
 Timings for Tenna's VHS intro.
 
 `input_game_name_chars`
 Alphabet for game podium name input.
 
-`button_sounds_symbols`
-Sounds for buttons with letter. Just list all the letters you use in puzzles and don't forget to add appropriate sound files in sounds/button_sounds. All sounds MUST be in .ogg format (strangely, but the game just can't read another formats). If you don't change puzzle or use only english sounds, just keep english "button_sounds_symbols" - will be used original sounds.
-
-`tvlangfont_string`
-Used for making font from `spr_tvlandfont` that used in Green Room Minigames Room for running line.
+![Podium](https://imgur.com/VPtNXsU.png)
 
 `kri_word`
 "KRI" word for podium reaction.
@@ -208,14 +256,25 @@ Words that fit corresponding schemas are not allowed to be entered in podium.
 `its_tv_time_lights_xs`
 Right Xs for "ITS TV TIME" sign's lights.
 
+![tv time](https://imgur.com/80v0yLU.png)
+
 `tv_time_timestamps`
 "It's TV Time!" timings.
+
+`button_sounds_symbols`
+Sounds for buttons with letter. Just list all the letters you use in puzzles and don't forget to add appropriate sound files in sounds/button_sounds. All sounds MUST be in .ogg format (strangely, but the game just can't read another formats). If you don't change puzzle or use only english sounds, just keep english "button_sounds_symbols" - will be used original sounds.
+
+![Button](https://imgur.com/iSjrP0U.png)
+
+`tvlangfont_string`
+Used for making font from `spr_tvlandfont` that used in Green Room Minigames Room for running line.
+
+![Tv land font](https://imgur.com/phi6vAK.gif)
 	
 `t_pose_offset`
 X offset for spinning Tenna in secret T-rank room.
 
-`logo_pieces_pos`
-Positions for appearing pieces of logo for chapter 3 intro.
+![T-V POSE](https://imgur.com/1MSdEpZ.png)
 
 `lyrics_chart_raise_up_your_bat`
 Timings for "Raise up your bat" Ralsei's lyric charts.
@@ -286,7 +345,8 @@ If you want to make new version of translation (and make it automatically downlo
 ```
 
 So, how it works. The game downloads `files_url` + `changes.json` file from server and compares it with local `lang/your_lang/changes.json`. If some versions on server are greater than local ones, the game suggests to user to download new translation files:
-![Language update notification image](https://deltarune.com/assets/images/dog-sleep.gif)
+
+![Language update notification image](https://imgur.com/Yb7bKhx.gif)
 
 If user press `G`, files stated in greater versions are downloaded from `files_url` + `files_path`. New `changes.json` and `settings.json` are downloaded too.
 
@@ -302,6 +362,6 @@ If you wish your language to be included as a part of Deltranslate Project, you 
 ```
 
 It makes possible for your language pack to be downloaded in installer or directly in the game:
-![Language downloading image](https://deltarune.com/assets/images/dog-sleep.gif)
+![Language downloading image](https://imgur.com/CnxNHM8.gif)
 
 Ask @neprim in [Deltranslate Discord Server](https://discord.com/invite/K98BzHZG9P) for this.
