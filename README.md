@@ -199,11 +199,6 @@ Let's take the first element as an example, which corresponds to the letter "d":
 
 ![Intro](https://imgur.com/H6oyM8u.png)
 
-In the picture, you can see my calculations. You might wonder why I subtract 1 from the width and height. Honestly, I don't know the exact reason, but that's how Gamemaker works: if you calculate a width of 22, you need to subtract 1 to make it look correct. This rule applies only to width and height, not to the coordinates.
-
-Important: all calculations must be done using an image with a resolution of 320x240.
-Since the game usually runs at 1280x960, you need to take a screenshot and scale it down exactly 3 times to make the coordinate and size calculations accurate.
-
 ```json
 "additional_funny_words": [
 	"spr_funnytext_star2",
