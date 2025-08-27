@@ -5,8 +5,15 @@ Discord: @neprim
 Deltranslate Discord Server: https://discord.com/invite/K98BzHZG9P
 ```
 
-
 `en` folder means using `https://github.com/Lazy-Desman/EngDeltranslatePack/en` as template.
+
+- Fast-check:
+  - [Fonts](#fonts)
+  - [settings.json](#settingsjson)
+  - [chapter_settings.json](#chapter_settingsjson)
+  - [changes.json](#changesjson)
+  - [lang_info.json](#lang_infojson)
+
 ## Fonts
 
 You can (and should if you have characters other from base Latin) add your own fonts by putting them into `fonts` folder. If you don't have them, you can copy those from en folder and add characters that you want to them via any font editor. Font sizes that game uses are:
