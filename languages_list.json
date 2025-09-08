@@ -9,6 +9,16 @@
             "name": "Русский",
             "code": "ru",
             "info_url": "https://raw.githubusercontent.com/Lazy-Desman/DeltaruneRus/refs/heads/main/lang_info.json"
+        },
+        {
+            "name": "Magyar",
+            "code": "hu",
+            "info_url": "https://gitea.roberd.me/roberd82/deltarune-magyar-lokalizacio/raw/branch/main/lang_info.json"
+        },
+        {
+            "name": "Argentina",
+            "code": "DELTARUNE-ARGENTINO",
+            "info_url": "https://raw.githubusercontent.com/deltarune-arg/ArgDeltranslate/refs/heads/main/lang_info.json"
         }
     ]
 }
