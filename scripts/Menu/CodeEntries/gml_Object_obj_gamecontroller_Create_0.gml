@@ -12,6 +12,8 @@ gamepad_type = "";
 
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 
+global.lang_folder = working_directory + "lang/"
+
 if (!variable_global_exists("gamepad_type"))
     global.gamepad_type = "N/A";
 
