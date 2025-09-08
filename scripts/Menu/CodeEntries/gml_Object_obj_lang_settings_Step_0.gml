@@ -12,66 +12,83 @@ if (up_p()) {
     audio_play_sound(snd_menumove, 50, 0)
 }
 
-if (option == 0) {
-    if (right_p() || left_p()) {
-        change_language(right_p() - left_p())
+if (!language_downloading) {
+    if (option < options_count) {
+        if (options[option] == "language" || options[option] == "language_not_downloaded") {
+            if (right_p() || left_p()) {
+                audio_play_sound(snd_menumove, 50, 0)
 
-        config_text = scr_get_lang_string("LANGUAGE CONFIG", "obj_lang_settings_1_0")
-        return_text = scr_get_lang_string("Return", "obj_lang_settings_2_0")
-        yes_text = scr_get_lang_string("Yes", "obj_lang_settings_3_0")
-        no_text = scr_get_lang_string("No", "obj_lang_settings_4_0")
-        lang_choice_text = scr_get_lang_string("Language", "obj_lang_settings_5_0") + ": "
-        spec_mode_text = scr_get_lang_string("Special Mode", "obj_lang_settings_6_0") + ": "
-        tr_songs_text = scr_get_lang_string("Translated Songs", "obj_lang_settings_7_0") + ": "
-        spec_mode_desc_disabled = scr_get_lang_string("Special Mode disabled\ndescription (leave space\nif no need)", "obj_lang_settings_8_0")
-        spec_mode_desc_enabled = scr_get_lang_string("Special Mode enabled\ndescription (leave space\nif no need)", "obj_lang_settings_9_0")
-        
-        options_count = 1
+                cur_lang_ind = (cur_lang_ind + (right_p() - left_p()) + langs_amount) % langs_amount;
+                if (cur_lang_ind < array_length(global.langs_names)) {
+                    change_language(global.langs_names[cur_lang_ind])
+                    last_lang = global.lang
 
-        spec_mode_switch = false
-        translated_songs_switch = false
+                    update_strings()
+                    options_count = array_length(options)
+                } else {
+                    change_language("pseudo_en")
 
-        if (get_lang_setting("special_mode")) {
-            options_count++
-            spec_mode_switch = true
+                    update_strings()
+                    options = ["language_not_downloaded", "download"]
+                    options_count = array_length(options)
+                }
+            }
+            if (button1_p()) {
+                if (cur_lang_ind < array_length(global.langs_names)) {
+                    var link = get_lang_setting("link", "")
+                    if (link != "") {
+                        audio_play_sound(snd_menumove, 50, 0)
+                        url_open(link)
+                    }
+                }
+            }
+        } else
+
+        if (options[option] == "special_mode") {
+            if (left_p() || right_p() || button1_p()) {
+                ossafe_ini_open("true_config.ini")
+                global.special_mode = !global.special_mode
+                ini_write_string("LANG", "special_mode", global.special_mode)
+                ossafe_ini_close()
+                ossafe_savedata_save()
+
+                audio_play_sound(snd_menumove, 50, 0)
+            }
+        } else
+
+        if (options[option] == "enable_translated_songs_switch") {
+            if (left_p() || right_p() || button1_p()) {
+                ossafe_ini_open("true_config.ini")
+                global.translated_songs = !global.translated_songs
+                ini_write_string("LANG", "translated_songs", global.translated_songs)
+                ossafe_ini_close()
+                ossafe_savedata_save()
+
+                audio_play_sound(snd_menumove, 50, 0)
+            }
+        } else
+
+        if (options[option] == "download") {
+            if (button1_p()) {
+                audio_play_sound(snd_menumove, 50, 0)
+                
+                language_downloading = true
+                loading_error = ""
+                unzipping_error = ""
+                var url =  variable_struct_get(global.languages_list[non_downloaded_langs[cur_lang_ind - array_length(global.langs_names)]], "download_url")
+
+                language_downloading_call = http_get_file(url, "\\\\?\\" + program_directory + "tmp/lang.zip")
+            }
         }
+    } else
 
-        if (get_lang_setting("enable_translated_songs_switch")) {
-            options_count++
-            translated_songs_switch = true
-        }
-        
-        yy_spec_mode_desc = yy_options + yyoff_options * options_count
-
+    if (option == options_count && button1_p()) {
         audio_play_sound(snd_menumove, 50, 0)
+        change_language(last_lang)
+        room_restart()
     }
-}
-
-if (spec_mode_switch && option == 1) {
-    if (left_p() || right_p() || button1_p()) {
-        ossafe_ini_open("true_config.ini")
-        global.special_mode = !global.special_mode
-        ini_write_string("LANG", "special_mode", global.special_mode)
-        ossafe_ini_close()
-        ossafe_savedata_save()
-
-        audio_play_sound(snd_menumove, 50, 0)
+} else {
+    if (button1_p()) {
+        audio_play_sound(snd_swing, 50, 0)
     }
-}
-
-if (translated_songs_switch && option == spec_mode_switch + 1) {
-    if (left_p() || right_p() || button1_p()) {
-        ossafe_ini_open("true_config.ini")
-        global.translated_songs = !global.translated_songs
-        ini_write_string("LANG", "translated_songs", global.translated_songs)
-        ossafe_ini_close()
-        ossafe_savedata_save()
-
-        audio_play_sound(snd_menumove, 50, 0)
-    }
-}
-
-if (option == options_count && button1_p()) {
-    audio_play_sound(snd_menumove, 50, 0)
-    room_restart()
 }
