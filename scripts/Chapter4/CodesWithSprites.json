@@ -166,6 +166,9 @@
   "gml_Object_obj_mike_catbasket_Draw_0": [
     "spr_plueypoints"
   ],
+  "gml_Object_obj_room_castle_tv_rhythm_Create_0": [
+    "spr_npc_plugboy"
+  ],
   "gml_GlobalScript_scr_rhythmgame_draw": [
     "spr_bnamekris",
     "spr_bnamesusie",

@@ -1,3 +1,8 @@
+if (os_type == os_android) {
+    global.savepath = (os_type == os_android) ? get_external_files_dir() : "";
+    instance_create_depth(0, 0, 0, obj_mobilecontrols);
+}
+
 global.debug = 0;
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 
@@ -14,6 +19,7 @@ _restart_room = false;
 _launch_data = scr_init_launch_parameters();
 _pending_titles = [];
 _pending_title = -4;
+_load_type = UnknownEnum.Value_0;
 
 init = function()
 {
@@ -190,6 +196,27 @@ create_load_prompt_screen = function(arg0)
     start_screen.fade_in();
 };
 
+create_load_prompt_multiple_screen = function(arg0)
+{
+    var load_text = scr_get_lang_string("Multiple DELTARUNE Save Files found.\nWould you like to import one of these?\n(This will only be asked once.)\n \n ", "gml_Object_obj_CHAPTER_SELECT_Create_0_11");
+    
+    var choices = [];
+    
+    for (var i = 0; i < array_length(arg0); i++)
+    {
+        var prev_title = arg0[i];
+        var title_choice = scr_get_app_title_choice_text(prev_title.title);
+        var new_choice = new create_choice(title_choice, prev_title);
+        choices[array_length(choices)] = new_choice;
+    }
+    
+    var do_not_text = scr_get_lang_string("Do Not Import", "gml_Object_obj_CHAPTER_SELECT_Create_0_12");
+    choices[array_length(choices)] = new create_choice(do_not_text, UnknownEnum.Value_1);
+    var start_screen = instance_create(0, 0, obj_screen_start);
+    start_screen.init(id, load_text, choices, 0, -32);
+    start_screen.fade_in();
+};
+
 create_load_deny_confirm_screen = function()
 {
     var deny_text = scr_get_lang_string("Proceed without importing?", "gml_Object_obj_CHAPTER_SELECT_Create_0_10");
@@ -207,8 +234,10 @@ trigger_event = function(arg0, arg1)
     var event_name = arg0;
     var event_value = arg1;
 
-    if (obj_gamecontroller.loading_new_translation_files)
+    if (obj_gamecontroller.loading_new_translation_files) {
+        audio_play_sound(snd_swing, 50, 0)
         return;
+    }
     
     switch (_current_state)
     {
@@ -230,14 +259,34 @@ trigger_event = function(arg0, arg1)
                 with (obj_init_console)
                     convert_loaded_file();
             }
-            else if (array_length(_pending_titles) > 0)
+            else if (event_value == UnknownEnum.Value_1)
             {
-                change_state(UnknownEnum.Value_0);
-                trigger_event("load_prompt", _pending_titles);
+                if (_load_type == UnknownEnum.Value_0)
+                {
+                    if (array_length(_pending_titles) > 0)
+                    {
+                        change_state(UnknownEnum.Value_0);
+                        trigger_event("load_prompt", _pending_titles);
+                    }
+                    else
+                    {
+                        change_state(UnknownEnum.Value_6);
+                    }
+                }
+                else
+                {
+                    change_state(UnknownEnum.Value_6);
+                }
             }
             else
             {
-                change_state(UnknownEnum.Value_6);
+                _pending_title = event_value;
+                global.savedata = _pending_title.save_data;
+                _restart_room = true;
+                change_state(UnknownEnum.Value_0);
+                
+                with (obj_init_console)
+                    convert_loaded_file();
             }
             
             break;
@@ -349,7 +398,6 @@ launch_game = function(arg0)
 {
     audio_stop_all();
     var chapstring = string(_target_chapter);
-    show_debug_message("Attempting to launch Chapter " + string(arg0));
     var parameters = get_chapter_switch_parameters();
     
     if (scr_is_switch_os())
@@ -374,6 +422,10 @@ launch_game = function(arg0)
             
             case os_macosx:
                 game_change("chapter" + chapstring + "_mac", parameters);
+                break;
+            
+            case os_android:
+                game_change_ext("ch" + chapstring);
                 break;
         }
     }

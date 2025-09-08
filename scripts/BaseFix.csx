@@ -283,7 +283,7 @@ async Task SaveEntries()
         if (!result.Successful)
         {
             ScriptMessage("Ошибка при компиляции:\n" + result.PrintAllErrors(true));
-            // File.WriteAllText(Path.Combine(scriptFolder, "test.txt"), text);
+            // File.WriteAllText(Path.Combine(scriptFolder, "test.txt"), changedCodes["gml_Object_obj_lanino_rematch_enemy_Step_0"]);
             // ScriptMessage("Ошибка при компиляции кода '" + code.Name.Content + "'");
         }
 
@@ -324,6 +324,9 @@ if (obj_lang_settings == null) {
     AddNewEvent(obj_lang_settings, EventType.Create, 0, "");
     AddNewEvent(obj_lang_settings, EventType.Step, 0, "");
     AddNewEvent(obj_lang_settings, EventType.Draw, 0, "");
+    AddNewEvent(obj_lang_settings, EventType.Draw, 0, "");
+    if (File.Exists(scriptFolder + "CodeEntries/gml_Object_obj_lang_settings_Other_62.gml"))
+        AddNewEvent(obj_lang_settings, EventType.Other, (uint)EventSubtypeOther.AsyncHTTP, @"");
 }
 
 // Режим переводчика
@@ -518,7 +521,7 @@ if (File.Exists(scriptFolder + "RoomsWithBacksLayers.json"))
     string json = r.ReadToEnd();
     jsonRooms = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, List<Dictionary<string, string>>>>(json);
 }
-if (File.Exists(scriptFolder + "RoomsWithBacksLayers.json"))
+if (File.Exists(scriptFolder + "CodesWithSounds.json"))
 {
     using StreamReader r = new StreamReader(scriptFolder + "CodesWithSounds.json");
     string json = r.ReadToEnd();

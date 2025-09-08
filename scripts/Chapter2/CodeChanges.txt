@@ -50,6 +50,13 @@ window_set_caption(stringsetloc("DOGTARUNE", "PROCESS_DOG_Create_0_0"))
 stringsetsubloc("$~1", string(global.gold), "obj_shop1_slash_Draw_0_gml_1_0")
 %%%
 
+---
+        draw_text(300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop1_slash_Draw_0_gml_143_0")));
++++
+        draw_set_halign(fa_right)
+        draw_text(300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop1_slash_Draw_0_gml_143_0")));
+        draw_set_halign(fa_left)
+%%%
 
 
 === gml_Object_obj_shop2_Draw_0
@@ -58,6 +65,16 @@ stringsetsubloc("$~1", string(global.gold), "obj_shop1_slash_Draw_0_gml_1_0")
 +++
 stringsetsubloc("$~1", string(global.gold), "obj_shop2_slash_Draw_0_gml_1_0")
 %%%
+
+---
+        draw_text(300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop2_slash_Draw_0_gml_113_0")));
++++
+        draw_set_halign(fa_right)
+        draw_text(300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop1_slash_Draw_0_gml_113_0")));
+        draw_set_halign(fa_left)
+%%%
+
+
 
 
 
@@ -107,6 +124,76 @@ draw_set_font(scr_84_get_font("mainbig"))
 stringsetsubloc("$~1", string(global.gold), "obj_shop_ch2_music_Draw_0_gml_1_0")
 %%%
 
+---
+        draw_text(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]));
++++
+        var text_scale = min(1, 226 / string_width(string_hash_to_newline(shopitemname[i])))
+        draw_text_transformed(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]), text_scale, 1, 0);
+%%%
+
+---
+        draw_text(300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_ch2_music_slash_Draw_0_gml_250_0")));
++++
+        draw_set_halign(fa_right)
+        draw_text(300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_ch2_music_slash_Draw_0_gml_250_0")));
+        draw_set_halign(fa_left)
+%%%
+
+
+=== gml_GlobalScript_scr_shopmenu
+---
+                draw_text(60, 260 + (j * 40), string_hash_to_newline(_itempname));
+
+                if (itemsellvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(itemsellvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_158_0")));
+                }
++++
+                var text_scale = min(1, 226 / string_width(string_hash_to_newline(_itempname)))
+                draw_text_transformed(60, 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
+
+                draw_set_halign(fa_right)
+                if (itemsellvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(itemsellvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_158_0")));
+                }
+                draw_set_halign(fa_left)
+%%%
+
+---
+                draw_text(60, 260 + (j * 40), string_hash_to_newline(_itempname));
+
+                if (weaponvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(weaponvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_270_0")));
+                }
++++
+                var text_scale = min(1, 226 / string_width(string_hash_to_newline(_itempname)))
+                draw_text_transformed(60, 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
+
+                draw_set_halign(fa_right)
+                if (weaponvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(weaponvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_270_0")));
+                }
+                draw_set_halign(fa_left)
+%%%
+
+---
+                draw_text(60, 260 + (j * 40), string_hash_to_newline(_itempname));
+
+                if (armorvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(armorvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_389_0")));
+                }
++++
+                var text_scale = min(1, 226 / string_width(string_hash_to_newline(_itempname)))
+                draw_text_transformed(60, 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
+
+                draw_set_halign(fa_right)
+                if (armorvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(armorvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_389_0")));
+                }
+                draw_set_halign(fa_left)
+%%%
+
+
+
 
 
 === gml_Object_obj_shop_ch2_swatch_Draw_0
@@ -114,6 +201,21 @@ stringsetsubloc("$~1", string(global.gold), "obj_shop_ch2_music_Draw_0_gml_1_0")
 "$" + string_hash_to_newline(string(global.gold))
 +++
 stringsetsubloc("$~1", string(global.gold), "obj_shop_ch2_swatch_Draw_0_gml_1_0")
+%%%
+
+---
+        draw_text(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]));
++++
+        var text_scale = min(1, 226 / string_width(string_hash_to_newline(shopitemname[i])))
+        draw_text_transformed(60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]), text_scale, 1, 0);
+%%%
+
+---
+        draw_text(300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_ch2_swatch_slash_Draw_0_gml_120_0")));
++++
+        draw_set_halign(fa_right)
+        draw_text(300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_ch2_swatch_slash_Draw_0_gml_120_0")));
+        draw_set_halign(fa_left)
 %%%
 
 
@@ -396,4 +498,27 @@ scr_init_localization()
 
 %%%
 
+
+=== gml_Object_obj_ch2_keyboardpuzzle_controller_Draw_0
+---
+    var _xx = (puzzle_id == 2) ? 136 : 196;
++++
+    var _xx = (puzzle_id == 2 ? 136 - sprite_get_xoffset(bg_dw_cyber_keyboard_big) * 2 : 196 - sprite_get_xoffset(bg_dw_cyber_keyboard) * 2);
+%%%
+
+---
+    draw_sprite_ext(victorySprite, imageTimer, monitorx, monitory, 2, 2, 0, wincolor, 1);
++++
+    draw_sprite_ext(victorySprite, imageTimer, monitorx - (puzzle_id == 2 ? sprite_get_xoffset(bg_dw_cyber_keyboard_big) * 2 : sprite_get_xoffset(bg_dw_cyber_keyboard) * 2), monitory, 2, 2, 0, wincolor, 1);
+%%%
+
+
+
+=== gml_Object_DEVICE_MENU_Create_0
+---
+version_text = global.version;
++++
+version_text = global.version;
+prevemptyname = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
+%%%
 

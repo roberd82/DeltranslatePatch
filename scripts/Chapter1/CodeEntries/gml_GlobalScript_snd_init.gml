@@ -19,7 +19,7 @@ function snd_init(arg0)
     
     if (global.translated_songs || flag)
     {
-        var lang_path = working_directory + "../lang/" + global.lang + "/chapter1/sounds/";
+        var lang_path = global.lang_folder + global.lang + "/chapter1/sounds/";
         
         if (file_exists(lang_path + arg0))
             initsongvar = lang_path + arg0;

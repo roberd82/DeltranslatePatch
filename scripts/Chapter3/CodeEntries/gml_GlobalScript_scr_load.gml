@@ -369,8 +369,7 @@ function scr_load()
     
     scr_tempsave();
     
-    if (global.is_console)
-        global.tempflag[95] = 1;
+    global.tempflag[95] = 1;
     
     with (obj_gamecontroller)
         enable_loading();

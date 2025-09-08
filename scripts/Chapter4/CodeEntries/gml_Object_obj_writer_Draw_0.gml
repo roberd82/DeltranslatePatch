@@ -44,6 +44,17 @@ if (forcebutton1)
 
 prevent_mash_buffer--;
 
+if (global.translator_mode) {
+    if (!is_undefined(ds_map_find_value(global.changed_strings, origstring))) {
+        pos = 2
+        formatted = 0
+        origstring = ds_map_find_value(global.changed_strings, origstring)
+        mystring = origstring
+        length = string_length(mystring);
+        alarm[0] = 1
+    }
+}
+
 if (dialoguer == 1 && formatted == 0)
 {
     if (global.fc == 0)

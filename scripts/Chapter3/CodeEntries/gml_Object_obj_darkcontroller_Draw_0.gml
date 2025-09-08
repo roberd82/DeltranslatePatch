@@ -68,9 +68,9 @@ if (global.menuno == 5)
     
     if ((global.submenu >= 30 && global.submenu <= 33) || global.submenu == 36)
     {
-        var _xPos = (global.lang != "ja") ? (xx + 170) : (xx + 150);
-        var _heartXPos = (global.lang != "ja") ? (xx + 145) : (xx + 125);
-        var _selectXPos = (global.lang == "ja" && global.is_console) ? (xx + 385) : (xx + 430);
+        var _xPos = xx + 150;
+        var _heartXPos = xx + 125;
+        var _selectXPos = xx + 385;
         draw_set_color(c_white);
         draw_text(xx + 270, yy + 100, string_hash_to_newline(stringsetloc("CONFIG", "obj_darkcontroller_slash_Draw_0_gml_74_0")));
         audvol = string(round(abs(global.flag[17] * 100))) + "%";
@@ -110,7 +110,7 @@ if (global.menuno == 5)
         draw_text(_xPos, yy + 220, string_hash_to_newline(stringsetloc("Simplify VFX", "obj_darkcontroller_slash_Draw_0_gml_92_0")));
         draw_text(_selectXPos, yy + 220, string_hash_to_newline(flashoff));
         
-        if (global.is_console)
+        if (global.is_console || os_type == os_android)
         {
             draw_text(_xPos, yy + 255, string_hash_to_newline(autorun_text));
             draw_text(_selectXPos, yy + 255, string_hash_to_newline(runoff));
@@ -121,7 +121,7 @@ if (global.menuno == 5)
                 draw_set_color(c_gray);
             
             draw_text(_xPos, yy + 290, stringsetloc("Border", "obj_darkcontroller_slash_Draw_0_gml_112_0"));
-            draw_text(_selectXPos, yy + 290, border_options[selected_border]);
+            draw_text(_selectXPos, yy + 290, border_options_tr[selected_border]);
             draw_set_color(c_white);
             draw_text(_xPos, yy + 325, string_hash_to_newline(stringsetloc("Return to Title", "obj_darkcontroller_slash_Draw_0_gml_95_0")));
             draw_text(_xPos, yy + 360, string_hash_to_newline(back_text));
@@ -129,9 +129,9 @@ if (global.menuno == 5)
         else
         {
             draw_text(_xPos, yy + 255, string_hash_to_newline(stringsetloc("Fullscreen", "obj_darkcontroller_slash_Draw_0_gml_93_0")));
-            draw_text(xx + 430, yy + 255, string_hash_to_newline(fullscreenoff));
+            draw_text(_selectXPos, yy + 255, string_hash_to_newline(fullscreenoff));
             draw_text(_xPos, yy + 290, string_hash_to_newline(autorun_text));
-            draw_text(xx + 430, yy + 290, string_hash_to_newline(runoff));
+            draw_text(_selectXPos, yy + 290, string_hash_to_newline(runoff));
             draw_text(_xPos, yy + 325, string_hash_to_newline(stringsetloc("Return to Title", "obj_darkcontroller_slash_Draw_0_gml_95_0")));
             draw_text(_xPos, yy + 360, string_hash_to_newline(back_text));
         }
@@ -149,9 +149,9 @@ if (global.menuno == 5)
         draw_set_color(c_white);
         draw_text(xx + 105, yy + 100 + _headerOffset, string_hash_to_newline(stringsetloc("Function", "obj_darkcontroller_slash_Draw_0_gml_113_0")));
         
-        if (global.is_console)
+        if (global.is_console || os_type == os_android)
         {
-            var buttonXPos = (scr_is_switch_os() && global.lang != "ja") ? (xx + 445) : (xx + 435);
+            var buttonXPos = xx + 435;
             var buttonYPos = yy + 100 + _yOffset;
             draw_text(buttonXPos, buttonYPos, stringsetloc("Button", "obj_darkcontroller_slash_Draw_0_gml_147_0"));
         }
@@ -177,17 +177,17 @@ if (global.menuno == 5)
         
         if (global.is_console || is_dualshock)
         {
-            var _heartYPos = (global.lang != "ja") ? (yy + 146) : (yy + 144);
-            var _heartHeight = (global.lang != "ja") ? 29 : 30;
+            var _heartYPos = yy + 144;
+            var _heartHeight = 30;
             draw_sprite(spr_heart, 0, xx + 80, _heartYPos + (global.submenucoord[35] * _heartHeight) + _yOffset);
         }
         else
         {
-            var heart_offset = (global.lang != "ja") ? 28 : 29;
+            var heart_offset = 29;
             draw_sprite(spr_heart, 0, xx + 80, (yy + 150 + (global.submenucoord[35] * heart_offset) + _yOffset) - 2);
         }
         
-        var line_padding = (global.lang == "ja") ? 1 : 0;
+        var line_padding = 0;
         
         for (var i = 0; i <= 8; i += 1)
         {
@@ -207,7 +207,7 @@ if (global.menuno == 5)
             if (is_dualshock)
             {
                 var _textHeight = 29;
-                _textYPos = (global.lang != "ja") ? (yy + 137) : (yy + 136);
+                _textYPos = yy + 136;
                 draw_text(xx + 105, _textYPos + (i * (_textHeight + line_padding)) + _yOffset, string_hash_to_newline(my_function[i]));
             }
             else
@@ -242,12 +242,12 @@ if (global.menuno == 5)
                     if (!global.is_console)
                         draw_text(xx + 325, yy + voff + 140 + (i * vspacing), string_hash_to_newline(global.asc_def[global.input_k[i]]));
                 }
-                else if (global.is_console)
+                else if (global.is_console || os_type == os_android)
                 {
                     if (obj_gamecontroller.gamepad_active)
                     {
                         var _sprite = (scr_getbuttonsprite(global.input_g[i], false) != noone) ? scr_getbuttonsprite(global.input_g[i], false) : button_switch_left_0;
-                        var _xPos = (global.lang != "ja") ? (xx + 475) : (xx + 465);
+                        var _xPos = xx + 465;
                         
                         if (_sprite == button_switch_lStickClick_0 || _sprite == button_switch_rStickClick_0)
                             _xPos -= 3;
@@ -262,7 +262,7 @@ if (global.menuno == 5)
                     if (obj_gamecontroller.gamepad_active)
                     {
                         var _sprite = scr_getbuttonsprite(global.input_g[i], false);
-                        var _xPos = (global.lang != "ja") ? (xx + 475) : (xx + 465);
+                        var _xPos = xx + 465;
                         
                         if (sprite_get_width(_sprite) < 12)
                             _xPos += 2;

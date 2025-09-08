@@ -25,6 +25,21 @@ if (global.flag[10] == 1 || scr_debug())
     }
 }
 
+
+
+if (global.translator_mode) {
+    if (!is_undefined(ds_map_find_value(global.changed_strings, origstring))) {
+        pos = 2
+        formatted = 0
+        origstring = ds_map_find_value(global.changed_strings, origstring)
+        mystring = origstring
+        length = string_length(mystring);
+        alarm[0] = 1
+    }
+}
+
+
+
 if (dialoguer == 1 && formatted == 0)
 {
     if (global.fc == 0)
@@ -57,7 +72,7 @@ if (formatted == 0)
     remchar = -1;
     linecount = 0;
     stringmax = 0;
-    widthmax = 0
+    widthmax = 0;
     aster = 0;
     textalignment = "";
     
@@ -67,19 +82,17 @@ if (formatted == 0)
         thischar = string_char_at(mystring, i);
         
         if (thischar == "/" || thischar == "%")
-        {
-            skip = 1
-        }
+            skip = 1;
         
         if (thischar == "^")
         {
-            skip = 1
-            i++
+            skip = 1;
+            i++;
         }
         
         if (thischar == "\\")
         {
-            if (charpos > -1)
+            if (charpos > 0)
                 charpos -= 3;
             
             nextchar = string_char_at(mystring, i + 1);
@@ -282,16 +295,15 @@ if (formatted == 0)
             
             if (nextchar == "a")
                 textalignment = nextchar2;
-
-            i += 2
-            skip = 1
+            
+            i += 2;
+            thischar = "";
         }
         
         if (thischar == "&")
         {
             stringmax = max(stringmax, charpos);
-            widthmax = max(widthmax, cur_string_width)
-            
+            widthmax = max(widthmax, cur_string_width);
             remspace = -1;
             charpos = 0;
             cur_string_width = 0;
@@ -324,7 +336,7 @@ if (formatted == 0)
             if (thischar == " " || thischar == "*" || get_lang_setting("monospace_fonts", false))
                 cur_string_width += hspace;
             else
-                cur_string_width += string_width(thischar) * textscale;
+                cur_string_width += (string_width(thischar) * textscale);
             
             if ((!limit_by_width && charpos >= charline) || (limit_by_width && cur_string_width >= max_string_width))
             {
@@ -333,12 +345,10 @@ if (formatted == 0)
                     mystring = string_delete(mystring, remspace, 1);
                     mystring = string_insert("&", mystring, remspace);
                     i = remspace + 1;
-                    
                     stringmax = max(stringmax, charpos);
-                    widthmax = max(widthmax, cur_string_width)
-                    
+                    widthmax = max(widthmax, cur_string_width);
                     remspace = -1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     linecount += 1;
                     scr_asterskip();
@@ -346,11 +356,10 @@ if (formatted == 0)
                 else
                 {
                     stringmax = max(stringmax, charpos);
-                    widthmax = max(widthmax, cur_string_width)
-                    
+                    widthmax = max(widthmax, cur_string_width);
                     mystring = string_insert("&", mystring, i);
                     length += 1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     remspace = -1;
                     linecount += 1;
@@ -366,8 +375,7 @@ if (formatted == 0)
     }
     
     stringmax = max(stringmax, charpos);
-    widthmax = max(widthmax, cur_string_width)
-    
+    widthmax = max(widthmax, cur_string_width);
     formatted = 1;
     
     if (textalignment == "c")
@@ -1007,24 +1015,3 @@ if (halt != 0 && button1 == 1 && siner > 0)
 
 skipme = 0;
 siner += 1;
-
-enum e__VW
-{
-    XView,
-    YView,
-    WView,
-    HView,
-    Angle,
-    HBorder,
-    VBorder,
-    HSpeed,
-    VSpeed,
-    Object,
-    Visible,
-    XPort,
-    YPort,
-    WPort,
-    HPort,
-    Camera,
-    SurfaceID
-}

@@ -174,6 +174,12 @@ scr_funnytext_init(1, 0, -14, spr_funnytext_big, 0, 0);
 scr_funnytext_init(1, 0, -14, scr_84_get_sprite("spr_funnytext_big"), 0, 0);
 %%%
 
+---
+scr_funnytext_init(1, 0, -14, scr_84_get_sprite("spr_ja_funnytext_daisuki"), 0, 0);
++++
+scr_funnytext_init(1, 0, -14, scr_84_get_sprite("spr_funnytext_love"), 0, 0);
+%%%
+
 
 
 === gml_Object_obj_ch3_GSC05_Step_0
@@ -613,6 +619,26 @@ c_var_instance(podium[0], "mystring", "FUN");
 c_var_instance(podium[0], "mystring", stringsetloc("FUN", "obj_ch3_GSA02_slash_Step_0_gml_591_0"));
 %%%
 
+---
+    global.flag[1012] = 5;
+    global.flag[1013] = 20;
+    global.flag[1014] = 13;
++++
+    var fun = stringsetloc("FUN", "obj_ch3_GSA02_slash_Step_0_gml_591_0");
+    var alphabet = get_chapter_lang_setting("input_game_name_chars", "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!.-");
+    var alphanumericarray = [];
+    
+    for (var i = 0; i < string_length(alphabet); i++)
+        alphanumericarray[i] = string_char_at(alphabet, i + 1);
+    
+    letter[0] = array_get_item_index(alphanumericarray, string_char_at(fun, 1));
+    letter[1] = array_get_item_index(alphanumericarray, string_char_at(fun, 2));
+    letter[2] = array_get_item_index(alphanumericarray, string_char_at(fun, 3));
+    global.flag[1012] = letter[0];
+    global.flag[1013] = letter[1];
+    global.flag[1014] = letter[2];
+%%%
+
 
 === gml_Object_obj_tensionbar_Draw_0
 ---
@@ -716,6 +742,46 @@ string_hash_to_newline(string(global.flag[1044])) + " PTs"
 +++
 stringsetsubloc("~1 PTs", string_hash_to_newline(string(global.flag[1044])), "obj_shop_vending_slash_Draw_0_gml_461_0")
 %%%
+
+
+---
+    {
+        draw_text(camerax() + 60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]));
+        
+        if (menu_dollar) {
+            draw_text(camerax() + 300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_149_0")));
+        } else {
+            draw_text(camerax() + 300, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("~1 PTs", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_162_0")));
+        }
+    }
+}
++++
+    {
+        draw_text(camerax() + 60, 260 + (i * 40), string_hash_to_newline(shopitemname[i]));
+        
+        draw_set_halign(fa_right);
+
+        if (menu_dollar)
+            draw_text(camerax() + 300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_149_0")));
+        else
+            draw_text(camerax() + 300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(stringsetsubloc("~1 PTs", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_162_0")));
+
+        draw_set_halign(fa_left);
+    }
+}
+%%%
+
+---
+    draw_text(camerax() + 300, 260 + (i * 40), string_hash_to_newline(price_label[i]));
++++
+    draw_set_halign(fa_right)
+    draw_text(camerax() + 300 + 32 + 54, 260 + (i * 40), string_hash_to_newline(price_label[i]));
+    draw_set_halign(fa_left)
+%%%
+
+
+
+
 
 === gml_Object_obj_quizsequence_Draw_0
 ---
@@ -904,10 +970,11 @@ var x_offset = 0;
     draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 4) + 0, 296, 2, 2, 0, darkyellow, 1);
     draw_sprite_ext(spr_board_game_title_copyright, 0, scr_even(320 - (string_width(tetalk3) / 2)) - 4, 294, 2, 2, 0, c_yellow, 1);
 +++
-    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 16) + 2, 296, 2, 2, 0, darkyellow, 1);
-    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 16) + 2, 294, 2, 2, 0, darkyellow, 1);
-    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 16) + 0, 296, 2, 2, 0, darkyellow, 1);
-    draw_sprite_ext(spr_board_game_title_copyright, 0, scr_even(320 - (string_width(tetalk3) / 2)) - 16, 294, 2, 2, 0, c_yellow, 1);
+    // Don't remove, sprite will break!
+    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 12) + 2, 296, 2, 2, 0, darkyellow, 1);
+    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 12) + 2, 294, 2, 2, 0, darkyellow, 1);
+    draw_sprite_ext(spr_board_game_title_copyright, 0, (scr_even(320 - (string_width(tetalk3) / 2)) - 12) + 0, 296, 2, 2, 0, darkyellow, 1);
+    draw_sprite_ext(spr_board_game_title_copyright, 0, scr_even(320 - (string_width(tetalk3) / 2)) - 12, 294, 2, 2, 0, c_yellow, 1);
 %%%
 
 
@@ -924,3 +991,23 @@ var x_offset = 0;
 +++
         sprite_index = scr_84_get_sprite("spr_npc_bibliox");
 %%%
+
+
+
+=== gml_Object_obj_dw_teevie_sams_word_fx_Draw_0
+---
+    sprite_set_offset(outline_sprite, (sprite_get_width(outline_sprite) / 2) + 1, (sprite_get_height(outline_sprite) / 2) + 1);
++++
+    sprite_set_offset(outline_sprite, (floor(sprite_get_width(text_sprite) / 2)) + 1, (sprite_get_height(outline_sprite) / 2) + 1);
+%%%
+
+
+
+=== gml_Object_DEVICE_MENU_Create_0
+---
+version_text = "1.00";
++++
+version_text = "1.00";
+prevemptyname = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
+%%%
+

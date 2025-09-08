@@ -71,8 +71,8 @@ if (formatted == 0)
         }
         else if (thischar == "\\")
         {
-            if (charpos > -1)
-                charpos -= 3;
+            if (charpos > 0)
+                charpos -= 1;
             
             if (dialoguer == 1)
             {
@@ -288,8 +288,12 @@ if (formatted == 0)
                     var nextchar2var = real(nextchar2);
                     
                     if (global.writerobj[nextchar2var] == obj_funnytext) {
-                        charpos += ceil(sprite_get_width(global.writerimg[nextchar2var]) / hspace);
-                        cur_string_width += sprite_get_width(global.writerimg[nextchar2var])
+                        var spr_w = sprite_get_width(global.writerimg[nextchar2var]);
+                        charpos += ceil(spr_w / hspace);
+                        cur_string_width += spr_w;
+                        
+                        if ((spr_w + (hspace * 2)) >= max_string_width)
+                            skip = 1;
                     }
                 }
             }
@@ -311,7 +315,7 @@ if (formatted == 0)
             // }
 
             i += 2
-            skip = 1
+            thischar = ""
         }
         else if (thischar == "&" || thischar == "\n")
         {
@@ -424,7 +428,7 @@ if (formatted == 0)
                     widthmax = max(widthmax, cur_string_width)
                     
                     remspace = -1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     linecount += 1;
                     scr_asterskip();
@@ -439,7 +443,7 @@ if (formatted == 0)
                     
                     mystring = string_insert("&", mystring, i);
                     length += 1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     remspace = -1;
                     linecount += 1;

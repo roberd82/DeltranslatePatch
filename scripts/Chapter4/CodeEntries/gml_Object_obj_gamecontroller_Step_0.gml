@@ -32,12 +32,10 @@ if global.translator_mode
     if keyboard_check_released(ord("L"))
         scr_load()
     if keyboard_check_released(ord("Q"))
-        scr_change_language()
+        change_language()
     if keyboard_check_released(ord("R"))
     {
-        scr_lang_load()
-        // global.lang_loaded = "en"
-        // scr_init_localization()
+        scr_lang_load(true)
     }
     if keyboard_check_released(ord("N"))
         room_goto_next()

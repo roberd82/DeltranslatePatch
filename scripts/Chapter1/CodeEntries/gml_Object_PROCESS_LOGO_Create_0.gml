@@ -3,7 +3,7 @@ if (scr_is_switch_os())
 
 w = sprite_width;
 h = sprite_height;
-NOISE = snd_play(AUDIO_INTRONOISE);
+NOISE = snd_play(scr_84_get_sound("AUDIO_INTRONOISE"));
 siner = 0;
 factor = 1;
 factor2 = 0;

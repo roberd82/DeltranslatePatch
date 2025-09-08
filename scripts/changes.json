@@ -1,4 +1,8 @@
 {
+    "2.2.0": {
+        "description": "- Numerous fixes and adjusts.",
+        "description_ru": "- Множество исправлений и\nнесколько небольших новвоведений."
+    },
     "2.0.1": {
         "description": "- Fixed light world stat menu.",
         "description_ru": "- Поправил меню статистик\nв главном меню."

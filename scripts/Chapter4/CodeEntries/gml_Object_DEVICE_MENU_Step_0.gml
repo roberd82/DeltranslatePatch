@@ -93,9 +93,11 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7 || MENU_NO == 1
                         
                         if (!global.is_console)
                         {
+                            global.screen_border_id = ini_read_string("BORDER", "TYPE", "Dynamic");
+                            var _disable_border = global.screen_border_id == "None" || global.screen_border_id == "なし";
+                            scr_enable_screen_border(!_disable_border);
                             ini_close();
-                        }
-                        else
+                        } else
                         {
                             readval = ini_read_real("SHOULDERLB_REASSIGN", "SHOULDERLB_REASSIGN", obj_gamecontroller.gamepad_shoulderlb_reassign);
                             

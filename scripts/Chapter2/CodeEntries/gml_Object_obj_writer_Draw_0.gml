@@ -33,6 +33,17 @@ if (forcebutton1)
 
 prevent_mash_buffer--;
 
+if (global.translator_mode) {
+    if (!is_undefined(ds_map_find_value(global.changed_strings, origstring))) {
+        pos = 2
+        formatted = 0
+        origstring = ds_map_find_value(global.changed_strings, origstring)
+        mystring = origstring
+        length = string_length(mystring);
+        alarm[0] = 1
+    }
+}
+
 if (dialoguer == 1 && formatted == 0)
 {
     if (global.fc == 0)
@@ -97,7 +108,7 @@ if (formatted == 0)
         }
         else if (thischar == "\\")
         {
-            if (charpos > -1)
+            if (charpos > 0)
                 charpos -= 3;
             
             if (dialoguer == 1)
@@ -310,7 +321,7 @@ if (formatted == 0)
                 }
             }
             i += 2
-            skip = 1
+            thischar = ""
         }
         else if (thischar == "&" || thischar == "\n")
         {
@@ -362,7 +373,7 @@ if (formatted == 0)
                     widthmax = max(widthmax, cur_string_width)
                     
                     remspace = -1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     linecount += 1;
                     scr_asterskip();
@@ -374,7 +385,7 @@ if (formatted == 0)
                     
                     mystring = string_insert("&", mystring, i);
                     length += 1;
-                    charpos = 1;
+                    charpos = 2;
                     cur_string_width = 0;
                     remspace = -1;
                     linecount += 1;

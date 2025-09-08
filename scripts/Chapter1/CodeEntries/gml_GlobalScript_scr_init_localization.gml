@@ -63,7 +63,7 @@ function scr_init_localization()
             global.loaded_fonts = [];
         }
         
-        global.chapter_lang_settings = scr_load_json(working_directory + "../lang/" + global.lang + "/chapter1/chapter_settings.json");
+        global.chapter_lang_settings = scr_load_json(global.lang_folder + global.lang + "/chapter1/chapter_settings.json");
         global.font_map = ds_map_create();
         global.lang_missing_map = ds_map_create();
         global.chemg_sprite_map = ds_map_create();
@@ -80,8 +80,8 @@ function scr_init_localization()
             add_sprite("spr_blockler_" + string_char_at(get_chapter_lang_setting("boob", "boob"), i + 1), 4);
         
         var sndm = global.chemg_sound_map;
-        var sounds_list = ["snd_joker_anything", "snd_joker_chaos", "snd_joker_metamorphosis", "snd_joker_neochaos", "snd_joker_laugh0", "snd_joker_laugh1", "snd_joker_ha0", "snd_joker_ha1", "snd_joker_oh", "snd_joker_byebye"];
-        global.songs_list = ["dontforget.ogg", "snd_joker_anything", "snd_joker_chaos", "snd_joker_metamorphosis", "snd_joker_neochaos", "snd_joker_laugh0", "snd_joker_laugh1", "snd_joker_ha0", "snd_joker_ha1", "snd_joker_oh", "snd_joker_byebye"];
+        var sounds_list = ["AUDIO_INTRONOISE", "snd_joker_anything", "snd_joker_chaos", "snd_joker_metamorphosis", "snd_joker_neochaos", "snd_joker_laugh0", "snd_joker_laugh1", "snd_joker_ha0", "snd_joker_ha1", "snd_joker_oh", "snd_joker_byebye"];
+        global.songs_list = ["AUDIO_INTRONOISE", "dontforget.ogg", "snd_joker_anything", "snd_joker_chaos", "snd_joker_metamorphosis", "snd_joker_neochaos", "snd_joker_laugh0", "snd_joker_laugh1", "snd_joker_ha0", "snd_joker_ha1", "snd_joker_oh", "snd_joker_byebye"];
         
         for (var i = 0; i < array_length(sounds_list); i++)
             add_sound(sounds_list[i]);

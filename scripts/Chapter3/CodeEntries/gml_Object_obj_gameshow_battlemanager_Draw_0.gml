@@ -234,8 +234,8 @@ if (con == 3)
         battletimetxt = stringsetloc("TURNS:", "obj_gameshow_battlemanager_slash_Draw_0_gml_133_0");
         timebonustxt = stringsetloc("TIME BONUS:", "obj_gameshow_battlemanager_slash_Draw_0_gml_134_0");
         tensionbonustxt = stringsetloc("TP", "obj_gameshow_battlemanager_slash_Draw_0_gml_135_0");
-        totalbonustxt = stringsetloc("POINTS", "obj_gameshow_battlemanager_slash_Draw_0_gml_136_0");
         totalstring = round((5 - graderank) * 100 * 0.8);
+        totalbonustxt = stringsetsubloc("~1 POINTS", string(totalstring), "obj_gameshow_battlemanager_slash_Draw_0_gml_136_0");
         yougetstring = stringsetloc("YOU GET", "obj_gameshow_battlemanager_slash_Draw_0_gml_138_0");
         rankstring = stringsetloc("RANK", "obj_gameshow_battlemanager_slash_Draw_0_gml_139_0");
         var yougetRrankstring = stringsetloc("YOU GET @ RANK", "obj_gameshow_battlemanager_slash_Draw_0_gml_140_0");
@@ -331,7 +331,7 @@ if (con == 3)
         draw_set_halign(fa_center);
         
         if (rtimer > (dingtime * 5))
-            draw_text(_xx - 30, _yy + (6.5 * mspace) + 8, "+" + string(totalstring) + " " + totalbonustxt);
+            draw_text(_xx - 30, _yy + (6.5 * mspace) + 8, "+" + totalbonustxt);
         
         draw_set_halign(fa_left);
         

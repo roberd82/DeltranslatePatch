@@ -219,8 +219,9 @@ function scr_shopmenu(arg0)
                 draw_text_transformed(camerax() + 60, cameray() + 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
                 
                 draw_set_halign(fa_right)
-                if (itemsellvalue[i] > 1)
+                if (itemsellvalue[i] > 1) {
                     draw_text(camerax() + 300 + 8 + 54, cameray() + 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(itemsellvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_158_0")));
+                }
                 draw_set_halign(fa_left)
                 
                 j += 1;
@@ -378,8 +379,9 @@ function scr_shopmenu(arg0)
                 draw_text_transformed(camerax() + 60, cameray() + 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
                 
                 draw_set_halign(fa_right)
-                if (weaponvalue[i] > 1)
+                if (weaponvalue[i] > 1) {
                     draw_text(camerax() + 300 + 8 + 54, cameray() + 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(weaponvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_270_0")));
+                }
                 draw_set_halign(fa_left)
                 
                 j += 1;
@@ -515,8 +517,9 @@ function scr_shopmenu(arg0)
                 draw_text_transformed(camerax() + 60, cameray() + 260 + (j * 40), string_hash_to_newline(_itempname), text_scale, 1, 0);
                 
                 draw_set_halign(fa_right)
-                if (armorvalue[i] > 1)
+                if (armorvalue[i] > 1) {
                     draw_text(camerax() + 300 + 8 + 54, cameray() + 260 + (j * 40), string_hash_to_newline(stringsetsubloc("$~1", string(ceil(armorvalue[i] / 2)), "scr_shopmenu_slash_scr_shopmenu_gml_389_0")));
+                }
                 draw_set_halign(fa_left)
                 
                 j += 1;
@@ -725,3 +728,4 @@ function scr_shopmenu(arg0)
         }
     }
 }
+

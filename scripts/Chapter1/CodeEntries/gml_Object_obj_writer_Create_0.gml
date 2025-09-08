@@ -1,11 +1,11 @@
 skipme = 0;
 textsound = snd_text;
-charline = get_lang_setting("charline_base", 33);
-charline_face = get_lang_setting("charline_face", 26);
+charline = 33;
+charline_face = 26;
 originalcharline = charline;
 hspace = 8;
-vspace = 18;
-limit_by_width = get_lang_setting("limit_by_width", 0);
+vspace = 18 * get_lang_setting("line_height_factor", 1);
+limit_by_width = !get_lang_setting("monospace_fonts", 0);
 f = 1;
 
 if (global.darkzone == 1)
@@ -60,6 +60,7 @@ for (i = 0; i < 7; i += 1)
 }
 
 mystring = global.msg[0];
+origstring = mystring;
 
 for (j = 0; j < 100; j += 1)
     nstring[j] = global.msg[j];

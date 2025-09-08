@@ -82,8 +82,10 @@ enable = function()
 
 trigger_event = function(arg0, arg1)
 {
-    if (obj_gamecontroller.loading_new_translation_files)
+    if (obj_gamecontroller.loading_new_translation_files) {
+        audio_play_sound(snd_swing, 50, 0)
         return;
+    }
 
     switch (arg1)
     {

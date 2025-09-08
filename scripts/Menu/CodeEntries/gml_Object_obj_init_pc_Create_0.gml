@@ -35,6 +35,10 @@ init = function(arg0, arg1)
             
             ossafe_ini_close();
         }
+        else
+        {
+            set_windowsize = true;
+        }
     }
     
     if (set_windowsize)

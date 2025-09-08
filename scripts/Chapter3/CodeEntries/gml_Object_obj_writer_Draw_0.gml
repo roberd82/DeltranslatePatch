@@ -37,6 +37,17 @@ if (view_current == 0)
     
     if (i_ex(obj_rouxls_ch3_enemy) && obj_rouxls_ch3_enemy.vspacechange)
         vspace = 33;
+
+    if (global.translator_mode) {
+        if (!is_undefined(ds_map_find_value(global.changed_strings, origstring))) {
+            pos = 2
+            formatted = 0
+            origstring = ds_map_find_value(global.changed_strings, origstring)
+            mystring = origstring
+            length = string_length(mystring);
+            alarm[0] = 1
+        }
+    }
     
     if (dialoguer == 1 && formatted == 0)
     {

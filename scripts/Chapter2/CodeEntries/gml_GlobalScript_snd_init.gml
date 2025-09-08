@@ -14,7 +14,7 @@ function snd_init(argument0) //gml_Script_snd_init
         }
     }
     if (global.translated_songs || flag) {
-        var lang_path = working_directory + "../lang/" + global.lang + "/chapter2/sounds/"
+        var lang_path = global.lang_folder + global.lang + "/chapter2/sounds/"
         if file_exists(lang_path + argument0) {
             initsongvar = lang_path + argument0
         }

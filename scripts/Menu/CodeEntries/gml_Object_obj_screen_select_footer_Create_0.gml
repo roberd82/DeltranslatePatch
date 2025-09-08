@@ -10,7 +10,7 @@ _fade_in = false;
 init = function(arg0)
 {
     _parent = arg0;
-    var language_text = scr_get_lang_string("English", "gml_Object_obj_screen_select_footer_Create_0_0");
+    var language_text = scr_get_lang_string("Config", "gml_Object_obj_screen_select_footer_Create_0_0");
     var language_choice = instance_create(x + 260, y + 24, obj_ui_choice);
     language_choice.init(id, language_text, UnknownEnum.Value_5);
     language_choice.set_alpha(0);
@@ -83,8 +83,10 @@ disable_input = function()
 
 trigger_event = function(arg0, arg1)
 {
-    if (obj_gamecontroller.loading_new_translation_files)
+    if (obj_gamecontroller.loading_new_translation_files) {
+        audio_play_sound(snd_swing, 50, 0)
         return;
+    }
         
     switch (arg1)
     {

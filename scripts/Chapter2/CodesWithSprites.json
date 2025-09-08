@@ -183,5 +183,16 @@
   ],
   "gml_Object_obj_ch2_keyboardpuzzle_solo_tile_Draw_0": [
     "spr_ch2_keyboard_tile_text"
+  ],
+  "gml_Object_obj_ch2_keyboardpuzzle_controller_Create_0": [
+    "bg_dw_cyber_keyboard_big",
+    "bg_dw_cyber_keyboard"
+  ],
+  "gml_Object_obj_ch2_keyboardpuzzle_controller_Draw_0": [
+    "bg_dw_cyber_keyboard_big",
+    "bg_dw_cyber_keyboard"
+  ],
+  "gml_Object_obj_ch2_scene26_powers_combined_Create_0": [
+    "spr_cutscene_26_plugboy"
   ]
 }

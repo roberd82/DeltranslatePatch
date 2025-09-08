@@ -38,6 +38,8 @@ if (BGMADE == 1)
     draw_sprite_ext(IMAGE_MENU_ANIMATION, (ANIM_SINER / 12) + 0.8, 0, ((10 - (BG_ALPHA * 20)) + __WAVEHEIGHT) - 70, 1, 1, 0, image_blend, BG_ALPHA * 0.7);
 }
 
+var checkemptyname = prevemptyname
+
 for (i = 0; i < 3; i += 1)
 {
     CONT_THIS = 0;
@@ -112,7 +114,11 @@ for (i = 0; i < 3; i += 1)
     if (CONT_THIS < 4)
     {
         scr_84_set_draw_font("main");
+        if (NAME[i] == checkemptyname) {
+            NAME[i] = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_105_0"); // [EMPTY]
+        }
         draw_text_shadow(BOX_X1 + 25, BOX_Y1 + 5, NAME[i]);
+
         draw_set_halign(fa_right);
         draw_text_shadow(BOX_X1 + 180, BOX_Y1 + 5, TIME_STRING[i]);
         draw_set_halign(fa_left);
@@ -225,6 +231,8 @@ for (i = 0; i < 3; i += 1)
         draw_text_shadow(BOX_X1 + 25, BOX_Y1 + 22, PLACE[i]);
     }
 }
+
+prevemptyname = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_105_0"); // [EMPTY]
 
 COPYTEXT = scr_84_get_lang_string("DEVICE_MENU_slash_Draw_0_gml_200_0", "COPY"); // <localization fetch error>
 ERASETEXT = scr_84_get_lang_string("DEVICE_MENU_slash_Draw_0_gml_201_0", "ERASE"); // <localization fetch error>

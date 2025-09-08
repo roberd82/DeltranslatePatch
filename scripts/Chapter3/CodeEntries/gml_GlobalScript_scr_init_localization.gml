@@ -44,7 +44,8 @@ function scr_init_localization()
         "spr_tenna_point_top",
         "spr_tenna_point_up_twofingers",
         "spr_tenna_point_up",
-        "spr_krisu_dark_cool"];
+        "spr_krisu_dark_cool",
+        "spr_board_game_title_copyright"];
         var fonts_list = [["fnt_main", 12], ["fnt_mainbig", 24], ["fnt_tinynoelle", 7], ["fnt_dotumche", 12], ["fnt_comicsans", 10], ["fnt_small", 6], ["fnt_8bit", 12], ["fnt_8bit_mixed", 12], ["fnt_main_mono", 12]];
         global.lang_loaded = global.lang;
         
@@ -69,7 +70,7 @@ function scr_init_localization()
             global.loaded_fonts = [];
         }
         
-        global.chapter_lang_settings = scr_load_json(working_directory + "../lang/" + global.lang + "/chapter3/chapter_settings.json");
+        global.chapter_lang_settings = scr_load_json(global.lang_folder + global.lang + "/chapter3/chapter_settings.json");
         global.font_map = ds_map_create();
         global.lang_missing_map = ds_map_create();
         global.chemg_sprite_map = ds_map_create();

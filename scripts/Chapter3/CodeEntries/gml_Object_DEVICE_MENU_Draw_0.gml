@@ -50,6 +50,7 @@ if (BGMADE == 1 && SUBTYPE == 1)
 
 if (MENU_NO >= 0)
 {
+    var checkemptyname = prevemptyname;
     for (i = 0; i < 3; i += 1)
     {
         CONT_THIS = 0;
@@ -119,7 +120,11 @@ if (MENU_NO >= 0)
         
         if (CONT_THIS < 4 || CONT_THIS == 11)
         {
-            var NOWNAME = (NAME[i] == "[EMPTY]" ? stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0") : NAME[i]);
+            if (NAME[i] == checkemptyname) {
+                NAME[i] = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
+            }
+
+            var NOWNAME = NAME[i];
             var NOWTIME = TIME_STRING[i];
             
             if (MENU_NO == 10 || MENU_NO == 11)
@@ -283,6 +288,7 @@ if (MENU_NO >= 0)
             draw_text_shadow_width(BOX_X1 + 25, BOX_Y1 + 22, NOWPLACE, 180);
         }
     }
+    prevemptyname = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
 }
 
 COPYTEXT = stringsetloc("COPY", "DEVICE_MENU_slash_Draw_0_gml_199_0");

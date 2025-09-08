@@ -85,6 +85,22 @@ string_hash_to_newline("$" + string(global.gold))
 stringsetsubloc("$~1", string(global.gold), "obj_moneydisplay_Draw_0_gml_1_0")
 %%%
 
+---
+draw_text(camerax() + 300, cameray() + 260 + (i * 40), string_hash_to_newline(price_label[i]));
++++
+draw_set_halign(fa_right)
+draw_text(camerax() + 300 + 32 + 54, cameray() + 260 + (i * 40), string_hash_to_newline(price_label[i]));
+draw_set_halign(fa_left)
+%%%
+
+---
+            draw_text(camerax() + 300, cameray() + 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_149_0")));
++++
+            draw_set_halign(fa_right)
+            draw_text(camerax() + 300 + 32
+             + 54, cameray() + 260 + (i * 40), string_hash_to_newline(stringsetsubloc("$~1", string(buyvalue[i]), "obj_shop_vending_slash_Draw_0_gml_149_0")));
+            draw_set_halign(fa_left)
+%%%
 
 
 === gml_Object_obj_climb_orb_Draw_0
@@ -1356,6 +1372,17 @@ window_set_caption(stringsetloc("DOGTARUNE", "PROCESS_DOG_slash_Create_0_gml_1_0
 != "ja"
 %%%
 
+---
+                var _andstr = " and ";
+
+                if (global.lang == "ja") {
+                    _andstr = " と ";
+                }
++++
+                var _andstr = stringsetloc(" and ", "obj_initializer_slash_Create_0_gml_51_0");
+%%%
+
+
 === gml_Object_obj_screen_loading_Create_0
 ---
 == "en"
@@ -1774,7 +1801,6 @@ var loc = [x, y - 144];
 
 
 
-
 === gml_Object_obj_mike_catbasket_Draw_0
 ---
     var xxx = (x - 64) + shift;
@@ -1785,63 +1811,12 @@ var loc = [x, y - 144];
 ---
     draw_sprite_ext(spr_plueypoints, 0, xxx + 56, (y - digityoffset) + 50, 2, 2, 0, col, 1);
 +++
-    draw_sprite_ext(spr_plueypoints, 0, xxx + 24, (y - digityoffset) + 68, 2, 2, 0, col, 1);
+    var _sprxoffset = -26;
+    draw_sprite_ext(spr_plueypoints, 0, xxx + 56 + _sprxoffset, (y - digityoffset) + 72, 2, 2, 0, col, 1);
 %%%
 
 
 
-
-
-
-
-
-=== gml_Object_obj_elnina_rematch_enemy_Step_0
----
-            global.actsimul[myself][2] = 1;
-+++
-
-%%%
-
----
-            msgsetloc(0, "* Took a warm hat to block snow!", "obj_elnina_rematch_enemy_slash_Step_0_gml_97_0");
-            scr_simultext("kris");
-
-            if (simulorderkri == 0) {
-                actcon = 20;
-            } else {
-                actcon = -1;
-            }
-+++
-            var _textwrmht = stringsetloc("* Took a warm hat to block snow!", "obj_elnina_rematch_enemy_slash_Step_0_gml_97_0");
-            msgset(0, _textwrmht + "/%");
-            scr_battletext_default();
-            actcon = 1;
-%%%
-
-
-
-=== gml_Object_obj_lanino_rematch_enemy_Step_0
----
-            global.actsimul[myself][2] = 1;
-+++
-
-%%%
-
----
-            msgsetloc(0, "* Took sunglasses to block suns!", "obj_lanino_rematch_enemy_slash_Step_0_gml_93_0");
-            scr_simultext("kris");
-
-            if (simulorderkri == 0) {
-                actcon = 20;
-            } else {
-                actcon = -1;
-            }
-+++
-            var _textsnglss = stringsetloc("* Took sunglasses to block suns!", "obj_lanino_rematch_enemy_slash_Step_0_gml_93_0");
-            msgset(0, _textsnglss + "/%");
-            scr_battletext_default();
-            actcon = 1;
-%%%
 
 
 
@@ -1949,6 +1924,7 @@ msgsetsubloc(0, "* (You got ~1!)/%", scr_item_localized_name_acc(fusionResult, f
 
 
 
+
 === gml_Object_obj_choicer_neo_Step_0
 ---
 var msg3width = string_width(string_hash_to_newline(global.choicemsg[3])) + (16 * dar);
@@ -1965,3 +1941,20 @@ heartposx[3] = heartposx[2] + (string_width(string_hash_to_newline(global.choice
 
 
 
+=== gml_Object_DEVICE_MENU_Create_0
+---
+version_text = "1.00";
++++
+version_text = "1.00";
+prevemptyname = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
+%%%
+
+
+
+
+=== gml_Object_obj_dw_church_sideclimb_Step_0
+---
+        speedtime = secstring + "." + string(floor(milliseconds));
++++
+        speedtime = stringsetsubloc("~1.~2", secstring, string(floor(milliseconds)), "obj_dw_church_sideclimb_slash_Step_0_gml_832_0");
+%%%

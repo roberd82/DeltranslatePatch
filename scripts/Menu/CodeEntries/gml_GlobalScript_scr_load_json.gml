@@ -10,11 +10,11 @@ function scr_load_json(argument0)
         }
         var json = buffer_read(file_buffer, buffer_string)
         buffer_delete(file_buffer)
-        return json_decode(json);
+        return json_parse(json);
     }
     else
     {
         show_debug_message((("file: " + filename) + "does not exist"))
-        return json_decode("{}");
+        return json_parse("{}");
     }
 }

@@ -1,102 +1,64 @@
-draw_set_font(scr_84_get_font("main"))
+if (keyboard_check_released(ord("R"))) {
+    room_restart()
+}
 
 if (down_p()) {
     option = (option + 1) % (options_count + 1)
     audio_play_sound(snd_menumove, 50, 0)
-
-    if (option < options_count) {
-        HEARTX = xx_options - xxoff_heart
-        HEARTY = yy_options + 4 * scale + option * yyoff_options
-    } else {
-        HEARTX = xx_center - string_width(return_text) / 2 * scale - xxoff_heart
-        HEARTY = yy_return + 4 * scale
-    }
 }
 
 if (up_p()) {
     option = (option + options_count) % (options_count + 1)
     audio_play_sound(snd_menumove, 50, 0)
-
-    if (option < options_count) {
-        HEARTX = xx_options - xxoff_heart
-        HEARTY = yy_options + 4 * scale + option * yyoff_options
-    } else {
-        HEARTX = xx_center - string_width(return_text) / 2 * scale - xxoff_heart
-        HEARTY = yy_return + 4 * scale
-    }
 }
 
-if (option == 0) {
-    if (right_p() || left_p()) {
-        scr_change_language(right_p() - left_p())
+if (option < options_count) {
+    if (options[option] == "language") {
+        if (right_p() || left_p()) {
+            audio_play_sound(snd_menumove, 50, 0)
 
-        config_text = scr_84_get_lang_string("obj_lang_settings_1_0", "LANGUAGE CONFIG")
-        return_text = scr_84_get_lang_string("obj_lang_settings_2_0", "Return")
-        yes_text = scr_84_get_lang_string("obj_lang_settings_3_0", "Yes")
-        no_text = scr_84_get_lang_string("obj_lang_settings_4_0", "No")
-        lang_choice_text = scr_84_get_lang_string("obj_lang_settings_5_0", "Language") + ": "
-        spec_mode_text = scr_84_get_lang_string("obj_lang_settings_6_0", "Special Mode") + ": "
-        tr_songs_text = scr_84_get_lang_string("obj_lang_settings_7_0", "Translated OSTs") + ": "
-        spec_mode_desc_disabled = scr_84_get_lang_string("obj_lang_settings_8_0", "Special Mode disabled\ndescription (leave space\nif no need)")
-        spec_mode_desc_enabled = scr_84_get_lang_string("obj_lang_settings_9_0", "Special Mode enabled\ndescription (leave space\nif no need)")
-        if (TYPE == 0) {
-            config_text = scr_84_get_lang_string("obj_lang_settings_1_1", "LANGUAGE CONFIG")
-            return_text = scr_84_get_lang_string("obj_lang_settings_2_1", "RETURN")
-            yes_text = scr_84_get_lang_string("obj_lang_settings_3_1", "YES")
-            no_text = scr_84_get_lang_string("obj_lang_settings_4_1", "NO")
-            lang_choice_text = scr_84_get_lang_string("obj_lang_settings_5_1", "LANGUAGE") + ": "
-            spec_mode_text = scr_84_get_lang_string("obj_lang_settings_6_1", "SPECIAL MODE") + ": "
-            tr_songs_text = scr_84_get_lang_string("obj_lang_settings_7_1", "TRANSLATED OSTS") + ": "
-            spec_mode_desc_disabled = scr_84_get_lang_string("obj_lang_settings_8_1", "SPECIAL MODE DISABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)")
-            spec_mode_desc_enabled = scr_84_get_lang_string("obj_lang_settings_9_1", "SPECIAL MODE ENABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)")
+            cur_lang_ind = (cur_lang_ind + (right_p() - left_p()) + langs_amount) % langs_amount;
+            change_language(global.langs_names[cur_lang_ind])
+            last_lang = global.lang
+
+            update_strings()
+            options_count = array_length(options)
         }
-        
-        options_count = 1
-
-        spec_mode_switch = false
-        translated_songs_switch = false
-
-        if (get_lang_setting("special_mode")) {
-            options_count++
-            spec_mode_switch = true
+        if (button1_p()) {
+            var link = get_lang_setting("link", "")
+            if (link != "") {
+                audio_play_sound(snd_menumove, 50, 0)
+                url_open(link)
+            }
         }
+    } else
 
-        if (get_lang_setting("enable_translated_songs_switch")) {
-            options_count++
-            translated_songs_switch = true
+    if (options[option] == "special_mode") {
+        if (left_p() || right_p() || button1_p()) {
+            ossafe_ini_open("true_config.ini")
+            global.special_mode = !global.special_mode
+            ini_write_string("LANG", "special_mode", global.special_mode)
+            ossafe_ini_close()
+            ossafe_savedata_save()
+
+            audio_play_sound(snd_menumove, 50, 0)
         }
+    } else
 
-        yy_spec_mode_desc = yy_options + yyoff_options * options_count
+    if (options[option] == "enable_translated_songs_switch") {
+        if (left_p() || right_p() || button1_p()) {
+            ossafe_ini_open("true_config.ini")
+            global.translated_songs = !global.translated_songs
+            ini_write_string("LANG", "translated_songs", global.translated_songs)
+            ossafe_ini_close()
+            ossafe_savedata_save()
 
-        audio_play_sound(snd_menumove, 50, 0)
+            audio_play_sound(snd_menumove, 50, 0)
+        }
     }
 }
 
-if (spec_mode_switch && option == 1) {
-    if (left_p() || right_p() || button1_p()) {
-        ossafe_ini_open("true_config.ini")
-        global.special_mode = !global.special_mode
-        ini_write_string("LANG", "special_mode", global.special_mode)
-        ossafe_ini_close()
-        ossafe_savedata_save()
-
-        audio_play_sound(snd_menumove, 50, 0)
-    }
-}
-
-if (translated_songs_switch && option == spec_mode_switch + 1) {
-    if (left_p() || right_p() || button1_p()) {
-        ossafe_ini_open("true_config.ini")
-        global.translated_songs = !global.translated_songs
-        ini_write_string("LANG", "translated_songs", global.translated_songs)
-        ossafe_ini_close()
-        ossafe_savedata_save()
-
-        audio_play_sound(snd_menumove, 50, 0)
-    }
-}
-
-if ((option == options_count && button1_p()) || (keyboard_check_pressed(vk_shift))) {
+if ((option == options_count && button1_p()) || keyboard_check_pressed(vk_shift)) {
     audio_play_sound(snd_menumove, 50, 0)
     instance_activate_object(DEVICE_MENU)
     with (DEVICE_MENU) {

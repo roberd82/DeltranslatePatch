@@ -2,11 +2,12 @@ function add_sound(argument0, argument1) //gml_Script_add_sound
 {
     sound_name = argument0
     orig_sound = asset_get_index(sound_name)
-    path = working_directory + "../lang/" + global.lang + "/chapter1/sounds/"
+    path = global.lang_folder + global.lang + "/chapter1/sounds/"
     if argument1
-        path = working_directory + "../lang/" + global.lang + "/chapter1/sounds/button_sounds/"
+        path = global.lang_folder + global.lang + "/chapter1/sounds/button_sounds/"
     filename = path + sound_name + ".ogg"
     filename_sp = path + "sp_" + sound_name + ".ogg"
+    mystream = -1
     if (!file_exists(filename))
         filename = path + sound_name + ".wav"
     if (!file_exists(filename_sp))

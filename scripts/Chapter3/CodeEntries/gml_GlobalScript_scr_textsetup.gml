@@ -9,7 +9,7 @@ function scr_textsetup(argument0, argument1, argument2, argument3, argument4, ar
     rate = argument6
     textsound = argument7
     hspace = argument8
-    vspace = argument9
+    vspace = floor(argument9 * get_lang_setting("line_height_factor", 1))
     special = argument10
     colorchange = 1
     xcolor = mycolor

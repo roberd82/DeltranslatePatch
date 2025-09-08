@@ -1,14 +1,25 @@
 function scr_84_get_lang_string(argument0, argument1) //gml_Script_scr_84_get_lang_string
 {
-    if (global.special_mode) {
-        if (ds_map_find_value(global.lang_map, ("sp_" + argument0)) != undefined)
-            return ds_map_find_value(global.lang_map, ("sp_" + argument0))
+    var lang_orig = argument1
+    var lang_string_id = argument0
+    var str = ds_map_find_value(global.lang_map, lang_string_id)
+    if global.special_mode
+    {
+        if (ds_map_find_value(global.lang_map, ("sp_" + lang_string_id)) != undefined)
+            str = ds_map_find_value(global.lang_map, ("sp_" + lang_string_id))
     }
-    if (ds_map_find_value(global.lang_map, argument0) == undefined) {
-        if (argument1 != undefined)
-            return argument1
-        else return ""
-        // show_message("No such a string '" + argument0 + "'")
+
+    if (!global.translated_songs)
+    {
+        if (ds_map_find_value(global.lang_map, ("spm_" + lang_string_id)) != undefined)
+            str = ds_map_find_value(global.lang_map, ("spm_" + lang_string_id))
     }
-    return ds_map_find_value(global.lang_map, argument0)
+
+    if is_undefined(str)
+        return lang_orig
+        // show_error((((("No such a string \"" + lang_string_id) + "\" in ") + global.lang) + " localization file."), 1)
+    
+    ds_map_set(global.used_strings, lang_string_id, lang_orig)
+
+    return str;
 }

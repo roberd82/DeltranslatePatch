@@ -52,22 +52,14 @@ if (global.menuno == 5)
 {
     draw_set_color(c_black);
     
-    if (global.lang == "ja")
-    {
-        draw_rectangle(xx + 60, yy + 85, xx + 580, yy + 412, false);
-        scr_darkbox(xx + 50, yy + 75, xx + 590, yy + 422);
-    }
-    else
-    {
-        draw_rectangle(xx + 60, yy + 90, xx + 580, yy + 410, false);
-        scr_darkbox(xx + 50, yy + 80, xx + 590, yy + 420);
-    }
+    draw_rectangle(xx + 60, yy + 85, xx + 580, yy + 412, false);
+    scr_darkbox(xx + 50, yy + 75, xx + 590, yy + 422);
     
     if ((global.submenu >= 30 && global.submenu <= 33) || global.submenu == 36)
     {
-        var _xPos = (global.lang != "ja") ? (xx + 170) : (xx + 150);
-        var _heartXPos = (global.lang != "ja") ? (xx + 145) : (xx + 125);
-        var _selectXPos = (global.lang == "ja" && global.is_console) ? (xx + 385) : (xx + 430);
+        var _xPos = xx + 150
+        var _heartXPos = xx + 125;
+        var _selectXPos = xx + 385;
         draw_set_color(c_white);
         draw_text(xx + 270, yy + 100, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_74_0"))); // CONFIG
         audvol = string(round(global.flag[17] * 100)) + "%";
@@ -107,7 +99,7 @@ if (global.menuno == 5)
         draw_text(_xPos, yy + 220, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_92_0"))); // Simplify VFX
         draw_text(_selectXPos, yy + 220, string_hash_to_newline(flashoff));
         
-        if (global.is_console)
+        if (global.is_console || os_type == os_android)
         {
             draw_text(_xPos, yy + 255, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_94_0"))); // Auto-Run
             draw_text(_selectXPos, yy + 255, string_hash_to_newline(runoff));
@@ -118,7 +110,7 @@ if (global.menuno == 5)
                 draw_set_color(c_gray);
             
             draw_text(_xPos, yy + 290, border_text);
-            draw_text(_selectXPos, yy + 290, border_options[selected_border]);
+            draw_text(_selectXPos, yy + 290, border_options_tr[selected_border]);
             draw_set_color(c_white);
             draw_text(_xPos, yy + 325, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_95_0"))); // Return to Title
             draw_text(_xPos, yy + 360, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_96_0"))); // Back
@@ -126,9 +118,9 @@ if (global.menuno == 5)
         else
         {
             draw_text(_xPos, yy + 255, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_93_0"))); // Fullscreen
-            draw_text(xx + 430, yy + 255, string_hash_to_newline(fullscreenoff));
+            draw_text(_selectXPos, yy + 255, string_hash_to_newline(fullscreenoff));
             draw_text(_xPos, yy + 290, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_94_0"))); // Auto-Run
-            draw_text(xx + 430, yy + 290, string_hash_to_newline(runoff));
+            draw_text(_selectXPos, yy + 290, string_hash_to_newline(runoff));
             draw_text(_xPos, yy + 325, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_95_0"))); // Return to Title
             draw_text(_xPos, yy + 360, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_96_0"))); // Back
         }
@@ -146,7 +138,7 @@ if (global.menuno == 5)
         draw_set_color(c_white);
         draw_text(xx + 105, yy + 100 + _headerOffset, string_hash_to_newline(scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_113_0"))); // Function
         
-        if (global.is_console)
+        if (global.is_console || os_type == os_android)
         {
             var gamepad_text = scr_84_get_lang_string("obj_darkcontroller_slash_Draw_0_gml_113_1"); // <localization fetch error>
             var buttonXPos = (scr_is_switch_os() && global.lang != "ja") ? (xx + 445) : (xx + 435);
@@ -179,7 +171,7 @@ if (global.menuno == 5)
         }
         else
         {
-            var heart_offset = (global.lang != "ja") ? 28 : 29;
+            var heart_offset = 29;
             draw_sprite(spr_heart, 0, xx + 80, (yy + 150 + (global.submenucoord[35] * heart_offset) + _yOffset) - 2);
         }
         
@@ -238,10 +230,10 @@ if (global.menuno == 5)
                     if (!global.is_console)
                         draw_text(xx + 325, yy + 140 + (i * 28), string_hash_to_newline(global.asc_def[global.input_k[i]]));
                 }
-                else if (global.is_console)
+                else if (global.is_console || os_type == os_android)
                 {
                     var _sprite = (scr_getbuttonsprite(global.input_g[i], false) != noone) ? scr_getbuttonsprite(global.input_g[i], false) : button_switch_left_0;
-                    var _xPos = (global.lang != "ja") ? (xx + 475) : (xx + 465);
+                    var _xPos = xx + 465;
                     
                     if (_sprite == button_switch_lStickClick_0 || _sprite == button_switch_rStickClick_0)
                         _xPos -= 3;
@@ -255,7 +247,7 @@ if (global.menuno == 5)
                     if (obj_gamecontroller.gamepad_active)
                     {
                         var _sprite = scr_getbuttonsprite(global.input_g[i], false);
-                        var _xPos = (global.lang != "ja") ? (xx + 475) : (xx + 465);
+                        var _xPos = xx + 465;
                         
                         if (sprite_get_width(_sprite) < 12)
                             _xPos += 2;

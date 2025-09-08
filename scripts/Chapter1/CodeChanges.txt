@@ -6,9 +6,13 @@ scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop1_Draw_0", "$
 %%%
 
 ---
-string_hash_to_newline("$" + string(buyvalue[i]))
+        draw_text(300, 260 + (i * 40), string_hash_to_newline("$" + string(buyvalue[i])));
 +++
-scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop1_Draw_0", "$~1"), string(buyvalue[i]))
+        draw_set_halign(fa_right)
+
+        draw_text(300 + 32 + 54, 260 + (i * 40), scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop1_Draw_0", "$~1"), string(buyvalue[i])));
+
+        draw_set_halign(fa_left)
 %%%
 
 ---
@@ -25,6 +29,53 @@ scr_84_get_subst_string(scr_84_get_lang_string("obj_shop1_slash_Draw_0_gml_366_0
 
 
 
+
+=== gml_GlobalScript_scr_shopmenu
+---
+                if (global.itemvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline("$" + string(ceil(global.itemvalue[i] / 2))));
+                }
++++
+                draw_set_halign(fa_right)
+
+                if (global.itemvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0"), string(ceil(global.itemvalue[i] / 2))));
+                }
+
+                draw_set_halign(fa_left)
+%%%
+
+---
+                if (weaponvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline("$" + string(ceil(weaponvalue[i] / 2))));
+                }
++++
+                draw_set_halign(fa_right)
+
+                if (weaponvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0"), string(ceil(weaponvalue[i] / 2))));
+                }
+
+                draw_set_halign(fa_left)
+%%%
+
+---
+                if (armorvalue[i] > 1) {
+                    draw_text(300, 260 + (j * 40), string_hash_to_newline("$" + string(ceil(armorvalue[i] / 2))));
+                }
++++
+                draw_set_halign(fa_right)
+
+                if (armorvalue[i] > 1) {
+                    draw_text(300 + 8 + 54, 260 + (j * 40), scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0"), string(ceil(armorvalue[i] / 2))));
+                }
+
+                draw_set_halign(fa_left)
+%%%
+
+
+
+
 === gml_Object_obj_shop2_Draw_0
 ---
 "$" + string_hash_to_newline(string(global.gold))
@@ -33,9 +84,13 @@ scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0", "$
 %%%
 
 ---
-string_hash_to_newline("$" + string(buyvalue[i]))
+        draw_text(300, 260 + (i * 40), string_hash_to_newline("$" + string(buyvalue[i])));
 +++
-scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0", "$~1"), string(buyvalue[i]))
+        draw_set_halign(fa_right)
+
+        draw_text(300 + 32 + 54, 260 + (i * 40), scr_84_get_subst_string(scr_84_get_lang_string("gml_Object_obj_shop2_Draw_0", "$~1"), string(buyvalue[i])));
+
+        draw_set_halign(fa_left)
 %%%
 
 ---
@@ -310,4 +365,29 @@ scr_init_localization()
     itemname = tempkeyitemname;
 +++
     itemname = scr_item_localized_name_acc(t_itemid, 3);
+%%%
+
+
+
+
+=== gml_Object_obj_credits_Draw_0
+---
+    if (timer >= 573 && timer < 668)
++++
+    if (timer >= timings[11] && timer < timings[13])
+%%%
+
+
+
+=== gml_Object_obj_choicer_neo_Step_0
+---
+        var msg3width = string_width(string_hash_to_newline(global.choicemsg[3])) + (16 * dar);
++++
+        var msg3width = 0;
+%%%
+
+---
+    heartposx[3] = heartposx[2];
++++
+    heartposx[3] = heartposx[2] + (string_width(string_hash_to_newline(global.choicemsg[2])) - string_width(string_hash_to_newline(global.choicemsg[3]))) / 2
 %%%

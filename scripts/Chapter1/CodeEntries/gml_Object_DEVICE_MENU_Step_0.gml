@@ -1,6 +1,7 @@
 if (!input_enabled)
     exit;
 
+
 if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
 {
     if (left_p())
@@ -34,7 +35,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                 if (FILE[MENUCOORD[0]] == 1)
                 {
                     global.filechoice = MENUCOORD[0];
-                    scr_windowcaption(scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_35_0")); // THE DARK
+                    scr_windowcaption(scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_35_0"));
                     snd_free_all();
                     obj_loadscreen.loaded = true;
                     input_enabled = false;
@@ -43,7 +44,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                     {
                         ossafe_ini_open("keyconfig_" + string(global.filechoice) + ".ini");
                         
-                        for (i = 0; i < 10; i += 1)
+                        for (var i = 0; i < 10; i += 1)
                         {
                             readval = ini_read_real("KEYBOARD_CONTROLS", string(i), -1);
                             
@@ -51,7 +52,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                                 global.input_k[i] = readval;
                         }
                         
-                        for (i = 0; i < 10; i += 1)
+                        for (var i = 0; i < 10; i += 1)
                         {
                             readval = ini_read_real("GAMEPAD_CONTROLS", string(i), -1);
                             
@@ -68,7 +69,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                         global.button1 = global.input_g[5];
                         global.button2 = global.input_g[6];
                         
-                        if (global.is_console)
+                        if (global.is_console || os_type == os_android)
                         {
                             global.screen_border_id = ini_read_string("BORDER", "TYPE", "Dynamic");
                             var _disable_border = global.screen_border_id == "None" || global.screen_border_id == "なし";
@@ -82,7 +83,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                     {
                         ossafe_ini_open("config_" + string(global.filechoice) + ".ini");
                         
-                        for (i = 0; i < 10; i += 1)
+                        for (var i = 0; i < 10; i += 1)
                         {
                             readval = ini_read_real("KEYBOARD_CONTROLS", string(i), -1);
                             
@@ -90,7 +91,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                                 global.input_k[i] = readval;
                         }
                         
-                        for (i = 0; i < 10; i += 1)
+                        for (var i = 0; i < 10; i += 1)
                         {
                             readval = ini_read_real("GAMEPAD_CONTROLS", string(i), -1);
                             
@@ -117,18 +118,35 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                         global.button1 = global.input_g[5];
                         global.button2 = global.input_g[6];
                         
-                        if (global.is_console)
+                        if (global.is_console || os_type == os_android)
                         {
                             global.screen_border_id = ini_read_string("BORDER", "TYPE", "Dynamic");
                             var _disable_border = global.screen_border_id == "None" || global.screen_border_id == "なし";
                             scr_enable_screen_border(!_disable_border);
                         }
                         
-                        if (os_type == os_ps5)
+                        ossafe_ini_close();
+                        ossafe_savedata_save();
+                        
+                        if (!global.is_console)
                         {
-                            with (obj_event_manager)
-                                trigger_event(UnknownEnum.Value_2, UnknownEnum.Value_0);
+                            ossafe_ini_open("keyconfig_" + string(global.filechoice) + ".ini");
+                            
+                            for (var i = 0; i < 10; i++)
+                                ini_write_real("KEYBOARD_CONTROLS", string(i), global.input_k[i]);
+                            
+                            for (var i = 0; i < 10; i++)
+                                ini_write_real("GAMEPAD_CONTROLS", string(i), global.input_g[i]);
+                            
+                            ini_write_real("SHOULDERLB_REASSIGN", "SHOULDERLB_REASSIGN", obj_gamecontroller.gamepad_shoulderlb_reassign);
+                            ossafe_ini_close();
                         }
+                    }
+                    
+                    if (os_type == os_ps5)
+                    {
+                        with (obj_event_manager)
+                            trigger_event(UnknownEnum.Value_2, UnknownEnum.Value_0);
                     }
                 }
                 
@@ -150,14 +168,14 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
             {
                 if (TYPE == 0)
                 {
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_74_0"); // IT CONFORMED TO THE REFLECTION.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_74_0");
                     
                     if (NAME[0] == NAME[1] && NAME[1] == NAME[2])
                     {
                         if (TIME[0] == TIME[1] && TIME[1] == TIME[2])
                         {
                             if (PLACE[0] == PLACE[1] && PLACE[1] == PLACE[2])
-                                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_77_0"); // WHAT AN INTERESTING BEHAVIOR.
+                                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_77_0");
                         }
                     }
                 }
@@ -170,14 +188,14 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                     {
                         if (TIME[0] == TIME[1] && TIME[1] == TIME[2])
                         {
-                            if (PLACE[0] == PLACE[1] && PLACE[1] == PLACE[2] && TEMPCOMMENT != scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_86_0")) // WHAT AN INTERESTING BEHAVIOR.
-                                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_86_1"); // PREPARATIONS ARE COMPLETE.
+                            if (PLACE[0] == PLACE[1] && PLACE[1] == PLACE[2] && TEMPCOMMENT != scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_86_0"))
+                                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_86_1");
                         }
                     }
                 }
                 
                 if (TYPE == 1)
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_91_0"); // Copy complete.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_91_0");
                 
                 MESSAGETIMER = 90;
                 SELNOISE = 0;
@@ -188,14 +206,14 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
             if (MENU_NO == 7)
             {
                 FILE[MENUCOORD[5]] = 0;
-                NAME[MENUCOORD[5]] = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_105_0"); // [EMPTY]
+                NAME[MENUCOORD[5]] = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_105_0");
                 TIME[MENUCOORD[5]] = 0;
                 PLACE[MENUCOORD[5]] = "------------";
                 LEVEL[MENUCOORD[5]] = 0;
                 TIME_STRING[MENUCOORD[5]] = "--:--";
                 ossafe_file_delete("filech1_" + string(MENUCOORD[5]));
                 iniwrite = ossafe_ini_open("dr.ini");
-                ini_write_string("G" + string(MENUCOORD[5]), "Name", scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_105_0")); // [EMPTY]
+                ini_write_string("G" + string(MENUCOORD[5]), "Name", "[EMPTY]");
                 ini_write_real("G" + string(MENUCOORD[5]), "Level", 0);
                 ini_write_real("G" + string(MENUCOORD[5]), "Love", 0);
                 ini_write_real("G" + string(MENUCOORD[5]), "Time", 0);
@@ -209,10 +227,10 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
                 if (ossafe_file_exists("keyconfig_" + string(MENUCOORD[5]) + ".ini"))
                     ossafe_file_delete("keyconfig_" + string(MENUCOORD[5]) + ".ini");
                 
-                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_126_0"); // IT WAS AS IF IT WAS NEVER THERE AT ALL.
+                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_126_0");
                 
                 if (TYPE == 1)
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_127_0"); // Erase complete.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_127_0");
                 
                 MESSAGETIMER = 90;
                 SELNOISE = 0;
@@ -235,7 +253,7 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
         {
             if (MENU_NO == 4 && TYPE == 0)
             {
-                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_149_0"); // IT RETAINED ITS ORIGINAL SHAPE.
+                TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_149_0");
                 MESSAGETIMER = 90;
             }
             
@@ -243,11 +261,11 @@ if (MENU_NO == 1 || MENU_NO == 4 || MENU_NO == 6 || MENU_NO == 7)
             {
                 if (TYPE == 0)
                 {
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_156_0"); // THEN IT WAS SPARED.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_156_0");
                     
                     if (THREAT >= 10)
                     {
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_159_0"); // VERY INTERESTING.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_159_0");
                         THREAT = 0;
                     }
                     
@@ -317,11 +335,11 @@ if (MENU_NO == 2 || MENU_NO == 3 || MENU_NO == 5)
                     }
                     else
                     {
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_225_0"); // THE DIVISION IS COMPLETE.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_225_0");
                         MESSAGETIMER = 90;
                         
                         if (TYPE == 1)
-                            TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_227_0"); // Copy complete.
+                            TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_227_0");
                         
                         DEATHNOISE = 1;
                         MENU_NO = 0;
@@ -332,10 +350,10 @@ if (MENU_NO == 2 || MENU_NO == 3 || MENU_NO == 5)
                 }
                 else
                 {
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_238_0"); // IT IS IMMUNE TO ITS OWN IMAGE.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_238_0");
                     
                     if (TYPE == 1)
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_239_0"); // You can't copy there.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_239_0");
                     
                     MESSAGETIMER = 90;
                     TWOBUFFER = 2;
@@ -356,13 +374,13 @@ if (MENU_NO == 2 || MENU_NO == 3 || MENU_NO == 5)
                 }
                 else
                 {
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_261_0"); // IT IS BARREN AND CANNOT BE COPIED.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_261_0");
                     
                     if (FILE[0] == 0 && FILE[1] == 0 && FILE[2] == 0)
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_264_0"); // BUT THERE WAS NOTHING LEFT TO COPY.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_264_0");
                     
                     if (TYPE == 1)
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_266_0"); // It can't be copied.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_266_0");
                     
                     MESSAGETIMER = 90;
                     BACKNOISE = 1;
@@ -383,13 +401,13 @@ if (MENU_NO == 2 || MENU_NO == 3 || MENU_NO == 5)
                 }
                 else
                 {
-                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_289_0"); // BUT IT WAS ALREADY GONE.
+                    TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_289_0");
                     
                     if (FILE[0] == 0 && FILE[1] == 0 && FILE[2] == 0)
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_292_0"); // BUT THERE WAS NOTHING LEFT TO ERASE.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_292_0");
                     
                     if (TYPE == 1)
-                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_294_0"); // There's nothing to erase.
+                        TEMPCOMMENT = scr_84_get_lang_string("DEVICE_MENU_slash_Step_0_gml_294_0");
                     
                     MESSAGETIMER = 90;
                     TWOBUFFER = 2;
@@ -508,7 +526,7 @@ if (MENU_NO == 0)
         }
     }
     
-    if (global.is_console)
+    if (global.is_console || os_type == os_android)
     {
         if (MENUCOORD[0] == 7)
         {
