@@ -25,7 +25,7 @@ for (var i = 0; i < options_count; i++) {
         draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, " >", scale, scale, 0)
 
         draw_text_transformed(xx_options, yy_options + yyoff_options * i + yyoff_options / 3 * 2, 
-            string(scr_get_lang_string("Current version - {0}; Latest available - {1}", "obj_lang_settings_10_0"), 
+            string(version_text, 
                 obj_gamecontroller.version_to_string(variable_struct_get(obj_gamecontroller.cur_translation_versions, global.lang)),
                 obj_gamecontroller.version_to_string(variable_struct_get(obj_gamecontroller.last_translation_versions, global.lang)),
             )

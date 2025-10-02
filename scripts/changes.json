@@ -1,4 +1,8 @@
 {
+    "2.2.6": {
+        "description": "- Added fixes for dialogues and a few foolproofs.",
+        "description_ru": "- Всякие исправления и обновление перевода."
+    },
     "2.2.0": {
         "description": "- Numerous fixes and adjusts.",
         "description_ru": "- Множество исправлений и\nнесколько небольших новвоведений."

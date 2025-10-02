@@ -10,7 +10,7 @@ function get_numeric_str(argument0, argument1, argument2) //gml_Script_get_numer
                 ? argument2 % 10 
                 : 5
             ]
-        return scr_get_lang_string(argument0, argument1 + "_" + string(num))
+        return scr_84_get_lang_string(argument1 + "_" + string(num), argument0)
     }
     return argument0
 }

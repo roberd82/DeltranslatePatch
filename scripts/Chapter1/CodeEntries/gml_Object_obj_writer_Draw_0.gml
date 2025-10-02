@@ -92,9 +92,6 @@ if (formatted == 0)
         
         if (thischar == "\\")
         {
-            if (charpos > 0)
-                charpos -= 3;
-            
             nextchar = string_char_at(mystring, i + 1);
             nextchar2 = string_char_at(mystring, i + 2);
             
@@ -297,7 +294,7 @@ if (formatted == 0)
                 textalignment = nextchar2;
             
             i += 2;
-            thischar = "";
+            skip = 1;
         }
         
         if (thischar == "&")
@@ -317,7 +314,7 @@ if (formatted == 0)
                 cur_string_width += (hspace * 2);
                 length += 2;
                 mystring = string_insert(scr_84_get_lang_string("obj_writer_slash_Draw_0_gml_147_0"), mystring, i + 1); // ||
-                i++;
+                i += 2;
             }
         }
         
@@ -337,8 +334,10 @@ if (formatted == 0)
                 cur_string_width += hspace;
             else
                 cur_string_width += (string_width(thischar) * textscale);
+
+            charpos++
             
-            if ((!limit_by_width && charpos >= charline) || (limit_by_width && cur_string_width >= max_string_width))
+            if ((!limit_by_width && charpos > charline) || (limit_by_width && cur_string_width > max_string_width))
             {
                 if (remspace > 2)
                 {
@@ -348,7 +347,7 @@ if (formatted == 0)
                     stringmax = max(stringmax, charpos);
                     widthmax = max(widthmax, cur_string_width);
                     remspace = -1;
-                    charpos = 2;
+                    charpos = 1;
                     cur_string_width = 0;
                     linecount += 1;
                     scr_asterskip();
@@ -359,17 +358,13 @@ if (formatted == 0)
                     widthmax = max(widthmax, cur_string_width);
                     mystring = string_insert("&", mystring, i);
                     length += 1;
-                    charpos = 2;
+                    charpos = 1;
                     cur_string_width = 0;
                     remspace = -1;
                     linecount += 1;
                     i += 1;
                     scr_asterskip();
                 }
-            }
-            else
-            {
-                charpos += 1;
             }
         }
     }

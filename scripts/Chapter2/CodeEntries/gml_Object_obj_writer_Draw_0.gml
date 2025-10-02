@@ -108,9 +108,6 @@ if (formatted == 0)
         }
         else if (thischar == "\\")
         {
-            if (charpos > 0)
-                charpos -= 3;
-            
             if (dialoguer == 1)
             {
                 nextchar = string_char_at(mystring, i + 1);
@@ -321,7 +318,7 @@ if (formatted == 0)
                 }
             }
             i += 2
-            thischar = ""
+            skip = 1
         }
         else if (thischar == "&" || thischar == "\n")
         {
@@ -341,7 +338,7 @@ if (formatted == 0)
                 cur_string_width += (hspace * 2);
                 length += 2;
                 mystring = string_insert("||", mystring, i + 1);
-                i++;
+                i += 2;
             }
         }
         
@@ -360,8 +357,9 @@ if (formatted == 0)
                 cur_string_width += hspace;
             else
                 cur_string_width += string_width(thischar) * textscale;
+            charpos += 1;
             
-            if ((!limit_by_width && charpos >= charline) || (limit_by_width && cur_string_width >= max_string_width))
+            if ((!limit_by_width && charpos > charline) || (limit_by_width && cur_string_width > max_string_width))
             {
                 if (remspace > 2)
                 {
@@ -373,7 +371,7 @@ if (formatted == 0)
                     widthmax = max(widthmax, cur_string_width)
                     
                     remspace = -1;
-                    charpos = 2;
+                    charpos = 1;
                     cur_string_width = 0;
                     linecount += 1;
                     scr_asterskip();
@@ -385,17 +383,13 @@ if (formatted == 0)
                     
                     mystring = string_insert("&", mystring, i);
                     length += 1;
-                    charpos = 2;
+                    charpos = 1;
                     cur_string_width = 0;
                     remspace = -1;
                     linecount += 1;
                     i += 1;
                     scr_asterskip();
                 }
-            }
-            else
-            {
-                charpos += 1;
             }
         }
     }

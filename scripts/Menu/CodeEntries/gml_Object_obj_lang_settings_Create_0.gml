@@ -33,28 +33,30 @@ get_non_downloaded_langs = function() {
             }
         }
 
+        if (variable_struct_get(global.languages_list[i], "not_public") == true) {
+            flag = false;
+        }
+
         if (flag) {
             array_push(non_downloaded_langs, i)
             langs_amount++
         }
     }
-
-    non_downloaded_langs = []
-    langs_amount = array_length(global.langs_names)
 }
 get_non_downloaded_langs()
 
 update_strings = function() {
-    config_text = scr_get_lang_string("LANGUAGE CONFIG", "obj_lang_settings_1_0")
-    return_text = scr_get_lang_string("Return", "obj_lang_settings_2_0")
-    yes_text = scr_get_lang_string("Yes", "obj_lang_settings_3_0")
-    no_text = scr_get_lang_string("No", "obj_lang_settings_4_0")
-    lang_choice_text = scr_get_lang_string("Language", "obj_lang_settings_5_0") + ": "
-    spec_mode_text = scr_get_lang_string("Special Mode", "obj_lang_settings_6_0") + ": "
-    tr_songs_text = scr_get_lang_string("Translated Songs", "obj_lang_settings_7_0") + ": "
-    spec_mode_desc_disabled = scr_get_lang_string("Special Mode disabled\ndescription (leave space\nif no need)", "obj_lang_settings_8_0")
-    spec_mode_desc_enabled = scr_get_lang_string("Special Mode enabled\ndescription (leave space\nif no need)", "obj_lang_settings_9_0")
-    
+    config_text = stringsetloc("LANGUAGE CONFIG", "obj_lang_settings_1_0")
+    return_text = stringsetloc("Return", "obj_lang_settings_2_0")
+    yes_text = stringsetloc("Yes", "obj_lang_settings_3_0")
+    no_text = stringsetloc("No", "obj_lang_settings_4_0")
+    lang_choice_text = stringsetloc("Language", "obj_lang_settings_5_0") + ": "
+    spec_mode_text = stringsetloc("Special Mode", "obj_lang_settings_6_0") + ": "
+    tr_songs_text = stringsetloc("Translated Songs", "obj_lang_settings_7_0") + ": "
+    spec_mode_desc_disabled = stringsetloc("Special Mode disabled\ndescription (leave space\nif no need)", "obj_lang_settings_8_0")
+    spec_mode_desc_enabled = stringsetloc("Special Mode enabled\ndescription (leave space\nif no need)", "obj_lang_settings_9_0")
+    version_text = stringsetloc("Current version - {0}; Latest available - {1}", "obj_lang_settings_10_0")
+
     options = ["language"]
 
     spec_mode_switch = false
@@ -85,3 +87,11 @@ unzipping_error = ""
 
 lang_file_size = 0
 downloaded_size = 0
+
+update_languages = function() {
+    var lang_code = variable_struct_get(global.languages_list[non_downloaded_langs[cur_lang_ind - array_length(global.langs_names)]], "code")
+
+    obj_gamecontroller.update_languages()
+    change_language(lang_code)
+    room_restart()
+}

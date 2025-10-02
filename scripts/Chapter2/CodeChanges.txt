@@ -24,7 +24,7 @@ stringsetloc("K_K", "scr_monstersetup_slash_scr_monstersetup_gml_1166_0")
 %%%
 
 
-=== gml_Object_obj_initializer2_Create_0
+=== gml_Object_obj_initializer2_Other_72
 ---
 global.screen_border_id = stringsetloc("Dynamic", "obj_initializer2_slash_Create_0_gml_22_0")
 +++

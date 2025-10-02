@@ -22,25 +22,25 @@ langs_amount = array_length(global.langs_names)
 
 update_strings = function() {
     if (TYPE == 0) {
-        config_text = scr_84_get_lang_string("obj_lang_settings_1_1", "LANGUAGE CONFIG")
-        return_text = scr_84_get_lang_string("obj_lang_settings_2_1", "RETURN")
-        yes_text = scr_84_get_lang_string("obj_lang_settings_3_1", "YES")
-        no_text = scr_84_get_lang_string("obj_lang_settings_4_1", "NO")
-        lang_choice_text = scr_84_get_lang_string("obj_lang_settings_5_1", "LANGUAGE") + ": "
-        spec_mode_text = scr_84_get_lang_string("obj_lang_settings_6_1", "SPECIAL MODE") + ": "
-        tr_songs_text = scr_84_get_lang_string("obj_lang_settings_7_1", "Translated Voices") + ": "
-        spec_mode_desc_disabled = scr_84_get_lang_string("obj_lang_settings_8_1", "SPECIAL MODE DISABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)")
-        spec_mode_desc_enabled = scr_84_get_lang_string("obj_lang_settings_9_1", "SPECIAL MODE ENABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)")
+        config_text = stringsetloc("LANGUAGE CONFIG", "obj_lang_settings_1_1")
+        return_text = stringsetloc("RETURN", "obj_lang_settings_2_1")
+        yes_text = stringsetloc("YES", "obj_lang_settings_3_1")
+        no_text = stringsetloc("NO", "obj_lang_settings_4_1")
+        lang_choice_text = stringsetloc("LANGUAGE", "obj_lang_settings_5_1") + ": "
+        spec_mode_text = stringsetloc("SPECIAL MODE", "obj_lang_settings_6_1") + ": "
+        tr_songs_text = stringsetloc("TRANSLATED VOICES", "obj_lang_settings_7_1") + ": "
+        spec_mode_desc_disabled = stringsetloc("SPECIAL MODE DISABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)", "obj_lang_settings_8_1")
+        spec_mode_desc_enabled = stringsetloc("SPECIAL MODE ENABLED\nDESCRIPTION (LEAVE SPACE\nIF NO NEED)", "obj_lang_settings_9_1")
     } else {
-        config_text = scr_84_get_lang_string("obj_lang_settings_1_0", "LANGUAGE CONFIG")
-        return_text = scr_84_get_lang_string("obj_lang_settings_2_0", "Return")
-        yes_text = scr_84_get_lang_string("obj_lang_settings_3_0", "Yes")
-        no_text = scr_84_get_lang_string("obj_lang_settings_4_0", "No")
-        lang_choice_text = scr_84_get_lang_string("obj_lang_settings_5_0", "Language") + ": "
-        spec_mode_text = scr_84_get_lang_string("obj_lang_settings_6_0", "Special Mode") + ": "
-        tr_songs_text = scr_84_get_lang_string("obj_lang_settings_7_0", "Translated Voices") + ": "
-        spec_mode_desc_disabled = scr_84_get_lang_string("obj_lang_settings_8_0", "Special Mode disabled\ndescription (leave space\nif no need)")
-        spec_mode_desc_enabled = scr_84_get_lang_string("obj_lang_settings_9_0", "Special Mode enabled\ndescription (leave space\nif no need)")
+        config_text = stringsetloc("LANGUAGE CONFIG", "obj_lang_settings_1_0")
+        return_text = stringsetloc("Return", "obj_lang_settings_2_0")
+        yes_text = stringsetloc("Yes", "obj_lang_settings_3_0")
+        no_text = stringsetloc("No", "obj_lang_settings_4_0")
+        lang_choice_text = stringsetloc("Language", "obj_lang_settings_5_0") + ": "
+        spec_mode_text = stringsetloc("Special Mode", "obj_lang_settings_6_0") + ": "
+        tr_songs_text = stringsetloc("Translated Songs", "obj_lang_settings_7_0") + ": "
+        spec_mode_desc_disabled = stringsetloc("Special Mode disabled\ndescription (leave space\nif no need)", "obj_lang_settings_8_0")
+        spec_mode_desc_enabled = stringsetloc("Special Mode enabled\ndescription (leave space\nif no need)", "obj_lang_settings_9_0")
     }
 
     options = ["language"]

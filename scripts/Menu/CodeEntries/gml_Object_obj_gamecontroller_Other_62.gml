@@ -1,7 +1,7 @@
 if (ds_map_find_value(async_load, "id") == dt_changes_call)
 {
     if (ds_map_find_value(async_load, "status") == 0) {
-        dt_changes = json_parse(ds_map_find_value(async_load, "result"));
+        dt_changes = safe_parse_json(ds_map_find_value(async_load, "result"), "{}", "Can't download Deltranslate version changes");
         update_last_dt_description(global.lang);
     }
 }
@@ -25,56 +25,48 @@ for (var ind = 0; ind < array_length(langs_loading); ind++)
                 break;
             }
 
-            if (__yy_continueEx0)
-            {
-            }
-            else
-            {
-                if (__yy_breakEx0)
-                    break;
 
-                variable_struct_set(lang_changes, langs_loading[ind], lang_change);
-                var versions = variable_struct_get_names(lang_change);
-                var lang_change_desc = "";
-                var cur_version = variable_struct_get(cur_translation_versions, langs_loading[ind]);
-                var last_version = variable_struct_get(last_translation_versions, langs_loading[ind]);
-                var files_mp = {};
+            variable_struct_set(lang_changes, langs_loading[ind], lang_change);
+            var versions = variable_struct_get_names(lang_change);
+            var lang_change_desc = "";
+            var cur_version = variable_struct_get(cur_translation_versions, langs_loading[ind]);
+            var last_version = variable_struct_get(last_translation_versions, langs_loading[ind]);
+            var files_mp = {};
 
-                for (var i = 0; i < array_length(versions); i++)
+            for (var i = 0; i < array_length(versions); i++)
+            {
+                var str = versions[i];
+
+                if (!is_valid_version(str))
+                    continue;
+
+                var ver = string_to_version(str);
+
+                if (is_version_greater(ver, cur_version))
                 {
-                    var str = versions[i];
+                    var name = variable_struct_get(variable_struct_get(lang_change, str), "name");
+                    var desc = variable_struct_get(variable_struct_get(lang_change, str), "description");
+                    lang_change_desc += string("{0}{1}:\n{2}\n", str, is_undefined(name) ? "" : string(" ({0})", name), is_undefined(desc) ? "" : desc);
+                    var files_list = variable_struct_get(variable_struct_get(lang_change, str), "files");
 
-                    if (!is_valid_version(str))
-                        continue;
-
-                    var ver = string_to_version(str);
-
-                    if (is_version_greater(ver, cur_version))
+                    if (!is_undefined(files_list))
                     {
-                        var name = variable_struct_get(variable_struct_get(lang_change, str), "name");
-                        var desc = variable_struct_get(variable_struct_get(lang_change, str), "description");
-                        lang_change_desc += string("{0}{1}:\n{2}\n", str, is_undefined(name) ? "" : string(" ({0})", name), is_undefined(desc) ? "" : desc);
-                        var files_list = variable_struct_get(variable_struct_get(lang_change, str), "files");
-
-                        if (!is_undefined(files_list))
-                        {
-                            for (var ii = 0; ii < array_length(files_list); ii++)
-                                variable_struct_set(files_mp, files_list[ii]);
-                        }
-                    }
-
-                    if (is_version_greater(ver, last_version))
-                    {
-                        last_version[0] = ver[0];
-                        last_version[1] = ver[1];
-                        last_version[2] = ver[2];
+                        for (var ii = 0; ii < array_length(files_list); ii++)
+                            variable_struct_set(files_mp, files_list[ii]);
                     }
                 }
 
-                variable_struct_set(translation_versions_descriptions, langs_loading[ind], lang_change_desc);
-                variable_struct_set(last_translation_versions, langs_loading[ind], last_version);
-                variable_struct_set(translation_versions_changes_files, langs_loading[ind], variable_struct_get_names(files_mp));
+                if (is_version_greater(ver, last_version))
+                {
+                    last_version[0] = ver[0];
+                    last_version[1] = ver[1];
+                    last_version[2] = ver[2];
+                }
             }
+
+            variable_struct_set(translation_versions_descriptions, langs_loading[ind], lang_change_desc);
+            variable_struct_set(last_translation_versions, langs_loading[ind], last_version);
+            variable_struct_set(translation_versions_changes_files, langs_loading[ind], variable_struct_get_names(files_mp));
         }
     }
 }
@@ -120,8 +112,11 @@ if (ds_map_find_value(async_load, "id") == languages_list_call)
 {
     if (ds_map_find_value(async_load, "status") == 0)
     {
-        var languages_list_res = json_parse(ds_map_find_value(async_load, "result"));
+        var languages_list_res = safe_parse_json(ds_map_find_value(async_load, "result"), "{}", "Can't download languages list");
         var languages_list = variable_struct_get(languages_list_res, "languages");
+        if (is_undefined(languages_list))
+            languages_list = []
+
         global.languages_list = [];
         languages_list_calls = [];
 
@@ -164,27 +159,22 @@ for (var ind = 0; ind < array_length(languages_list_calls); ind++)
                 break;
             }
 
-            if (__yy_continueEx1)
-            {
-            }
-            else
-            {
-                if (__yy_breakEx1)
-                    break;
+            var name = variable_struct_get(lang_info, "name");
+            var description = variable_struct_get(lang_info, "description");
+            var download_url = variable_struct_get(lang_info, "download_url");
+            var not_public = variable_struct_get(lang_info, "not_public");
 
-                var name = variable_struct_get(lang_info, "name");
-                var description = variable_struct_get(lang_info, "description");
-                var download_url = variable_struct_get(lang_info, "download_url");
+            if (!is_undefined(name))
+                variable_struct_set(global.languages_list[ind], "name", name);
 
-                if (!is_undefined(name))
-                    variable_struct_set(global.languages_list[ind], "name", name);
+            if (!is_undefined(description))
+                variable_struct_set(global.languages_list[ind], "description", description);
 
-                if (!is_undefined(description))
-                    variable_struct_set(global.languages_list[ind], "description", description);
+            if (!is_undefined(download_url))
+                variable_struct_set(global.languages_list[ind], "download_url", download_url);
 
-                if (!is_undefined(download_url))
-                    variable_struct_set(global.languages_list[ind], "download_url", download_url);
-            }
+            if (!is_undefined(not_public))
+                variable_struct_set(global.languages_list[ind], "not_public", not_public);
         }
     }
 }

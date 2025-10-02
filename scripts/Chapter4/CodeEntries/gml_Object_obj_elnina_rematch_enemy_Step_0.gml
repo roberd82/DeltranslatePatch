@@ -45,12 +45,11 @@ if (global.myfight == 3)
             msgnextloc("* Blocking rain shows your care for the weather report!/%", "obj_elnina_rematch_enemy_slash_Step_0_gml_60_0");
             scr_battletext_default();
             actcon = 1;
-            global.actsimul[myself][1] = 1;
             scr_spellmenu_setup();
         }
         else
         {
-            msgset(0, msgsetloc(0, "* Took an umbrella to block rain!", "obj_elnina_rematch_enemy_slash_Step_0_gml_69_0") + "/%");
+            msgset(0, stringsetloc("* Took an umbrella to block rain!", "obj_elnina_rematch_enemy_slash_Step_0_gml_69_0") + "/%");
             scr_battletext_default();
             actcon = 1;
         }

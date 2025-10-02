@@ -50,14 +50,18 @@ string_to_version = function(str) {
     if (is_undefined(str))
         str = "0.0.0";
 
-    var ver = [0, 0, 0]
+    try {
+        var ver = [0, 0, 0]
 
-    var major_pos = string_pos_ext(".", str, 1)
-    var minor_pos = string_pos_ext(".", str, major_pos + 1)
-    
-    ver[0] = real(string_copy(str,             1,                      major_pos));
-    ver[1] = real(string_copy(str, major_pos + 1,          minor_pos - major_pos));
-    ver[2] = real(string_copy(str, minor_pos + 1, string_length(str) - minor_pos));
+        var major_pos = string_pos_ext(".", str, 1)
+        var minor_pos = string_pos_ext(".", str, major_pos + 1)
+        
+        ver[0] = real(string_copy(str,             1,                      major_pos));
+        ver[1] = real(string_copy(str, major_pos + 1,          minor_pos - major_pos));
+        ver[2] = real(string_copy(str, minor_pos + 1, string_length(str) - minor_pos));
+    } catch (err) {
+        return [-1, -1, -1]
+    }
 
     return ver
 }
@@ -185,7 +189,8 @@ load_files = function() {
 
     var files = variable_struct_get(translation_versions_changes_files, global.lang);
     for (var i = 0; i < array_length(files); i++) {
-        variable_struct_set(files_in_upload, files[i], http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + files[i]));
+        var file = string_replace_all(files[i], "..", "")
+        variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + file));
     }
     if (!variable_struct_exists(files_in_upload, "settings.json")) {
         variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + "settings.json"));
@@ -217,7 +222,6 @@ clear_tmp = function() {
 }
 
 update_last_dt_description = function(lang) {
-    // Docstr: Find latest ver, update foldable text(Q) based on lang with all existing changes
     if (is_undefined(dt_changes)) {
         last_dt_description = "";
         return;
@@ -258,7 +262,8 @@ update_last_dt_description = function(lang) {
     last_dt_description = text;
 };
 
-
+languages_list_call = -1
+// Закомментить чтобы убрать подкачку языков
 languages_list_call = http_get("https://raw.githubusercontent.com/Lazy-Desman/DeltranslatePatch/refs/heads/main/languages_list.json");
 
 languages_list_calls = []

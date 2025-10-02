@@ -4,7 +4,10 @@ if (scr_is_switch_os())
 con = 0;
 timer = 0;
 snd_free_all();
-files_exist = false // scr_chapter_save_file_exists(global.chapter);
+files_exist = scr_chapter_save_file_exists(global.chapter);
+if (get_chapter_lang_setting("wfa", false)) {
+    files_exist = false
+}
 init = 0;
 type = 0;
 logotimer = 0;

@@ -1293,7 +1293,7 @@ draw_text(camerax() + mx + 48 + (_str != "" ? sprite_get_width(spr_sparestar) : 
 ---
 draw_text(camerax() + mx + 48, (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), string(_str) + get_x_click_mic_string(inputname));
 +++
-draw_text(camerax() + mx + 48 + (_str != "" ? sprite_get_width(spr_sparestar) : 0), (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), get_x_click_mic_string(inputname));
+draw_text(camerax() + mx + 48 + ((_str != "") ? sprite_get_width(spr_sparestar) : 0) + xoffset, (cameray() + my + myy + 24 + (i * 30)) - (menu_y * 30), get_x_click_mic_string(inputname));
 %%%
 
 ---
@@ -1309,6 +1309,29 @@ var pos = string_pos("[", _n);
 if (pos != 0)
     _n = string_copy(_n, 0, pos - 1);
 %%%
+
+---
+var inputname = scr_get_input_name(5);
++++
+var inputname = scr_get_input_name(5);
+var xoffset = 0;
+%%%
+
+---
+var xoffset = 0;
+                    
+if (i == (menu_max - 2) && global.right_click_mic == 2) {
+    xoffset = 18;
+}
+
+draw_sprite_ext(_sprite, 0, camerax() + mx + 46 + xoffset, (cameray() + my + myy + 27 + (i * 30)) - (menu_y * 30), 2, 2, 0, c_white, 1);
++++
+xoffset = sprite_get_width(_sprite) * 2;
+draw_sprite_ext(_sprite, 0, camerax() + mx + 46 + ((_str != "") ? sprite_get_width(spr_sparestar) : 0), (cameray() + my + myy + 27 + (i * 30)) - (menu_y * 30), 2, 2, 0, c_white, 1);
+%%%
+
+
+
 
 
 
@@ -1381,22 +1404,68 @@ window_set_caption(stringsetloc("DOGTARUNE", "PROCESS_DOG_slash_Create_0_gml_1_0
 %%%
 
 ---
+                if (global.hp[1] < 1) {
+                    _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0");
+                }
+
+                if (global.hp[2] < 1) {
+                    _str = stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0");
+                }
+
+                if (global.hp[3] < 1) {
+                    _str = stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+                }
+
                 var _andstr = " and ";
 
                 if (global.lang == "ja") {
                     _andstr = " と ";
                 }
+
+                if (global.hp[1] < 1 && global.hp[2] < 1) {
+                    _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0") + _andstr + stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0");
+                }
+
+                if (global.hp[1] < 1 && global.hp[3] < 1) {
+                    _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0") + _andstr + stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+                }
+
+                if (global.hp[2] < 1 && global.hp[3] < 1) {
+                    _str = stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0") + _andstr + stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+                }
+
+                global.battlemsg[0] = stringsetsubloc("* Old Man gave ~1 candy!", _str, "obj_titan_enemy_slash_Step_0_gml_395_0");
 +++
                 var _andstr = stringsetloc(" and ", "obj_initializer_slash_Create_0_gml_51_0");
+
+                if ((global.hp[1] < 1 && global.hp[2] < 1) || (global.hp[1] < 1 && global.hp[3] < 1) || (global.hp[2] < 1 && global.hp[3] < 1)) {
+                    if (global.hp[1] < 1 && global.hp[2] < 1)
+                        _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0") + _andstr + stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0");
+
+                    if (global.hp[1] < 1 && global.hp[3] < 1)
+                        _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0") + _andstr + stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+
+                    if (global.hp[2] < 1 && global.hp[3] < 1)
+                        _str = stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0") + _andstr + stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+
+                    global.battlemsg[0] = stringsetsubloc("* Old Man gave ~1 candy!", _str, "obj_titan_enemy_slash_Step_0_gml_395_0_1");
+                } else {
+                    if (global.hp[1] < 1)
+                        _str = stringsetloc("Kris", "obj_initializer_slash_Create_0_gml_48_0");
+
+                    if (global.hp[2] < 1)
+                        _str = stringsetloc("Susie", "obj_initializer_slash_Create_0_gml_49_0");
+
+                    if (global.hp[3] < 1)
+                        _str = stringsetloc("Ralsei", "obj_initializer_slash_Create_0_gml_50_0");
+
+                    global.battlemsg[0] = stringsetsubloc("* Old Man gave ~1 candy!", _str, "obj_titan_enemy_slash_Step_0_gml_395_0");
+                }
 %%%
 
 
-=== gml_Object_obj_screen_loading_Create_0
----
-== "en"
-+++
-!= "ja"
-%%%
+
+
 
 === gml_Object_obj_dw_church_intro_guei_Draw_0
 ---
@@ -1404,6 +1473,7 @@ window_set_caption(stringsetloc("DOGTARUNE", "PROCESS_DOG_slash_Create_0_gml_1_0
 +++
 != "ja"
 %%%
+
 
 
 
@@ -1966,3 +2036,16 @@ prevemptyname = stringsetloc("[EMPTY]", "DEVICE_MENU_slash_Step_0_gml_105_0");
 +++
         speedtime = stringsetsubloc("~1.~2", secstring, string(floor(milliseconds)), "obj_dw_church_sideclimb_slash_Step_0_gml_832_0");
 %%%
+
+
+
+
+
+
+
+
+
+
+
+
+

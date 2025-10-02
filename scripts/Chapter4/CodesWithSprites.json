@@ -30,9 +30,6 @@
   "gml_Object_obj_noellehouse_dess_closet_Draw_0": [
     "bg_noellehouse_dess_closet_door_slide"
   ],
-  "gml_Object_obj_guei_enemy_Step_0": [
-    "spr_recruited_by_oldman"
-  ],
   "gml_Object_obj_room_town_mid_Create_0": [
     "spr_conbini_sign_clopen",
     "spr_conbini_sign_open",

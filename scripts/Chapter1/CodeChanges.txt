@@ -391,3 +391,22 @@ scr_init_localization()
 +++
     heartposx[3] = heartposx[2] + (string_width(string_hash_to_newline(global.choicemsg[2])) - string_width(string_hash_to_newline(global.choicemsg[3]))) / 2
 %%%
+
+
+
+
+=== gml_Object_obj_thrashcontroller_Draw_0
+---
+        colorname_xoff = 0;
+
+        if (global.lang == "ja") {
+            colorname_xoff = 86 - left_xoff;
+        }
++++
+        var wcol0 = string_width(menutext1[1][0]);
+        var wcol1 = string_width(menutext1[1][1]);
+        var wcol2 = string_width(menutext1[1][2]);
+
+        var maxwcol = max(wcol0, wcol1, wcol2);
+        colorname_xoff = 126 - floor(maxwcol);
+%%%
