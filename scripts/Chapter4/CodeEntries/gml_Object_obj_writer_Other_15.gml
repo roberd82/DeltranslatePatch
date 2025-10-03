@@ -30,6 +30,7 @@ if (formatted == 0)
     for (i = 1; i < (length + 1); i += 1)
     {
         skip = 0;
+        var wide_image = 0;
         thischar = string_char_at(mystring, i);
         
         if (thischar == "`")
@@ -315,7 +316,7 @@ if (formatted == 0)
                         cur_string_width += spr_w;
                         
                         if ((spr_w + (hspace * 2)) >= max_string_width)
-                            skip = 1;
+                            wide_image = 1;
                     }
                 }
             }
@@ -368,6 +369,8 @@ if (formatted == 0)
                     cur_string_width += sprite_get_width(spr)
                     i--
                     skip = 1
+                    if ((sprite_get_width(spr) + (hspace * 2)) >= max_string_width)
+                        wide_image = 1;
                 }
             } else if (nextchar == "S") {
                 var ind = -1;
@@ -412,7 +415,7 @@ if (formatted == 0)
             charpos += 1;
         }
             
-        if ((!limit_by_width && charpos > charline) || (limit_by_width && cur_string_width > max_string_width))
+        if (!wide_image && ((!limit_by_width && charpos > charline) || (limit_by_width && cur_string_width > max_string_width)))
         {
             if (remspace > 2)
             {
