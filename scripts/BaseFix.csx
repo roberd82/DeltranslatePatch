@@ -336,6 +336,7 @@ AddNewEvent("obj_gamecontroller", EventType.Draw, (uint)EventSubtypeDraw.DrawGUI
 AddNewEvent("obj_gamecontroller", EventType.Step, (uint)EventSubtypeStep.Step, "");
 AddNewEvent("obj_gamecontroller", EventType.Other, (uint)EventSubtypeOther.AsyncHTTP, @"");
 AddNewEvent("obj_gamecontroller", EventType.Draw, (uint)EventSubtypeDraw.DrawEnd, @"");
+AddNewEvent("obj_gamecontroller", EventType.Other, (uint)EventSubtypeOther.RoomEnd, @"");
 
 int maxCount = 0;
 

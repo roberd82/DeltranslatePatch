@@ -6,8 +6,9 @@ function scr_asterskip() //gml_Script_scr_asterskip
         mystring = string_insert("||", mystring, i)
         cur_string_width += hspace * 2
         i += 1
-
+        charpos++
     }
     if (aster == 2)
         aster = 1
 }
+

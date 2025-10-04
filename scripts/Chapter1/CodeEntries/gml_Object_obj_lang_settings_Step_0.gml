@@ -14,16 +14,6 @@ if (up_p()) {
 
 if (option < options_count) {
     if (options[option] == "language") {
-        if (right_p() || left_p()) {
-            audio_play_sound(snd_menumove, 50, 0)
-
-            cur_lang_ind = (cur_lang_ind + (right_p() - left_p()) + langs_amount) % langs_amount;
-            change_language(global.langs_names[cur_lang_ind])
-            last_lang = global.lang
-
-            update_strings()
-            options_count = array_length(options)
-        }
         if (button1_p()) {
             var link = get_lang_setting("link", "")
             if (link != "") {

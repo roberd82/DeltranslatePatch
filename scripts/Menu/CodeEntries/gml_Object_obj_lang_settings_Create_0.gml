@@ -13,38 +13,6 @@ xx_mid = 160 * scale
 
 yy_return = (205 + 12) * scale
 
-cur_lang_ind = 0
-last_lang = global.lang
-for (i = 0; i < array_length(global.langs_names); i++) {
-    if (global.langs_names[i] == global.lang) {
-        cur_lang_ind = i
-        break
-    }
-}
-
-get_non_downloaded_langs = function() {
-    non_downloaded_langs = []
-    langs_amount = array_length(global.langs_names)
-    for (var i = 0; i < array_length(global.languages_list); i++) {
-        var flag = true;
-        for (var j = 0; j < array_length(global.langs_names); j++) {
-            if (variable_struct_get(global.languages_list[i], "code") == global.langs_names[j]) {
-                flag = false;
-            }
-        }
-
-        if (variable_struct_get(global.languages_list[i], "not_public") == true) {
-            flag = false;
-        }
-
-        if (flag) {
-            array_push(non_downloaded_langs, i)
-            langs_amount++
-        }
-    }
-}
-get_non_downloaded_langs()
-
 update_strings = function() {
     config_text = stringsetloc("LANGUAGE CONFIG", "obj_lang_settings_1_0")
     return_text = stringsetloc("Return", "obj_lang_settings_2_0")
@@ -76,22 +44,3 @@ update_strings = function() {
 }
 
 update_strings()
-
-language_downloading = false
-language_downloading_call = -1
-
-unzipping = false
-
-loading_error = ""
-unzipping_error = ""
-
-lang_file_size = 0
-downloaded_size = 0
-
-update_languages = function() {
-    var lang_code = variable_struct_get(global.languages_list[non_downloaded_langs[cur_lang_ind - array_length(global.langs_names)]], "code")
-
-    obj_gamecontroller.update_languages()
-    change_language(lang_code)
-    room_restart()
-}

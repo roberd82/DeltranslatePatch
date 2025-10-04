@@ -1,29 +1,6 @@
 var flag, i, spr_arr, snd_arr;
 function scr_init_localization() //gml_Script_scr_init_localization
 {
-    if (!variable_global_exists("lang"))
-    {
-        ini_open("true_config.ini")
-        if ini_key_exists("LANG", "LANG_DT")
-            global.lang = ini_read_string("LANG", "LANG_DT", "en")
-        else
-            global.lang = os_get_language()
-        ini_close()
-        flag = 0
-        for (i = 0; i < array_length(global.langs_names); i++)
-        {
-            if (global.langs_names[i] == global.lang)
-            {
-                flag = 1
-                break
-            }
-        }
-        if (!flag)
-            global.lang = "en"
-        if (!variable_struct_exists(global.langs_settings, global.lang)) {
-            global.lang = global.langs_names[0]
-        }
-    }
     if (!variable_global_exists("lang_loaded")) {
         global.lang_loaded = "";
         global.loaded_sprites = [];

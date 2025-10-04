@@ -36,6 +36,7 @@ if global.translator_mode
     if keyboard_check_released(ord("R"))
     {
         scr_lang_load(true)
+        update_on_room_end = true
     }
     if keyboard_check_released(ord("N"))
         room_goto_next()

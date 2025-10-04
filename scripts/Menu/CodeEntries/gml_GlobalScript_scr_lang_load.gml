@@ -1,7 +1,7 @@
 function scr_lang_load() //gml_Script_scr_lang_load
 {
     name = "strings.json"
-    var lang_dir = global.lang_folder + global.lang + "/"
+    var lang_dir = get_lang_folder_path()
     var orig_filename = lang_dir + name
 
     var json = "{}"

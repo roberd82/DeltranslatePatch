@@ -101,7 +101,7 @@ hpcolor[1] = c_fuchsia;
 hpcolor[2] = c_lime;
 gamepad_controls = [gp_face1, gp_face2, gp_face3, gp_face4, gp_shoulderl, gp_shoulderlb, gp_shoulderr, gp_shoulderrb, gp_select, gp_start, gp_stickl, gp_stickr, gp_padu, gp_padd, gp_padl, gp_padr];
 border_text = scr_84_get_lang_string("obj_darkcontroller_slash_Create_0_gml_1_0", "Border")
-border_options = (global.lang != "ja") ? ["Dynamic", "Simple", "None"] : ["ダイナミック", "シンプル", "なし"];
+border_options = ["Dynamic", "Simple", "None"];
 var border_options_en = ["Dynamic", "Simple", "None"];
 border_options_tr = [
     scr_84_get_lang_string("obj_darkcontroller_slash_Create_0_gml_2_0", "Dynamic"),

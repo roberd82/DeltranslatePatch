@@ -44,8 +44,8 @@ for (var i = 0; i < options_count; i++) {
     if (options[i] == "language") {
         draw_text_shadow(xx_options, yy_options + yyoff_options * i, lang_choice_text, scale, scale, 0)
         var xx_off = string_width(lang_choice_text) * scale
-        draw_text_shadow(xx_options + xx_off, yy_options + yyoff_options * i, "< ", scale, scale, 0)
-        xx_off += string_width("< ") * scale
+        // draw_text_shadow(xx_options + xx_off, yy_options + yyoff_options * i, "< ", scale, scale, 0)
+        // xx_off += string_width("< ") * scale
 
         if (option == i) {
             var link = get_lang_setting("link", "")
@@ -56,7 +56,7 @@ for (var i = 0; i < options_count; i++) {
         draw_text_shadow(xx_options + xx_off, yy_options + yyoff_options * i, get_lang_setting("name"), scale, scale, 0)
         
         xx_off += string_width(get_lang_setting("name")) * scale
-        draw_text_shadow(xx_options + xx_off, yy_options + yyoff_options * i, " >", scale, scale, 0)
+        // draw_text_shadow(xx_options + xx_off, yy_options + yyoff_options * i, " >", scale, scale, 0)
 
         if (option == i) {
             var lang_desc = get_lang_setting("description", "")

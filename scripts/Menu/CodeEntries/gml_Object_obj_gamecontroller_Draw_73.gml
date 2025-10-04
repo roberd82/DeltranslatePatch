@@ -9,7 +9,7 @@ last_unfolded_text = scr_get_lang_string("List of changes. Press [Q] to fold.\n"
 if ((array_length(loaded_files) > 0 && !loading_new_translation_files) || loading_error != "")
 {
     if (loading_error == "")
-        update_string = string(scr_get_lang_string("Succesfully updated to version {0}.\nHave a nice play.", "obj_gamecontroller_Draw_73_4_0"), version_to_string(variable_struct_get(cur_translation_versions, global.lang)));
+        update_string = string(scr_get_lang_string("Succesfully updated to version {0}.\nHave a nice play.", "obj_gamecontroller_Draw_73_4_0"), version_to_string(cur_translation_version));
     else
         update_string = string(scr_get_lang_string("Something went wrong.\nHTTP error - {0}.", "obj_gamecontroller_Draw_73_4_1"), loading_error);
 
@@ -17,17 +17,26 @@ if ((array_length(loaded_files) > 0 && !loading_new_translation_files) || loadin
         update_string = "";
 }
 
-if (loading_error == "" && is_version_greater(variable_struct_get(last_translation_versions, global.lang), variable_struct_get(cur_translation_versions, global.lang)))
+if (loading_error == "" && is_version_greater(last_translation_version, cur_translation_version))
 {
     can_tr_be_loaded = true;
-    update_string = string(scr_get_lang_string("Found new version {0} of translation.\nYour current version is {1}.\nPress [G] to download new version.", "obj_gamecontroller_Draw_73_1_0"), version_to_string(variable_struct_get(last_translation_versions, global.lang)), version_to_string(variable_struct_get(cur_translation_versions, global.lang))) + "\n" + (desc_folded ? last_folded_text : (last_unfolded_text + variable_struct_get(translation_versions_descriptions, global.lang)));
+    update_string = string(
+        scr_get_lang_string("Found new version {0} of translation.\nYour current version is {1}.\nPress [G] to download new version.", "obj_gamecontroller_Draw_73_1_0"), 
+        version_to_string(last_translation_version), 
+        version_to_string(cur_translation_version)
+    ) + "\n" + 
+    (desc_folded ? last_folded_text : (last_unfolded_text + translation_version_description));
 }
 
-if (is_version_greater(last_dt_version, cur_dt_version))
+if (translation_external_update)
 {
     can_tr_be_loaded = false;
-    update_last_dt_description(global.lang);
-    update_string = string(scr_get_lang_string("Found new version {0} of Deltranslate.\nYour current version is {1}.\nIt's advised to install\nnew version via installer.", "obj_gamecontroller_Draw_73_2_0"), version_to_string(last_dt_version), version_to_string(cur_dt_version)) + "\n" + (desc_folded ? last_folded_text : last_dt_description);
+    update_string = string(
+        scr_get_lang_string("Found new version {0} of translation.\nYour current version is {1}.\nIt's advised to install\nnew version manually.", "obj_gamecontroller_Draw_73_2_0"), 
+        version_to_string(last_translation_version), 
+        version_to_string(cur_translation_version)
+    ) + "\n" + 
+    (desc_folded ? last_folded_text : (last_unfolded_text + translation_version_description));
 }
 
 if (update_string != "")
@@ -51,8 +60,15 @@ if (update_string != "")
 
         loading_string += "\n";
 
-        for (var i = 0; i < array_length(loaded_files); i++)
-            loading_string += (string(scr_get_lang_string("Loaded {0}", "obj_gamecontroller_Draw_73_6_0"), loaded_files[i]) + "\n");
+        for (var i = 0; i < array_length(translation_version_changes_datas); i++) {
+            var path = ""
+            if (translation_version_changes_datas[i] > 0) {
+                path = "chapter" + string(translation_version_changes_datas[i]) + "/"
+            }
+            loading_string += (string(scr_get_lang_string("Loading {0}: {1}%", "obj_gamecontroller_Draw_73_8_0"), path + "data.win", string(variable_struct_get(datas_loading, translation_version_changes_datas[i]))) + "\n");
+        }
+
+        loading_string += string(scr_get_lang_string("Loaded {0}/{1} translation_files", "obj_gamecontroller_Draw_73_7_0"), string(array_length(loaded_files)), string(array_length(variable_struct_get_names(files_in_upload)))) + "\n";
 
         update_string = loading_string;
     }
@@ -115,6 +131,7 @@ if (update_string != "")
         if (panel_visible && can_tr_be_loaded && keyboard_check_pressed(ord("G")))
         {
             loading_new_translation_files = true;
+            load_datas();
             load_files();
         }
     }

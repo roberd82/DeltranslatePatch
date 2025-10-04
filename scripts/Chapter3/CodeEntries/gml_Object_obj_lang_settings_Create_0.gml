@@ -9,17 +9,6 @@ xx_mid = 160 * scale
 
 yy_return = (205 + 12) * scale
 
-cur_lang_ind = 0
-last_lang = global.lang
-for (i = 0; i < array_length(global.langs_names); i++) {
-    if (global.langs_names[i] == global.lang) {
-        cur_lang_ind = i
-        break
-    }
-}
-
-langs_amount = array_length(global.langs_names)
-
 update_strings = function() {
     config_text = stringsetloc("LANGUAGE CONFIG", "obj_lang_settings_1_0")
     return_text = stringsetloc("Return", "obj_lang_settings_2_0")

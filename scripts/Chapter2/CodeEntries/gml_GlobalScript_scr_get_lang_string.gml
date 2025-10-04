@@ -19,7 +19,17 @@ function scr_get_lang_string(argument0, argument1) //gml_Script_scr_get_lang_str
         return lang_orig
         // show_error((((("No such a string \"" + lang_string_id) + "\" in ") + global.lang) + " localization file."), 1)
     
-    ds_map_set(global.used_strings, lang_string_id, lang_orig)
+    if (global.translator_mode) {
+        if (lang_orig != str) {
+            ds_map_set(global.lang_to_orig, str, lang_orig)
+            ds_map_set(global.orig_to_lang, lang_orig, str)
+        }
+        
+        if (global.orig_en)
+            return lang_orig
+
+        ds_map_set(global.used_strings, lang_string_id, lang_orig)
+    }
  
     return str;
 }

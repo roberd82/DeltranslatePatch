@@ -1,77 +1,87 @@
-if (ds_map_find_value(async_load, "id") == dt_changes_call)
+if (ds_map_find_value(async_load, "id") == lang_changes_call)
 {
-    if (ds_map_find_value(async_load, "status") == 0) {
-        dt_changes = safe_parse_json(ds_map_find_value(async_load, "result"), "{}", "Can't download Deltranslate version changes");
-        update_last_dt_description(global.lang);
-    }
-}
-
-var langs_loading = variable_struct_get_names(lang_changes_calls);
-
-for (var ind = 0; ind < array_length(langs_loading); ind++)
-{
-    if (ds_map_find_value(async_load, "id") == variable_struct_get(lang_changes_calls, langs_loading[ind]))
+    if (ds_map_find_value(async_load, "status") == 0)
     {
-        if (ds_map_find_value(async_load, "status") == 0)
+        var lang_change;
+
+
+        try
         {
-            var lang_change;
+            lang_change = json_parse(ds_map_find_value(async_load, "result"));
+        }
+        catch (err)
+        {
+            break;
+        }
 
-            try
+
+        lang_changes = lang_change;
+        var versions = variable_struct_get_names(lang_change);
+        array_sort(versions, function(a, b) {
+            return is_version_greater(string_to_version(b), string_to_version(a)) - is_version_greater(string_to_version(a), string_to_version(b));
+        })
+        var lang_change_desc = "";
+        var cur_version = cur_translation_version;
+        var last_version = last_translation_version;
+        var should_external_update = false;
+        var files_mp = {};
+        var datas_mp = {};
+
+        for (var i = 0; i < array_length(versions); i++)
+        {
+            var str = versions[i];
+
+            if (!is_valid_version(str))
+                continue;
+
+            var ver = string_to_version(str);
+
+            if (is_version_greater(ver, cur_version))
             {
-                lang_change = json_parse(ds_map_find_value(async_load, "result"));
-            }
-            catch (err)
-            {
-                break;
-            }
+                var name = variable_struct_get(variable_struct_get(lang_change, str), "name");
+                var desc = variable_struct_get(variable_struct_get(lang_change, str), "description");
+                lang_change_desc += string("{0}{1}:\n{2}\n", str, is_undefined(name) ? "" : string(" ({0})", name), is_undefined(desc) ? "" : desc);
+                var files_list = variable_struct_get(variable_struct_get(lang_change, str), "files");
+                var datas_list = variable_struct_get(variable_struct_get(lang_change, str), "datas");
 
-
-            variable_struct_set(lang_changes, langs_loading[ind], lang_change);
-            var versions = variable_struct_get_names(lang_change);
-            var lang_change_desc = "";
-            var cur_version = variable_struct_get(cur_translation_versions, langs_loading[ind]);
-            var last_version = variable_struct_get(last_translation_versions, langs_loading[ind]);
-            var files_mp = {};
-
-            for (var i = 0; i < array_length(versions); i++)
-            {
-                var str = versions[i];
-
-                if (!is_valid_version(str))
-                    continue;
-
-                var ver = string_to_version(str);
-
-                if (is_version_greater(ver, cur_version))
+                var external_update = variable_struct_get(variable_struct_get(lang_change, str), "external_update");
+                if (!is_undefined(external_update) && external_update) {
+                    should_external_update = true
+                }
+                
+                if (!is_undefined(files_list))
                 {
-                    var name = variable_struct_get(variable_struct_get(lang_change, str), "name");
-                    var desc = variable_struct_get(variable_struct_get(lang_change, str), "description");
-                    lang_change_desc += string("{0}{1}:\n{2}\n", str, is_undefined(name) ? "" : string(" ({0})", name), is_undefined(desc) ? "" : desc);
-                    var files_list = variable_struct_get(variable_struct_get(lang_change, str), "files");
-
-                    if (!is_undefined(files_list))
-                    {
-                        for (var ii = 0; ii < array_length(files_list); ii++)
-                            variable_struct_set(files_mp, files_list[ii]);
+                    for (var ii = 0; ii < array_length(files_list); ii++)
+                        variable_struct_set(files_mp, files_list[ii]);
+                }
+                
+                if (!is_undefined(datas_list))
+                {
+                    for (var ii = 0; ii < array_length(datas_list); ii++) {
+                        variable_struct_set(datas_mp, datas_list[ii]);
+                        variable_struct_set(datas_loading, datas_list[ii], 0);
                     }
                 }
-
-                if (is_version_greater(ver, last_version))
-                {
-                    last_version[0] = ver[0];
-                    last_version[1] = ver[1];
-                    last_version[2] = ver[2];
-                }
             }
 
-            variable_struct_set(translation_versions_descriptions, langs_loading[ind], lang_change_desc);
-            variable_struct_set(last_translation_versions, langs_loading[ind], last_version);
-            variable_struct_set(translation_versions_changes_files, langs_loading[ind], variable_struct_get_names(files_mp));
+            if (is_version_greater(ver, last_version))
+            {
+                last_version[0] = ver[0];
+                last_version[1] = ver[1];
+                last_version[2] = ver[2];
+            }
         }
+
+        translation_version_description = lang_change_desc;
+        last_translation_version = last_version;
+        translation_version_changes_files = variable_struct_get_names(files_mp);
+        translation_version_changes_datas = variable_struct_get_names(datas_mp);
+        translation_external_update = should_external_update
     }
 }
 
 var filenames = variable_struct_get_names(files_in_upload);
+var datanames = variable_struct_get_names(datas_in_upload);
 
 for (var ind = 0; ind < array_length(filenames); ind++)
 {
@@ -79,7 +89,7 @@ for (var ind = 0; ind < array_length(filenames); ind++)
     {
         if (ds_map_find_value(async_load, "status") == 0)
         {
-            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + filenames[ind]);
+            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + filenames[ind]);
 
             if (buffer_get_size(file_buffer) == 0)
             {
@@ -91,8 +101,9 @@ for (var ind = 0; ind < array_length(filenames); ind++)
             {
                 array_push(loaded_files, filenames[ind]);
 
-                if (array_length(loaded_files) == array_length(filenames))
+                if (array_length(loaded_files) == array_length(filenames) && array_length(loaded_datas) == array_length(datanames)) {
                     copy_files_from_tmp();
+                }
             }
             else
             {
@@ -108,73 +119,47 @@ for (var ind = 0; ind < array_length(filenames); ind++)
     }
 }
 
-if (ds_map_find_value(async_load, "id") == languages_list_call)
+for (var ind = 0; ind < array_length(datanames); ind++)
 {
-    if (ds_map_find_value(async_load, "status") == 0)
-    {
-        var languages_list_res = safe_parse_json(ds_map_find_value(async_load, "result"), "{}", "Can't download languages list");
-        var languages_list = variable_struct_get(languages_list_res, "languages");
-        if (is_undefined(languages_list))
-            languages_list = []
-
-        global.languages_list = [];
-        languages_list_calls = [];
-
-        for (var i = 0; i < array_length(languages_list); i++)
-        {
-            var lang_info = languages_list[i];
-            array_push(global.languages_list, lang_info);
-            var url = variable_struct_get(lang_info, "info_url");
-
-            if (!is_undefined(url))
-            {
-                var call_id = http_get(url);
-                array_push(languages_list_calls, call_id);
-            }
-            else
-            {
-                array_push(languages_list_calls, -1);
-            }
-        }
-
-        if (instance_exists(obj_lang_settings))
-            obj_lang_settings.get_non_downloaded_langs();
-    }
-}
-
-for (var ind = 0; ind < array_length(languages_list_calls); ind++)
-{
-    if (ds_map_find_value(async_load, "id") == languages_list_calls[ind])
+    if (ds_map_find_value(async_load, "id") == variable_struct_get(datas_in_upload, datanames[ind]))
     {
         if (ds_map_find_value(async_load, "status") == 0)
         {
-            var lang_info;
-
-            try
-            {
-                lang_info = json_parse(ds_map_find_value(async_load, "result"));
-            }
-            catch (err)
-            {
-                break;
+            var path = ""
+            if (datanames[ind] > 0) {
+                path = "chapter" + string(datanames[ind])
             }
 
-            var name = variable_struct_get(lang_info, "name");
-            var description = variable_struct_get(lang_info, "description");
-            var download_url = variable_struct_get(lang_info, "download_url");
-            var not_public = variable_struct_get(lang_info, "not_public");
+            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + path + "/data.win");
 
-            if (!is_undefined(name))
-                variable_struct_set(global.languages_list[ind], "name", name);
+            if (buffer_get_size(file_buffer) == 0)
+            {
+                loading_error = "408";
+                loading_new_translation_files = false;
+            }
 
-            if (!is_undefined(description))
-                variable_struct_set(global.languages_list[ind], "description", description);
+            if (loading_error == "")
+            {
+                array_push(loaded_datas, datanames[ind]);
+                variable_struct_set(datas_loading, datanames[ind], 100);
 
-            if (!is_undefined(download_url))
-                variable_struct_set(global.languages_list[ind], "download_url", download_url);
-
-            if (!is_undefined(not_public))
-                variable_struct_set(global.languages_list[ind], "not_public", not_public);
+                if (array_length(loaded_files) == array_length(filenames) && array_length(loaded_datas) == array_length(datanames)) {
+                    copy_files_from_tmp();
+                }
+            }
+            else
+            {
+                clear_tmp();
+            }
+        }
+        else if (ds_map_find_value(async_load, "status") < 0)
+        {
+            loading_error = string(ds_map_find_value(async_load, "http_status"));
+            loading_new_translation_files = false;
+            clear_tmp();
+        } else if (ds_map_find_value(async_load, "status") > 0)
+        {
+            variable_struct_set(datas_loading, datanames[ind], floor(ds_map_find_value(async_load, "sizeDownloaded") / ds_map_find_value(async_load, "contentLength") * 100));
         }
     }
 }

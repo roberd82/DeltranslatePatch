@@ -41,6 +41,20 @@ if (global.translator_mode) {
         mystring = origstring
         length = string_length(mystring);
         alarm[0] = 1
+    } else if (global.orig_en && !is_undefined(ds_map_find_value(global.lang_to_orig, origstring))) {
+        pos = 2
+        formatted = 0
+        origstring = ds_map_find_value(global.lang_to_orig, origstring)
+        mystring = origstring
+        length = string_length(mystring);
+        alarm[0] = 1
+    } else if (!global.orig_en && !is_undefined(ds_map_find_value(global.orig_to_lang, origstring))) {
+        pos = 2
+        formatted = 0
+        origstring = ds_map_find_value(global.orig_to_lang, origstring)
+        mystring = origstring
+        length = string_length(mystring);
+        alarm[0] = 1
     }
 }
 
@@ -1104,6 +1118,7 @@ if (halt != 0 && button1 == 1 && siner > 0)
     if (halt == 1)
     {
         scr_nextmsg();
+        origstring = mystring;
         
         with (obj_smallface)
             instance_destroy();

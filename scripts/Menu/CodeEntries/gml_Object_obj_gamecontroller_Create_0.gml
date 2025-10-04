@@ -19,6 +19,7 @@ if (!variable_global_exists("gamepad_type"))
 
 if (variable_global_exists("lang_map"))
     return;
+
 ossafe_ini_open("true_config.ini")
 global.special_mode = ini_read_real("LANG", "special_mode", 0)
 global.translated_songs = ini_read_real("LANG", "translated_songs", 1)
@@ -27,14 +28,18 @@ global.lang_sprites = ds_map_create()
 global.lang_sounds = ds_map_create()
 global.font_map = ds_map_create()
 global.langs_names = []
-global.langs_settings = {}
+global.lang_settings = {}
 global.languages_list = []
-lang_changes_calls = {}
+global.lang = "en"
+lang_changes_call = -1
 lang_changes = {}
-cur_translation_versions = {}
-last_translation_versions = {}
-translation_versions_changes_files = {}
-translation_versions_descriptions = {}
+cur_translation_version = [0, 0, 0]
+last_translation_version = [0, 0, 0]
+translation_version_changes_files = []
+translation_version_changes_datas = []
+datas_loading = {}
+translation_version_description = ""
+translation_external_update = false
 
 is_valid_version = function(str) {
     if (is_undefined(str))
@@ -86,8 +91,9 @@ is_version_greater = function(ver1, ver2) {
 
 update_lang_version = function(lang) {
     var version = string_to_version("0.0.0")
-    if (file_exists(global.lang_folder + lang + "/changes.json")) {
-        var changes = scr_load_json(global.lang_folder + lang + "/changes.json")
+    var changes_file = get_lang_folder_path() + "changes.json"
+    if (file_exists(changes_file)) {
+        var changes = scr_load_json(changes_file)
         var versions = variable_struct_get_names(changes)
 
         for (var i = 0; i < array_length(versions); i++) {
@@ -99,87 +105,49 @@ update_lang_version = function(lang) {
         }
     }
 
-    variable_struct_set(cur_translation_versions, lang, version);
-    variable_struct_set(last_translation_versions, lang, version);
+    cur_translation_version = version;
+    last_translation_version = version;
 }
 
-update_languages = function() {
-    global.langs_names = []
+update_language = function() {
+    if (file_exists(global.lang_folder + "settings.json")) {
+        var settings = scr_load_json(global.lang_folder + "settings.json")
 
-    if (file_exists(global.lang_folder + "langs_list.json")) {
-        global.langs_names = scr_load_json(global.lang_folder + "langs_list.json")
-    }
+        var lang_code = variable_struct_get(settings, "lang_code")
+        if (is_undefined(lang_code))
+            lang_code = "en"
 
-    global.langs_settings = {}
+        global.lang = lang_code
+        global.lang_settings = settings
 
-    var i = 0
-    for (var filename = file_find_first(((global.lang_folder) + "*"), 16); filename != ""; filename = file_find_next())
-    {
-        if (file_exists(global.lang_folder + filename + "/settings.json") && file_exists(global.lang_folder + filename + "/strings.json"))
-        {
-            global.langs_names[i] = filename
-            i++
-        }    
-    }
-
-    for (var g = 0; g < array_length(global.langs_names); g++) {
-        variable_struct_set(global.langs_settings, global.langs_names[g], scr_load_json(global.lang_folder + global.langs_names[g] + "/settings.json"));
-        update_lang_version(global.langs_names[g])
-    }
-
-
-
-    if (array_length(global.langs_names) == 0) {
-        global.langs_names = ["en"]
-        variable_struct_set(global.langs_settings, "en", json_parse("{\"name\": \"English\"}"))
-    }
-    variable_struct_set(global.langs_settings, "pseudo_en", json_parse("{\"name\": \"Pseudo english\"}"))
-}
-
-update_languages()
-
-for (var i = 0; i < array_length(global.langs_names); i++) {
-    var filename = global.langs_names[i]
-    var url = variable_struct_get(variable_struct_get(global.langs_settings, filename), "files_url")
-
-    if (!is_undefined(url)) {
-        var call_id = http_get(url + "changes.json")
-        variable_struct_set(lang_changes_calls, filename, call_id);
+        update_lang_version()
+    } else {
+        global.lang_settings = json_parse("{\"name\": \"English\"}");
     }
 }
 
+update_language()
+
+var url = get_lang_setting("files_url", "")
+
+if (url != "") {
+    lang_changes_call = http_get(url + "changes.json")
+}
 
 
-file_find_close()
 scr_init_localization()
 
 _alpha = 0;
 
-cur_dt_version = [0, 0, 0];
-var file = file_text_open_read(working_directory + "version_dt.txt");
-
-if (file != -1)
-{
-    str = file_text_read_string(file);
-    file_text_close(file);
-
-    cur_dt_version = string_to_version(str)
-}
-
-last_dt_version = cur_dt_version;
-last_folded_text = scr_get_lang_string("List of changes. Press [Q] to expand.\n", "obj_gamecontroller_Create_1_0");
-last_unfolded_text = scr_get_lang_string("List of changes. Press [Q] to fold.\n", "obj_gamecontroller_Create_2_0");
-last_dt_description = "";
-dt_changes_call = http_get("https://github.com/Lazy-Desman/DeltranslatePatch/releases/download/latest/dt_changes.json");
-
 desc_folded = true;
 panel_visible = true;
-
 
 loading_new_translation_files = false
 
 files_in_upload = {}
+datas_in_upload = {}
 loaded_files = []
+loaded_datas = []
 loading_error = ""
 
 load_files = function() {
@@ -187,32 +155,66 @@ load_files = function() {
     loaded_files = []
     loading_error = ""
 
-    var files = variable_struct_get(translation_versions_changes_files, global.lang);
+    var files = translation_version_changes_files;
     for (var i = 0; i < array_length(files); i++) {
         var file = string_replace_all(files[i], "..", "")
-        variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + file));
+        variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + file));
     }
     if (!variable_struct_exists(files_in_upload, "settings.json")) {
-        variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + "settings.json"));
+        variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + program_directory + "tmp/settings.json"));
     }
     if (!variable_struct_exists(files_in_upload, "changes.json")) {
-        variable_struct_set(files_in_upload, "changes.json", http_get_file(get_lang_setting("files_url", "") + "changes.json", "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + "changes.json"));
+        variable_struct_set(files_in_upload, "changes.json", http_get_file(get_lang_setting("files_url", "") + "changes.json", "\\\\?\\" + program_directory + "tmp/changes.json"));
+    }
+}
+
+load_datas = function() {
+    datas_in_upload = {}
+    loaded_datas = []
+    loading_error = ""
+
+    var datas = translation_version_changes_datas;
+    for (var i = 0; i < array_length(datas); i++) {
+        var urls = get_lang_setting("datas_url", [])
+        if (datas[i] < array_length(urls)) {
+            var file = urls[datas[i]]
+            var path = ""
+            if (datas[i] > 0) {
+                path = "chapter" + string(datas[i])
+            }
+            variable_struct_set(datas_in_upload, datas[i], http_get_file(file, "\\\\?\\" + program_directory + "tmp/" + path + "/data.win"));
+        } else {
+            show_message(string("Index '{0}' out of range of 'datas_url'", string(datas[i])))
+        }
     }
 }
 
 copy_files_from_tmp = function() {
     for (var i = 0; i < array_length(loaded_files); i++) {
         file_copy(
-            "\\\\?\\" + program_directory + "tmp/" + global.lang + "/" + loaded_files[i],
-            "\\\\?\\" + program_directory + "lang/" + global.lang + "/" + loaded_files[i],
+            "\\\\?\\" + program_directory + "tmp/" + loaded_files[i],
+            "\\\\?\\" + program_directory + "lang/" + loaded_files[i],
+        )
+    }
+
+    for (var i = 0; i < array_length(loaded_datas); i++) {
+        var path_from = "data.win"
+        var path_to = "data.win"
+        if (loaded_datas[i] > 0) {
+            path_from = "chapter" + string(loaded_datas[i]) + "/data.win"
+            path_to = "chapter" + string(loaded_datas[i]) + "_windows/data.win"
+        }
+        file_copy(
+            "\\\\?\\" + program_directory + "tmp/" + path_from,
+            "\\\\?\\" + program_directory + path_to,
         )
 
-        variable_struct_set(global.langs_settings, global.lang, scr_load_json((((global.lang_folder) + global.lang) + "/settings.json")))
-        update_lang_version(global.lang);
-
-        loading_new_translation_files = false
-        scr_init_localization()
     }
+
+    update_language()
+
+    loading_new_translation_files = false
+    scr_init_localization()
 
     directory_destroy("\\\\?\\" + program_directory + "tmp")
 }
@@ -221,49 +223,4 @@ clear_tmp = function() {
     directory_destroy("\\\\?\\" + program_directory + "tmp")
 }
 
-update_last_dt_description = function(lang) {
-    if (is_undefined(dt_changes)) {
-        last_dt_description = "";
-        return;
-    }
 
-    var text = scr_get_lang_string("List of changes. Press [Q] to fold.\n", "obj_gamecontroller_Create_2_0");
-    var versions = variable_struct_get_names(dt_changes);
-
-    for (var i = 0; i < array_length(versions); i++) {
-        var str = versions[i];
-        if (!is_valid_version(str)) continue;
-
-        var ver = string_to_version(str);
-
-        if (is_version_greater(ver, cur_dt_version)) {
-            var entry = variable_struct_get(dt_changes, str);
-
-            var name = variable_struct_get(entry, "name_" + lang);
-            var desc = variable_struct_get(entry, "description_" + lang);
-
-            if (is_undefined(name)) name = variable_struct_get(entry, "name");
-            if (is_undefined(desc)) desc = variable_struct_get(entry, "description");
-
-            text += string("{0}{1}:\n{2}\n",
-                str,
-                (is_undefined(name) ? "" : string(" ({0})", name)),
-                (is_undefined(desc) ? "" : desc)
-            );
-        }
-
-        if (is_version_greater(ver, last_dt_version)) {
-            last_dt_version[0] = ver[0];
-            last_dt_version[1] = ver[1];
-            last_dt_version[2] = ver[2];
-        }
-    }
-
-    last_dt_description = text;
-};
-
-languages_list_call = -1
-// Закомментить чтобы убрать подкачку языков
-languages_list_call = http_get("https://raw.githubusercontent.com/Lazy-Desman/DeltranslatePatch/refs/heads/main/languages_list.json");
-
-languages_list_calls = []

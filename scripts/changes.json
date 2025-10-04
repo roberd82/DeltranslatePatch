@@ -1,7 +1,7 @@
 {
-    "2.2.6": {
-        "description": "- Added fixes for dialogues and a few foolproofs.",
-        "description_ru": "- Всякие исправления и обновление перевода."
+    "2.3.0": {
+        "description": "- Deltranslate now is a mod\nfor standalone translation.",
+        "description_ru": "- Обновление структуры файлов\nи способа их подкачки."
     },
     "2.2.0": {
         "description": "- Numerous fixes and adjusts.",

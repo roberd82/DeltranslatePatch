@@ -7,8 +7,8 @@ if (_copyright_enabled)
 
 draw_text_transformed(x + 16, y + 32, _version_text, _scale, _scale, 0);
 draw_text_transformed(x + 16, y + 48, 
-    string(scr_get_lang_string("Deltranslate version - {0}", "gml_Object_obj_ui_version_Draw_0_1"),
-        obj_gamecontroller.version_to_string(obj_gamecontroller.cur_dt_version)
+    string(scr_get_lang_string("Translation version - {0}", "gml_Object_obj_ui_version_Draw_0_1"),
+        obj_gamecontroller.version_to_string(obj_gamecontroller.cur_translation_version)
     ), 
 _scale, _scale, 0);
 draw_set_color(c_white);

@@ -1,13 +1,12 @@
 function scr_lang_load(argument0) //gml_Script_scr_lang_load
 {
     name = "strings.json"
-    var lang_dir = global.lang_folder + global.lang + "/chapter2/"
+    var lang_dir = get_lang_folder_path() + "chapter2/"
     var orig_filename = lang_dir + name
 
     var orig_map = scr_84_load_map_json(orig_filename)
 
     if (argument0 == true) {
-        ds_map_clear(global.changed_strings)
         var size = ds_map_size(global.used_strings)
         var key = ds_map_find_first(global.used_strings)
         for (var i = 0; i < size; i++;) {

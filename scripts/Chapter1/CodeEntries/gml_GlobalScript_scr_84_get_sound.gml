@@ -1,5 +1,8 @@
 function scr_84_get_sound(argument0) //gml_Script_scr_84_get_sound
 {
+    if (global.orig_en)
+        return asset_get_index(argument0)
+
     if (!global.translated_songs && array_includes(global.songs_list, argument0)) {
         return asset_get_index(argument0)
     }

@@ -1,33 +1,5 @@
 function scr_init_localization()
-{
-    if (!variable_global_exists("lang"))
-    {
-        ini_open("true_config.ini");
-        
-        if (ini_key_exists("LANG", "LANG_DT"))
-            global.lang = ini_read_string("LANG", "LANG_DT", "en");
-        else
-            global.lang = os_get_language();
-        
-        ini_close();
-        flag = 0;
-        
-        for (var i = 0; i < array_length(global.langs_names); i++)
-        {
-            if (global.langs_names[i] == global.lang)
-            {
-                flag = 1;
-                break;
-            }
-        }
-        
-        if (!flag)
-            global.lang = "en";
-        
-        if (!variable_struct_exists(global.langs_settings, global.lang))
-            global.lang = global.langs_names[0];
-    }
-    
+{    
     if (!variable_global_exists("lang_loaded"))
     {
         global.lang_loaded = "";
@@ -63,7 +35,7 @@ function scr_init_localization()
             global.loaded_fonts = [];
         }
         
-        global.chapter_lang_settings = scr_load_json(global.lang_folder + global.lang + "/chapter2/chapter_settings.json");
+        global.chapter_lang_settings = scr_load_json(get_lang_folder_path() + "chapter2/chapter_settings.json");
         global.font_map = ds_map_create();
         global.lang_missing_map = ds_map_create();
         global.chemg_sprite_map = ds_map_create();

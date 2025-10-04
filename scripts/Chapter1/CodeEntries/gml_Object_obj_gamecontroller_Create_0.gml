@@ -6,6 +6,9 @@ if (instance_number(obj_gamecontroller) > 1)
 
 global.lang_folder = working_directory + "../lang/"
 
+global.lang = "en"
+global.orig_en = false
+
 is_connecting_controller = 3;
 gamepad_active = 0;
 gamepad_id = 0;
@@ -33,43 +36,32 @@ ossafe_ini_close();
 global.lang_sprites = ds_map_create();
 global.lang_sounds = ds_map_create();
 global.lang_fonts = ds_map_create();
-global.langs_names = [];
-global.langs_settings = {};
+global.lang_settings = {};
 
 global.used_strings = ds_map_create()
 global.changed_strings = ds_map_create()
+global.lang_to_orig = ds_map_create()
+global.orig_to_lang = ds_map_create()
 
-if (file_exists(global.lang_folder + "langs_list.json")) {
-    global.langs_names = scr_load_json(global.lang_folder + "langs_list.json")
-}
+if (file_exists(global.lang_folder + "settings.json")) {
+    var settings = scr_load_json(global.lang_folder + "settings.json")
 
-var i = 0;
-var filename = file_find_first(global.lang_folder + "*", 16);
-while (filename != "")
-{
-    if (file_exists(global.lang_folder + filename + "/settings.json"))
-    {
-        if (!array_includes(filename)) {
-            global.langs_names[i] = filename;
-            i++;
-        }
-    }
-    
-    filename = file_find_next();
-}
+    var lang_code = variable_struct_get(settings, "lang_code")
+    if (is_undefined(lang_code))
+        lang_code = "en"
 
-for (var g = 0; g < array_length(global.langs_names); g++) {
-    variable_struct_set(global.langs_settings, global.langs_names[g], scr_load_json(global.lang_folder + global.langs_names[g] + "/settings.json"));
-}
-
-if (array_length(global.langs_names) == 0)
-{
-    global.langs_names = ["en"];
-    variable_struct_set(global.langs_settings, "en", json_parse("{\"name\": \"English\"}"));
+    global.lang = lang_code
+    global.lang_settings = settings
+} else {
+    global.lang_settings = json_parse("{\"name\": \"English\"}");
 }
 
 file_find_close();
 scr_init_localization();
 
+update_on_room_end = false
 
-
+if (file_exists(working_directory + "lang/lang_en.json")) {
+    orig_filename = working_directory + "lang/lang_en.json"
+    global.orig_map = scr_84_load_map_json(orig_filename)
+}

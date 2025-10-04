@@ -10,8 +10,6 @@ for (var i = 0; i < options_count; i++) {
     if (options[i] == "language") {
         draw_text_transformed(xx_options, yy_options + yyoff_options * i, lang_choice_text, scale, scale, 0)
         var xx_off = string_width(lang_choice_text) * scale
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, "< ", scale, scale, 0)
-        xx_off += string_width("< ") * scale
 
         if (option == i) {
             var link = get_lang_setting("link", "")
@@ -22,12 +20,11 @@ for (var i = 0; i < options_count; i++) {
         draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, get_lang_setting("name"), scale, scale, 0)
         
         xx_off += string_width(get_lang_setting("name")) * scale
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, " >", scale, scale, 0)
 
         draw_text_transformed(xx_options, yy_options + yyoff_options * i + yyoff_options / 3 * 2, 
             string(version_text, 
-                obj_gamecontroller.version_to_string(variable_struct_get(obj_gamecontroller.cur_translation_versions, global.lang)),
-                obj_gamecontroller.version_to_string(variable_struct_get(obj_gamecontroller.last_translation_versions, global.lang)),
+                obj_gamecontroller.version_to_string(obj_gamecontroller.cur_translation_version),
+                obj_gamecontroller.version_to_string(obj_gamecontroller.last_translation_version),
             )
         , scale * 0.5, scale * 0.5, 0)
 
@@ -40,67 +37,6 @@ for (var i = 0; i < options_count; i++) {
             draw_set_halign(fa_left)
         }
     } else
-
-    if (options[i] == "language_not_downloaded") {
-        var lang_info = global.languages_list[non_downloaded_langs[cur_lang_ind - array_length(global.langs_names)]]
-        var lang_name = string(variable_struct_get(lang_info, "name"))
-        var lang_desc = string(variable_struct_get(lang_info, "description"))
-
-        draw_text_transformed(xx_options, yy_options + yyoff_options * i, lang_choice_text, scale, scale, 0)
-        var xx_off = string_width(lang_choice_text) * scale
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, "< ", scale, scale, 0)
-        xx_off += string_width("< ") * scale
-
-        if (option == i) {
-            var link = string(get_struct_field(lang_info, "link", ""))
-            if (link != "")
-                draw_rectangle_color(xx_options + xx_off, yy_options + 14 * scale, xx_options + xx_off + string_width(get_lang_setting("name")) * scale, yy_options + 14 * scale + 1, c_blue, c_blue, c_blue, c_blue, false)
-        }
-        
-        draw_set_font(scr_get_font("fnt_placeholder"))
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, lang_name, scale, scale, 0)
-        xx_off += string_width(lang_name) * scale
-        
-        draw_set_font(scr_get_font("fnt_main"))
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, " >", scale, scale, 0)
-        xx_off += string_width(" >") * scale
-
-        draw_set_color(c_gray)
-        draw_text_transformed(xx_options + xx_off, yy_options + yyoff_options * i, " (Not downloaded!)", scale, scale, 0)
-        draw_set_halign(fa_center)
-        draw_set_color(c_gray)
-        if (language_downloading) {
-            draw_text_transformed(xx_mid, room_height / 2, string("Downloading language pack\n{0}/{1} Mb",
-                string(downloaded_size / 1024 / 1024),
-                string(lang_file_size / 1024 / 1024)
-            ), scale, scale, 0)
-        } else
-        if (unzipping) {
-            draw_text_transformed(xx_mid, room_height / 2, string("Language pack unizpping"), scale, scale, 0)
-        } else {
-            if (loading_error == "") {
-                draw_set_font(scr_get_font("fnt_placeholder"))
-                draw_text_transformed(xx_mid, room_height / 2, lang_desc, scale, scale, 0)
-                draw_set_font(scr_get_font("fnt_main"))
-            } else {
-                draw_text_transformed(xx_mid, room_height / 2, string("Something went wrong\nHTTP error - {0}", loading_error), scale, scale, 0)
-            }
-        }
-        draw_set_halign(fa_left)
-        draw_set_color(c_white)
-    } else
-
-    if (options[i] == "download") {
-        draw_set_font(scr_get_font("fnt_placeholder"))
-        draw_text_transformed(xx_options, yy_options + yyoff_options * i, "↓ ", scale, scale, 0)
-        var xx_offset = string_width("↓ ") * scale
-        draw_set_font(scr_get_font("fnt_main"))
-        draw_text_transformed(xx_options + xx_offset, yy_options + yyoff_options * i, "Download", scale, scale, 0)
-        xx_offset += string_width("Download") * scale
-        draw_set_font(scr_get_font("fnt_placeholder"))
-        draw_text_transformed(xx_options + xx_offset, yy_options + yyoff_options * i, " ↓", scale, scale, 0)
-        draw_set_font(scr_get_font("fnt_main"))
-    } else 
         
     if (options[i] == "special_mode") {
         draw_text_transformed(xx_options, yy_options + yyoff_options * i, spec_mode_text, scale, scale, 0)

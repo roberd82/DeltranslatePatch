@@ -26,7 +26,7 @@ text_list = [
 
 var file_name = "tennaIntroF1_compressed_28";
 var orig_path = "vid/" + file_name + ".mp4"
-var lang_path = global.lang_folder + global.lang + "/chapter3/vid/" + file_name + ".mp4"
+var lang_path = get_lang_folder_path() + "chapter3/vid/" + file_name + ".mp4"
 var path = orig_path
 
 if (file_exists(lang_path) && global.translated_songs)
