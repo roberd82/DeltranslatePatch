@@ -5,7 +5,7 @@ Discord: @neprim
 Deltranslate Discord Server: https://discord.com/invite/K98BzHZG9P
 ```
 
-`en` folder means using `https://github.com/Lazy-Desman/EngDeltranslatePack/en` as template.
+`lang` folder means using `https://github.com/Lazy-Desman/EngDeltranslatePack/lang` as template.
 
 - Fast-check:
   - [Fonts](#fonts)
@@ -34,6 +34,9 @@ You can (and should if you have characters other from base Latin) add your own f
 
 `name`
 Full name of your language translation.
+
+`lang_code`
+Language code of your language translation.
 
 `description`
 Description of your language translation.
@@ -112,6 +115,9 @@ If true, allows you to switch to translate mode (U) that allows you:
 
 `files_url` 
 Link to root for your language files pack, including pack folder. For example, if settings file in your language pack accessed via `https://example.com/lang/en/setting.json` and chapter 1 strings via `https://example.com/lang/en/chapter1/strings.json`, you should put `https://example.com/lang/en/` in `files_url`.
+
+`datas_url` 
+Links to data.win's in case you want to update them by yourself. 
 
 `line_height_factor`
 Multiplies line height in dialogues by this value. Can be used for adding forth line in dialogues if you need so.
@@ -344,7 +350,8 @@ If you want to make new version of translation (and make it automatically downlo
 	"files": [
 		"file_to/be_changed.txt", 
 		"another_file.json"
-	]
+	],
+	"datas": [0, 1, 2, 3, 4] // 0 means chapters menu. Omit this field if you don't update data.win's
 }
 ```
 
@@ -353,19 +360,3 @@ So, how it works. The game downloads `files_url` + `changes.json` file from serv
 ![Language update notification image](https://imgur.com/Yb7bKhx.gif)
 
 If user press `G`, files stated in greater versions are downloaded from `files_url` + `files_path`. New `changes.json` and `settings.json` are downloaded too.
-
-## lang_info.json
-If you wish your language to be included as a part of Deltranslate Project, you also have to make `lang_info.json`. It should include:
-```
-{
-    "name": "Your language name",
-    "description": "Your language description",
-    "download_url": "https://path_to_lang.zip/file/lang.zip",
-	"link": "https://link_to_your_social_media.com"
-}
-```
-
-It makes possible for your language pack to be downloaded in installer or directly in the game:
-![Language downloading image](https://imgur.com/CnxNHM8.gif)
-
-Ask @neprim in [Deltranslate Discord Server](https://discord.com/invite/K98BzHZG9P) for this.
