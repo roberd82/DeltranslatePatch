@@ -43,7 +43,7 @@ translation_external_update = false
 
 is_valid_version = function(str) {
     if (is_undefined(str))
-        str = "0.0.0";
+        str = "";
 
     var major_pos = string_pos_ext(".", str, 1)
     var minor_pos = string_pos_ext(".", str, major_pos + 1)
