@@ -7,7 +7,7 @@ function add_font(argument0, argument1) //gml_Script_add_font
         fonts_range = [2, 128]
     }
 
-    path = get_lang_folder_path() + "/fonts/"
+    path = get_lang_folder_path() + "fonts/"
     filename_ttf = ((path + fnt_name) + ".ttf")
     filename_otf = ((path + fnt_name) + ".otf")
     font = asset_get_index(fnt_name)

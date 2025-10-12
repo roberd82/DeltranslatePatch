@@ -45,7 +45,7 @@ if (option < options_count) {
 
             audio_play_sound(snd_menumove, 50, 0)
         }
-    } 
+    }
 } else
 
 if (option == options_count && button1_p()) {

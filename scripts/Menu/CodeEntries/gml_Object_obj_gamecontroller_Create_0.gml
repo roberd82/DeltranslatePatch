@@ -110,8 +110,8 @@ update_lang_version = function(lang) {
 }
 
 update_language = function() {
-    if (file_exists(global.lang_folder + "settings.json")) {
-        var settings = scr_load_json(global.lang_folder + "settings.json")
+    if (file_exists(get_lang_folder_path() + "settings.json")) {
+        var settings = scr_load_json(get_lang_folder_path() + "settings.json")
 
         var lang_code = variable_struct_get(settings, "lang_code")
         if (is_undefined(lang_code))
@@ -139,10 +139,9 @@ scr_init_localization()
 
 _alpha = 0;
 
+loading_new_translation_files = false
 desc_folded = true;
 panel_visible = true;
-
-loading_new_translation_files = false
 
 files_in_upload = {}
 datas_in_upload = {}

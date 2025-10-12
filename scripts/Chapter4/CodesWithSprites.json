@@ -51,6 +51,9 @@
     "spr_bibliox_head",
     "spr_bibliox_head_beard_stroke"
   ],
+  "gml_Object_obj_guei_enemy_Step_0": [
+    "spr_recruited_by_oldman"
+  ],
   "gml_Object_obj_room_castle_town_lancer_Create_0": [
     "spr_blockler_b_parade"
   ],
