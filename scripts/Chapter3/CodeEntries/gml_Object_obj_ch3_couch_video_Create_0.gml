@@ -26,6 +26,9 @@ text_list = [
 
 var file_name = "tennaIntroF1_compressed_28";
 var orig_path = "vid/" + file_name + ".mp4"
+if (os_type == os_android) {
+    orig_path = global.savepath + "chapter3_windows/vid/" + file_name + ".mp4"
+}
 var lang_path = get_lang_folder_path() + "chapter3/vid/" + file_name + ".mp4"
 var path = orig_path
 

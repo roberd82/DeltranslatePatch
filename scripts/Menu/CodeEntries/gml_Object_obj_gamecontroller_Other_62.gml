@@ -89,7 +89,11 @@ for (var ind = 0; ind < array_length(filenames); ind++)
     {
         if (ds_map_find_value(async_load, "status") == 0)
         {
-            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + filenames[ind]);
+            if (os_type != os_android) {
+                var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + filenames[ind]);
+            } else {
+                 var file_buffer = buffer_load("\\\\?\\" + global.savepath + "tmp/" + filenames[ind]);
+            }
 
             if (buffer_get_size(file_buffer) == 0)
             {
@@ -130,7 +134,11 @@ for (var ind = 0; ind < array_length(datanames); ind++)
                 path = "chapter" + string(datanames[ind])
             }
 
-            var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + path + "/data.win");
+            if (os_type != os_android) {
+                var file_buffer = buffer_load("\\\\?\\" + program_directory + "tmp/" + path + "/data.win");
+            } else {
+                var file_buffer = buffer_load("\\\\?\\" + global.savepath + "tmp/" + path + "/data.win");
+            }
 
             if (buffer_get_size(file_buffer) == 0)
             {

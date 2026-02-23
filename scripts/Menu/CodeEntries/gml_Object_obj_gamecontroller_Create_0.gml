@@ -1,3 +1,8 @@
+if (os_type == os_android)
+    global.savepath = init_external_dir();
+else
+    global.savepath = game_save_id;
+
 if (instance_number(obj_gamecontroller) > 1)
 {
     instance_destroy();
@@ -12,7 +17,15 @@ gamepad_type = "";
 
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 
-global.lang_folder = working_directory + "lang/"
+if (os_type != os_android) {
+    global.lang_folder = working_directory + "lang/"
+} else {
+    global.lang_folder = global.savepath + "lang/"      // maybe this isn't needed, but it works
+}
+if (!directory_exists(get_lang_folder_path()) && os_type == os_android) {
+    zip_unzip(global.savepath + "lang.zip", global.savepath);
+}
+
 
 if (!variable_global_exists("gamepad_type"))
     global.gamepad_type = "N/A";
@@ -157,13 +170,26 @@ load_files = function() {
     var files = translation_version_changes_files;
     for (var i = 0; i < array_length(files); i++) {
         var file = string_replace_all(files[i], "..", "")
-        variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + file));
+        if (os_type != os_android) {
+            variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + program_directory + "tmp/" + file));
+        } else {
+            variable_struct_set(files_in_upload, file, http_get_file(get_lang_setting("files_url", "") + files[i], "\\\\?\\" + global.savepath + "tmp/" + file));
+        }
+        
     }
     if (!variable_struct_exists(files_in_upload, "settings.json")) {
-        variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + program_directory + "tmp/settings.json"));
+        if (os_type != os_android) {
+            variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + program_directory + "tmp/settings.json"));
+        } else {
+            variable_struct_set(files_in_upload, "settings.json", http_get_file(get_lang_setting("files_url", "") + "settings.json", "\\\\?\\" + global.savepath + "tmp/settings.json"));
+        }
     }
     if (!variable_struct_exists(files_in_upload, "changes.json")) {
-        variable_struct_set(files_in_upload, "changes.json", http_get_file(get_lang_setting("files_url", "") + "changes.json", "\\\\?\\" + program_directory + "tmp/changes.json"));
+        if (os_type != os_android) {
+            variable_struct_set(files_in_upload, "changes.json", http_get_file(get_lang_setting("files_url", "") + "changes.json", "\\\\?\\" + program_directory + "tmp/changes.json"));
+        } else {
+            variable_struct_set(files_in_upload, "changes.json", http_get_file(get_lang_setting("files_url", "") + "changes.json", "\\\\?\\" + global.savepath + "tmp/changes.json"));
+        }
     }
 }
 
@@ -181,7 +207,11 @@ load_datas = function() {
             if (datas[i] > 0) {
                 path = "chapter" + string(datas[i])
             }
-            variable_struct_set(datas_in_upload, datas[i], http_get_file(file, "\\\\?\\" + program_directory + "tmp/" + path + "/data.win"));
+            if (os_type != os_android) {
+                variable_struct_set(datas_in_upload, datas[i], http_get_file(file, "\\\\?\\" + program_directory + "tmp/" + path + "/data.win"));
+            } else {
+                variable_struct_set(datas_in_upload, datas[i], http_get_file(file, "\\\\?\\" + global.savepath + "tmp/" + path + "/data.win"));
+            }
         } else {
             show_message(string("Index '{0}' out of range of 'datas_url'", string(datas[i])))
         }
@@ -190,10 +220,17 @@ load_datas = function() {
 
 copy_files_from_tmp = function() {
     for (var i = 0; i < array_length(loaded_files); i++) {
-        file_copy(
-            "\\\\?\\" + program_directory + "tmp/" + loaded_files[i],
-            "\\\\?\\" + program_directory + "lang/" + loaded_files[i],
-        )
+        if (os_type != os_android) {
+            file_copy(
+                "\\\\?\\" + program_directory + "tmp/" + loaded_files[i],
+                "\\\\?\\" + program_directory + "lang/" + loaded_files[i],
+            )
+        } else {
+            file_copy(
+                "\\\\?\\" + global.savepath + "tmp/" + loaded_files[i],
+                "\\\\?\\" + global.savepath + "lang/" + loaded_files[i],
+            )
+        }
     }
 
     for (var i = 0; i < array_length(loaded_datas); i++) {
@@ -203,10 +240,17 @@ copy_files_from_tmp = function() {
             path_from = "chapter" + string(loaded_datas[i]) + "/data.win"
             path_to = "chapter" + string(loaded_datas[i]) + "_windows/data.win"
         }
-        file_copy(
-            "\\\\?\\" + program_directory + "tmp/" + path_from,
-            "\\\\?\\" + program_directory + path_to,
-        )
+        if (os_type != os_android) {
+            file_copy(
+                "\\\\?\\" + program_directory + "tmp/" + path_from,
+                "\\\\?\\" + program_directory + path_to,
+            )
+        } else {
+            file_copy(
+                "\\\\?\\" + global.savepath + "tmp/" + path_from,
+                "\\\\?\\" + global.savepath + path_to,
+            )
+        }
 
     }
 
@@ -214,12 +258,20 @@ copy_files_from_tmp = function() {
 
     loading_new_translation_files = false
     scr_init_localization()
-
-    directory_destroy("\\\\?\\" + program_directory + "tmp")
+    
+    if (os_type != os_android) {
+        directory_destroy("\\\\?\\" + program_directory + "tmp")
+    } else {
+         directory_destroy("\\\\?\\" + global.savepath + "tmp")
+    }
 }
 
 clear_tmp = function() {
-    directory_destroy("\\\\?\\" + program_directory + "tmp")
+    if (os_type != os_android) {
+        directory_destroy("\\\\?\\" + program_directory + "tmp")
+    } else {
+        directory_destroy("\\\\?\\" + global.savepath + "tmp")
+    }
 }
 
 
