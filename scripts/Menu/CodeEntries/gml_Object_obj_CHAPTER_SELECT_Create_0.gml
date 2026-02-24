@@ -1,9 +1,7 @@
-if (os_type == os_android) {
-    global.savepath = (os_type == os_android) ? get_external_files_dir() : "";
-    instance_create_depth(0, 0, 0, obj_mobilecontrols);
-}
-
 global.debug = 0;
+if (os_type == os_android)
+    scr_init_touch_controls();
+
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 
 if (!variable_global_exists("bgm") || !audio_exists(global.bgm))
@@ -425,7 +423,7 @@ launch_game = function(arg0)
                 break;
             
             case os_android:
-                game_change_ext("ch" + chapstring);
+                game_change_android("chapter" + chapstring + "_windows");
                 break;
         }
     }
@@ -466,6 +464,9 @@ else
     var pc_init = instance_create(0, 0, obj_init_pc);
     pc_init.init(id, _launch_data);
 }
+
+if (os_type == os_android && game_get_speed(gamespeed_fps) != 30)
+    game_set_speed(30, gamespeed_fps);
 
 enum UnknownEnum
 {

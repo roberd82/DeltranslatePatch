@@ -4,6 +4,8 @@ function snd_init(arg0)
     
     if (global.launcher)
         dir = working_directory + "../mus/";
+    if (os_type == os_android)
+        dir = global.savepath + "mus/";
     
     initsongvar = dir + arg0;
     var flag = true;
