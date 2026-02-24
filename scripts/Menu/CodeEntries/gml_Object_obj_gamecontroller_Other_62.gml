@@ -1,3 +1,7 @@
+if (os_type != os_windows) {
+    exit;
+}
+
 if (ds_map_find_value(async_load, "id") == lang_changes_call)
 {
     if (ds_map_find_value(async_load, "status") == 0)

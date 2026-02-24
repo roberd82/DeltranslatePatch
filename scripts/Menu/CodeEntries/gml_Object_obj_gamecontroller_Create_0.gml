@@ -9,6 +9,11 @@ if (instance_number(obj_gamecontroller) > 1)
     exit;
 }
 
+if (os_type == os_android)
+    global.savepath = init_external_dir();
+else
+    global.savepath = game_save_id;
+
 is_connecting_controller = 3;
 gamepad_active = 0;
 gamepad_id = 0;
@@ -17,12 +22,12 @@ gamepad_type = "";
 
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
 
-if (os_type != os_android) {
-    global.lang_folder = working_directory + "lang/"
+if (os_type == os_android) {
+    global.lang_folder = global.savepath + "lang/"
 } else {
-    global.lang_folder = global.savepath + "lang/"      // maybe this isn't needed, but it works
+    global.lang_folder = working_directory + "lang/"
 }
-if (!directory_exists(get_lang_folder_path()) && os_type == os_android) {
+if (os_type == os_android && !directory_exists(get_lang_folder_path())) {
     zip_unzip(global.savepath + "lang.zip", global.savepath);
 }
 
@@ -143,16 +148,19 @@ update_language()
 
 var url = get_lang_setting("files_url", "")
 
+scr_init_localization()
+
+_alpha = 0;
+loading_new_translation_files = false
+
+if (os_type != os_windows) {
+    exit;
+}
+
 if (url != "") {
     lang_changes_call = http_get(url + "changes.json")
 }
 
-
-scr_init_localization()
-
-_alpha = 0;
-
-loading_new_translation_files = false
 desc_folded = true;
 panel_visible = true;
 

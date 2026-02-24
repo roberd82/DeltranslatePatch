@@ -465,7 +465,7 @@ else
     pc_init.init(id, _launch_data);
 }
 
-if (game_get_speed(gamespeed_fps) != 30 && os_type == os_android)
+if (os_type == os_android && game_get_speed(gamespeed_fps) != 30)
     game_set_speed(30, gamespeed_fps);
 
 enum UnknownEnum

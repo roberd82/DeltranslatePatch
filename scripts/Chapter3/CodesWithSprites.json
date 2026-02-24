@@ -234,7 +234,8 @@
   ],
   "gml_Object_obj_dw_tv_funometer_Draw_0": [
     "spr_hopeometer_hope",
-    "spr_hopeometer_flowers"
+    "spr_hopeometer_flowers",
+    "spr_hopeometer_bar"
   ],
   "gml_Object_obj_GSA02_B0_Draw_0": [
     "spr_board_tvtimelogo",

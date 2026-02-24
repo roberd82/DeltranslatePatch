@@ -1,6 +1,10 @@
 if (!instance_exists(obj_CHAPTER_SELECT))
     exit;
 
+if (os_type != os_windows) {
+    exit;
+}
+
 var update_string = "";
 var can_tr_be_loaded = false;
 last_folded_text = scr_get_lang_string("List of changes. Press [Q] to expand.\n", "obj_gamecontroller_Create_1_0");
