@@ -3,17 +3,8 @@ function snd_init(arg0)
     var dir = "mus/";
     
     if (global.launcher)
-    {
-        if (os_type == os_android)
-            dir = global.savepath + "mus/";
-        else
-            dir = working_directory + "../mus/";
-    }
-    
-    if (os_type == os_android)
-        dir = global.savepath + "mus/";
-    else
         dir = working_directory + "../mus/";
+    
     if (os_type == os_android)
         dir = global.savepath + "mus/";
     

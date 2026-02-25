@@ -21,16 +21,13 @@ gamepad_shoulderlb_reassign = 0;
 gamepad_type = "";
 
 global.is_console = scr_is_switch_os() || os_type == os_ps4 || os_type == os_ps5;
-
+global.lang_folder = working_directory + "lang/"
 if (os_type == os_android) {
     global.lang_folder = global.savepath + "lang/"
-} else {
-    global.lang_folder = working_directory + "lang/"
 }
 if (os_type == os_android && !directory_exists(get_lang_folder_path())) {
     zip_unzip(global.savepath + "lang.zip", global.savepath);
 }
-
 
 if (!variable_global_exists("gamepad_type"))
     global.gamepad_type = "N/A";

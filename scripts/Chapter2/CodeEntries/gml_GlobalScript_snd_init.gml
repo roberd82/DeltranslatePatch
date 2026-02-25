@@ -3,6 +3,7 @@ function snd_init(argument0) //gml_Script_snd_init
     var dir = "mus/"
     if (global.launcher)
         dir = working_directory + "../mus/"
+
     if (os_type == os_android)
         dir = global.savepath + "mus/";
 
