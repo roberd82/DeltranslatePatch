@@ -1,0 +1,6 @@
+=== gml_GlobalScript_scr_buttons_swapped
+---
+global.input_k[4] != ord("Z")
++++
+(global.input_k[4] != ord("Z") && global.input_k[4] != ord("Y"))
+%%%

@@ -1,0 +1,6 @@
+=== gml_GlobalScript_scr_controls_default
+---
+global.input_k[4] = ord("Z")
++++
+global.input_k[4] = os_type != os_android ? ord("Y") : ord("Z")
+%%%

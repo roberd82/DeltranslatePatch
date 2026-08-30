@@ -3,7 +3,7 @@ name: Update "latest" release
 on:
   workflow_dispatch: # Manually
   push:
-    branches: [main]
+    branches: [main-hu]
     paths:
       - 'scripts/**'
 
@@ -25,11 +25,11 @@ jobs:
 
       - name: Make version
         run: |
-          date +%s | cat > dt_version.txt
+          date +%s | cat > hu_dt_version.txt
           
-      - name: Create "scripts.7z" ("fast" compression)
+      - name: Create "hu_scripts.7z" ("fast" compression)
         run: |
-          7z a -t7z -mx=1 scripts.7z ./scripts/*
+          7z a -t7z -mx=1 hu_scripts.7z ./scripts/*
           
       - name: Move "latest" tag to current commit
         run: |
@@ -84,7 +84,7 @@ jobs:
               }
             );
             const assetsToDelete = assets.filter(asset => 
-              asset.name.startsWith('scripts.') || asset.name.startsWith('dt_')
+              asset.name.startsWith('hu_scripts.') || asset.name.startsWith('hu_dt_')
             );
             for (const asset of assetsToDelete) {
               await github.rest.repos.deleteReleaseAsset({
@@ -94,16 +94,16 @@ jobs:
               });
             }
           
-      - name: Upload "scripts" archive
+      - name: Upload "hu_scripts" archive
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./scripts.7z
-          asset_name: scripts.7z
+          asset_path: ./hu_scripts.7z
+          asset_name: hu_scripts.7z
 
-      - name: Upload dt_changes.json
+      - name: Upload hu_dt_changes.json
         uses: shogo82148/actions-upload-release-asset@v1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
           asset_path: ./scripts/changes.json
-          asset_name: dt_changes.json
+          asset_name: hu_dt_changes.json
